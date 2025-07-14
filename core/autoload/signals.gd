@@ -1,43 +1,48 @@
-extends Node
 class_name SignalBus
-
-## Signal bus accessable with [code]Signals[/code] autoload
+extends Node
+## Signal bus accessable with [code]Signals[/code] autoload.
+##
+## This is main signal bus of Text Forge, a lot of connections and information transfers are carried
+## out in this way.
 
 @warning_ignore_start("unused_signal")
 
-## Emits when a script run requested, it will send to all scripts and scripts will filter it by [param script_id]
+## Emits when a script run requested, it will send to all [ActionScript]s. (See also [method ActionScript.run])
 signal run_script(script_id: int)
-## Emits when a subscript run requested, it will send to all multi scripts
-signal run_subscript(id: int, submenu: PopupMenu, rootmenu: String)
-## Will send to all scripts to check current state with activation state for each script
+## Emits when a subscript run requested, it will send to all [MultiActionScript]s. (See also [method MultiActionScript.run])
+signal run_subscript(subscript_id: int, submenu: PopupMenu, submenu_name: String)
+## Will send to all scripts to check current state with them activation state.
 signal check_options
-
-## Standard way to send notifications between modules
+## Standard way to send notifications between modules.[br]
+## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
 signal notification(id: String, data: Array)
-
-## Standard notifications from editor
-## Type: 0 -> info/message, 1 -> warning, 2 -> error
-signal editor_notification(type: int, title: String, text: String)
-
-## Requests close file, close script should connect itself to this
+## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
+signal editor_notification(type: Global.Notification, title: String, text: String)
+## Requests close file, close script should connect itself to this.
 signal close_file
-## Requests open file, open script should connect itself to this
+## Requests open file, open script should connect itself to this.
 signal open_file(path: String)
-## Requests create new file, new script should connect itself to this
+## Requests create new file, new script should connect itself to this.
 signal new_file
-## Requests saving changes, [param from] will send to savers and return here to emit [signal run_script] again
+## Requests saving changes, [param from] will send to savers and return here to emit [signal run_script] again.
 signal save_request(from: int)
-## Emits when save request finished, signal bus will emit [signal run_script] with [param to] id
+## Emits when save request finished, signal bus will emit [signal run_script] with [param to] id.
 signal save_finished(to: int)
-
-## Emits when user selects a caret (for multi caret edits that have caret selection support)
+## Requests open find panel.
+signal open_find_panel
+## Requests shift find result selection.
+signal shift_find_result(next: bool)
+## Requests replace all find results.
+signal replace_all
+## Emits when user selects a caret (for multi caret edits that have caret selection support).
 signal caret_selected(index: int)
-
-## Emits when user selects a mode
-signal mode_selected
-
-## Requests updating for recent files, [method Core._update_recent_files] is basic connection
-signal update_recent_files
+## Emits when user selects a mode.
+signal mode_selected(index: int)
+## Emits when one or more setting option changed with centalized preferences editor. Connect your
+## modules to this to reload related settings after change and apply them.
+signal settings_changed
+## Requests reload for recent files, [method Core._reload_recent_files] is basic connection.
+signal reload_recent_files
 
 @warning_ignore_restore("unused_signal")
 
@@ -47,37 +52,44 @@ func _ready() -> void:
 	save_finished.connect(_resume_after_save)
 
 
-func _log_notification(type: int, title: String, text: String) -> void:
+## Connected to [signal editor_notification]. Prints notification with types.
+func _log_notification(type: Global.Notification, title: String, text: String) -> void:
 	var start: String
 	match type:
-		0:
+		Global.Notification.INFO:
 			start = "[color=white]Notification: Info: "
-		1:
+		Global.Notification.WARNING:
 			start = "[color=yellow]Notification: Warning: "
-		2:
+		Global.Notification.ERROR:
 			start = "[color=red]Notification: Error: "
 		_:
 			start = "[color=darkgray]Notification: Other: "
 	print_rich("{0}{1}[/color]{2}{3}".format([start, title, "\n\t" if text != "" else "", text]))
 
 
+## Connected to [signal save_request]. Creates a save change [ConfirmationDialog] and show it, [param confirmed] signal will connected
+## to [method _save_changes] and [param canceled] will connected to [method _resum_after_save].
 func _handle_save_request(from: int) -> void:
-	var save_popup: ConfirmationDialog = preload("res://core/prebuilds/save_changes_dialog.tscn").instantiate()
-	save_popup.confirmed.connect(_save_changes.bind(from))
-	save_popup.canceled.connect(_resume_after_save.bind(from))
-	save_popup.confirmed.connect(save_popup.queue_free)
-	save_popup.canceled.connect(save_popup.queue_free)
-	save_popup.show()
-	add_child(save_popup)
+	add_child(Factory.confirmation_dialog(
+			"You have unsaved changes in currently opened file, what do you want to do with them?",
+			"Save", "Discard", "You have unsaved changes!", _resume_after_save.bind(from),
+			_save_changes.bind(from), true
+	))
 
 
+## Calls [signal run_script] with id of save script and sets its callback to [param from], save
+## action script will emit [signal save_finished] with [param from]. See save action script and
+## [method _resume_after_save] for more information.
 func _save_changes(from: int) -> void:
 	Global.get_scripts_node().get_node("save").callback = from
 	run_script.emit(Global.get_scripts_node().get_node("save").id)
 
 
+## Connected to [signal save_finished]. If [param to] is [code]-1[/code] do nothing, otherwise, will
+## wait 0.5 second, removes [code]*[/code] from file name and emits [signal run_script] with [param to].
 func _resume_after_save(to: int) -> void:
-	if to == -1: return
+	if to == -1:
+		return
 	await SLib.wait(0.5)
 	Global.set_file_name(Global.get_file_name().replace("*", ""))
 	run_script.emit(to)

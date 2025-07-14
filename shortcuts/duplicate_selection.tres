@@ -2,7 +2,6 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_sjbng"]
 device = -1
-shift_pressed = true
 ctrl_pressed = true
 keycode = 68
 

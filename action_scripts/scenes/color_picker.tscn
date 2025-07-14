@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bdmubrwerhqgi"]
+
+[node name="Window" type="Window"]
+title = "Color Picker"
+initial_position = 2
+size = Vector2i(300, 600)
+always_on_top = true
+min_size = Vector2i(0, 600)
+keep_title_visible = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 582.0
+grow_horizontal = 2
+can_add_swatches = false
+
+[connection signal="close_requested" from="." to="." method="hide"]

@@ -12,11 +12,11 @@ We appreciate responsible disclosure and will work with you to address the issue
 
 We currently support the latest stable release of Text Forge. Other versions may not receive security updates.
 
-| Version       | Supported |
-|---------------|-----------|
-| Latest stable | ✅        |
-| Beta/dev      | ⚠️        |
-| Old versions  | ❌        |
+|    Version     | Supported |
+|:--------------:|:---------:|
+| Latest stable  |     ✅     |
+| beta/alpha/dev |    ⚠️     |
+|  Old versions  |     ❌     |
 
 ## Security Updates
 
@@ -30,7 +30,7 @@ While contributing to Text Forge, please:
 
 - Avoid introducing hardcoded credentials or sensitive data
 - Sanitize input and avoid unsafe dynamic evaluations
-- Follow principles of least privilege in scripts and modes
+- Follow principles of the least privilege in scripts and modes
 - Run thorough tests before merging features that affect file access, networking, or input parsing
 
 ## Contact

@@ -1,4 +1,0 @@
-[gd_scene format=3 uid="uid://cb7yspy16ncup"]
-
-[node name="MenuButton" type="MenuButton"]
-switch_on_hover = true

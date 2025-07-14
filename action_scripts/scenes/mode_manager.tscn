@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5s5xlri3xsfu"]
+
+[ext_resource type="Script" uid="uid://px4l4s68t3f0" path="res://action_scripts/scenes/mode_manager.gd" id="1_hbc7b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbc7b"]
+bg_color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbc7b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0d52p"]
+
+[node name="Window" type="Window" node_paths=PackedStringArray("mode_list", "about", "package_button")]
+title = "Mode Manager"
+initial_position = 2
+size = Vector2i(600, 400)
+script = ExtResource("1_hbc7b")
+mode_list = NodePath("Margin/VBox/Modes/ModesList")
+about = NodePath("Margin/VBox/Modes/Mode Editor")
+package_button = NodePath("Margin/VBox/Buttons/CreatePackage")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="Import" type="Button" parent="Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Import Mode / Package"
+
+[node name="CreatePackage" type="Button" parent="Margin/VBox/Buttons"]
+layout_mode = 2
+tooltip_text = "Click on this button and select all modes you need for package, then click here again and save package.
+(Select multiple mode needs holding Ctrl or Shift)"
+toggle_mode = true
+text = "Create Package..."
+
+[node name="Modes" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ModesList" type="ItemList" parent="Margin/VBox/Modes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/selected = SubResource("StyleBoxFlat_hbc7b")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_hbc7b")
+
+[node name="Mode Editor" type="VBoxContainer" parent="Margin/VBox/Modes"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Name" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Name"
+flat = true
+
+[node name="Version" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.476563, 0.476563, 0.476563, 1)
+theme_override_font_sizes/font_size = 12
+placeholder_text = "Version"
+flat = true
+
+[node name="Author" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.476563, 0.476563, 0.476563, 1)
+theme_override_font_sizes/font_size = 12
+placeholder_text = "Author"
+flat = true
+
+[node name="SupportedExtensions" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+placeholder_text = "Supported Extensions"
+flat = true
+
+[node name="Description" type="TextEdit" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hbc7b")
+theme_override_styles/focus = SubResource("StyleBoxTexture_0d52p")
+placeholder_text = " Description"
+wrap_mode = 1
+
+[node name="Actions" type="HBoxContainer" parent="Margin/VBox/Modes/Mode Editor"]
+layout_mode = 2
+
+[node name="EditScript" type="Button" parent="Margin/VBox/Modes/Mode Editor/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Edit mode script in Text Forge"
+text = "Edit Script"
+
+[node name="Export" type="Button" parent="Margin/VBox/Modes/Mode Editor/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export mode to .tfmode file"
+text = "Export"
+
+[node name="Remove" type="Button" parent="Margin/VBox/Modes/Mode Editor/Actions"]
+layout_mode = 2
+tooltip_text = "Remove this mode (move to trash)"
+text = "Remove"
+
+[connection signal="pressed" from="Margin/VBox/Buttons/Import" to="." method="_on_import_pressed"]
+[connection signal="toggled" from="Margin/VBox/Buttons/CreatePackage" to="." method="_on_create_package_toggled"]
+[connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Name" to="." method="_on_data_changed"]
+[connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Version" to="." method="_on_data_changed"]
+[connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Author" to="." method="_on_data_changed"]
+[connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/SupportedExtensions" to="." method="_on_data_changed"]
+[connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Description" to="." method="_on_data_changed" binds= ["\"\""]]
+[connection signal="pressed" from="Margin/VBox/Modes/Mode Editor/Actions/EditScript" to="." method="_on_edit_script_pressed"]
+[connection signal="pressed" from="Margin/VBox/Modes/Mode Editor/Actions/Export" to="." method="_on_export_pressed"]
+[connection signal="pressed" from="Margin/VBox/Modes/Mode Editor/Actions/Remove" to="." method="_on_remove_pressed"]

@@ -19,27 +19,29 @@ config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
+boot_splash/bg_color=Color(0.0823529, 0.121569, 0.160784, 1)
+boot_splash/show_image=false
 config/icon="uid://c5as0fd5jhnm8"
 
 [autoload]
 
 SLib="*res://addons/SLib/SLib.gd"
-SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Settings="*res://core/autoload/settings_api.gd"
-Global="*res://core/autoload/global.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
-ExtensionCore="*res://core/extension_core/extension_core.gd"
 ExtensionHub="*res://core/extension_core/extension_hub.gd"
+SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
+Global="*res://core/autoload/global.gd"
+Factory="*res://core/autoload/factory.gd"
 
 [debug]
 
 file_logging/max_log_files=200
+gdscript/warnings/unused_parameter=0
 gdscript/warnings/narrowing_conversion=0
 
 [display]
 
-window/size/mode=2
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true

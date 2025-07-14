@@ -1,0 +1,36 @@
+name: Sync Docs to text-forge/docs
+
+on:
+  push:
+    branches:
+      - Main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        with:
+          repository: text-forge/docs
+          token: ${{ secrets.DOCS_DEPLOY_TOKEN }}
+          path: docs-repo
+      - name: Sync docs and configs to docs repo
+        run: |
+          rm -rf docs-repo/docs/*
+          cp -r docs/* docs-repo/docs/
+          rm -rf docs-repo/mkdocs.yml
+          cp mkdocs.yml docs-repo/mkdocs.yml
+          cd docs-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Update docs to: ${{ github.event.head_commit.message }}"
+          git push

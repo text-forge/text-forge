@@ -10,12 +10,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Help menu
-- Docs: Project Structure Guide
 - Notifications panel
 - Panel support
 - Translation system
-- Settings sytstem
+- Settings system
 - Log editor notifications
+- Find & Replace panel
+- Action Scripts for:
+	- File:
+		- New Window
+		- Restart
+	- Edit:
+		- Evulate Selection
+	- Search:
+		- Find and Replace
+		- Find Next
+		- Find Previous
+		- Replace All
+	- Command:
+		- Command Palette
+	- Format:
+		- Remove All Indents
+	- View:
+		- Change Editor Font Size
+		- Focus On Editor
+		- Breakpoints
+		- Bookmarks
+		- Line Numbers
+		- Line Length Guides
+		- Full Screen
+	- Tools:
+		- Color Picker
+	- Settings:
+		- Preferences
+		- Mode manager
+		- Open Data Folder
+	- Help:
+		- GitHub Repository
+		- Mode Library
+		- Forum
+		- Share Feedback
+		- Submit Issue
+		- Online Docs
+		- About
+- Drag & Drop for open files
+- Preferences panel
+- Mode Manager
+
+### Changed
+
+- Edit/Auto Format shortcut: ~Ctrl+Alt+F~ to Ctrl+Shift+F
+- Edit/Duplicate Selection shortcut: ~Ctrl+Shift+D~ to Ctrl+D
+- New structure for menus
 
 ### Removed
 
@@ -23,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [Fix call _update_recent_files from scripts](https://github.com/mkh-user/Text-Forge/commit/8c8ce45f759af6887699f7702c8abfde04915a98).
+- [Fix call _update_recent_files from scripts](https://github.com/text-forge/text-forge/commit/8c8ce45f759af6887699f7702c8abfde04915a98)
 
 ## [0.1.0] - 2025-06-30
 
@@ -36,5 +82,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Data-driven UI.
 - Docs in 4 languages (en, fa, es, zh)
 
-[unreleased]: https://github.com/mkh-user/text-forge/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/mkh-user/text-forge/releases/tag/v0.1.0
+[unreleased]: https://github.com/text-forge/text-forge/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0

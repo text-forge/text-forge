@@ -1,0 +1,42 @@
+site_name: Text Forge Docs
+site_url: https://text-forge.github.com/docs
+repo_url: https://github.com/text-forge/text-forge
+repo_name: GitHub
+edit_uri: blob/Main/docs
+
+site_description: Online documentation for Text Forge
+site_author: Text Forge
+copyright: MIT License | Copyright (c) 2025 Mahan Khalili and contributors
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        # See: https://mkdocstrings.github.io/python/usage/
+        python:
+          options:
+            docstring_style: sphinx
+markdown_extensions:
+  - admonition
+
+nav:
+  - Home: index.md
+  - Introduction:
+      - Introduction: introduction.md
+      - Setup: setup.md
+  - Structure:
+    - Modes: modes.md
+    - Action Scripts: action_scripts.md
+  - Developer Guides:
+      - Contributing Guide: contributing.md
+      - Contribution Types: contribution_types.md
+      - Open In Godot (Build): build.md
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - gdscript
+  prev_next_buttons_location: both
+
+draft_docs: drafts/

@@ -21,6 +21,14 @@ const DEFAULT_CONNECTION_OPACITY: float = 0.3
 ## in a way that provides more legibility in the code
 enum Direction {LEFT, RIGHT}
 
+## This enum keeps available option IDs
+enum Options {
+	HIDE_SIGNALS_WITHOUT_CONNECTIONS,
+	HIDE_BUILT_IN_SIGNALS,
+	SHOW_GRAPH_TOOLBAR,
+	SHOW_GRAPH_MINIMAP
+}
+
 ## Emitted on user pressed "refresh" button
 signal node_data_requested(node_path)
 
@@ -38,30 +46,61 @@ var keep_emissions: bool = false
 ## Acquired from slider in scene
 var emission_speed_multiplier: float = 1.0
 
+var connection_opacity: float = DEFAULT_CONNECTION_OPACITY
+
 ## Array that collects active pulse connections so that they can be
 ## all cleanup together when unfreezing emissions
 var pulsing_connections: Array = []
 
+## Value of options
+var settings: Dictionary = {
+	Options.HIDE_SIGNALS_WITHOUT_CONNECTIONS: true,
+	Options.HIDE_BUILT_IN_SIGNALS: false,
+	Options.SHOW_GRAPH_TOOLBAR: false,
+	Options.SHOW_GRAPH_MINIMAP: false
+}
+
 # Scene references
 @export var graph_edit: GraphEdit 
+@export var logger_button: Button
 @export var node_path_line_edit: LineEdit 
 @export var refresh_button: Button 
+@export var options_button: MenuButton
+@onready var options_popup: PopupMenu = options_button.get_popup()
 @export var clear_button: Button
 @export var inactive_text: Label
 @export var warning_text: Label
-@export var pin_checkbox: CheckButton 
+@export var pin_checkbox: CheckButton
 @export var keep_emissions_checkbox: CheckButton
 @export var emission_speed_slider: Slider
 @export var emission_speed_icon: Button
+@export var connection_opacity_icon: Button
+@export var logger: Control
 
 ## Initialize panel: Load icons
 func _ready() -> void:
 	_get_parent_editor_split()
+	options_button.icon = EditorInterface.get_base_control().get_theme_icon("GuiTabMenuHl", "EditorIcons")
 	clear_button.icon = EditorInterface.get_base_control().get_theme_icon("Clear", "EditorIcons")
 	refresh_button.icon = EditorInterface.get_base_control().get_theme_icon("Reload", "EditorIcons")
 	pin_checkbox.icon = EditorInterface.get_base_control().get_theme_icon("Pin", "EditorIcons")
 	keep_emissions_checkbox.icon = EditorInterface.get_base_control().get_theme_icon("Override", "EditorIcons")
 	emission_speed_icon.icon = EditorInterface.get_base_control().get_theme_icon("Timer", "EditorIcons")
+	logger_button.icon = EditorInterface.get_base_control().get_theme_icon("FileList", "EditorIcons")
+	options_popup.index_pressed.connect(_on_options_index_pressed) # NOTE: ID & index must have same value!
+	connection_opacity_icon.icon = EditorInterface.get_base_control().get_theme_icon("GuiVisibilityVisible", "EditorIcons")
+	#main_buttons_container.reparent(graph_edit.get_menu_hbox())
+	#graph_edit.get_menu_hbox().move_child(main_buttons_container, 0)
+	#graph_edit.get_menu_hbox().custom_minimum_size.x = graph_edit.size.x
+	graph_edit.get_menu_hbox().reparent(panel_container)
+	graph_edit.get_menu_hbox().hide()
+	#graph_edit.get_menu_hbox().hide()
+	repo_button.icon = EditorInterface.get_base_control().get_theme_icon("ExternalLink", "EditorIcons")
+	
+@onready var repo_button: Button = $EditorPanel/MainButtonsContainer/HBoxContainer2/RepoButton
+
+@onready var panel_container: PanelContainer = $EditorPanel/PanelContainer
+@onready var main_buttons_container: MarginContainer = $EditorPanel/MainButtonsContainer
 
 ## Requests inspection of [param current_node] in remote scene
 func request_node_data():
@@ -79,7 +118,7 @@ func start_session():
 	keep_emissions_checkbox.button_pressed = false
 	emission_speed_slider.editable = true
 	emission_speed_icon.disabled = false
-	node_path_line_edit.placeholder_text = TUTORIAL_TEXT
+	node_path_line_edit.text = TUTORIAL_TEXT
 	inactive_text.hide()
 
 
@@ -113,6 +152,7 @@ func assign_node_path(target_node: NodePath):
 	
 	# Update line edit
 	node_path_line_edit.text = current_node
+	node_path_line_edit.caret_column = node_path_line_edit.text.length()
 
 #region Graph Rendering
 
@@ -134,14 +174,15 @@ func clear_graph():
 		# so let's ignore it and move on
 		if child.name == "_connection_layer": continue
 		child.free()
-	# Necessary for the minimap to update, it seems
-	graph_edit.minimap_enabled = false
-	graph_edit.minimap_enabled = true
+	## Necessary for the minimap to update, it seems
+	if graph_edit.minimap_enabled:
+		graph_edit.minimap_enabled = false
+		graph_edit.minimap_enabled = true
 
 ## Draws data received from the runtime autoload
 ## The data is packages in the following structure:
-## Pseudo-code: [Name of target node, [All of the node's signals and each signal's respective callables]]
-## Print result: [{&"name_of_targeted_node", [{"signal": "item_rect_changed", "callables": [{ "object_name": &"Control", "callable_method": "Control::_size_changed"}]]
+## Pseudo-code: [Name of target node, [All of the node's signals and each signal's respective callables], Class of target node]
+## Print result: [{&"name_of_targeted_node", [{"signal": "item_rect_changed", "callables": [{ "object_name": &"Control", "callable_method": "Control::_size_changed"}], "Control"]
 ## Is is parsed and drawin into nodes, with connections established between signals and their callables
 func draw_node_data(data: Array):
 	# If lock button toggled on, don't draw incoming data
@@ -149,6 +190,7 @@ func draw_node_data(data: Array):
 	
 	# Clear graph to avoid drawing over old data
 	clear_graph()
+	logger.clear()
 	
 	# This line is super important to avoid random rendering errors
 	# It seems we need to give a small breathing room for the graph edit
@@ -179,8 +221,20 @@ func draw_node_data(data: Array):
 	
 	# Start iterating signal by signal
 	for signal_data in target_node_signal_data:
+		# Check signal connections and skip not connected signals (based on settings)
+		if settings[Options.HIDE_SIGNALS_WITHOUT_CONNECTIONS] and signal_data["callables"].size() == 0: continue
+		
+		# Check signal connections and skip if signal is built-in (based on settings)
+		if settings[Options.HIDE_BUILT_IN_SIGNALS]:
+			var class_signals: Array = []
+			for class_signal in ClassDB.class_get_signal_list(data[2]):
+				class_signals.append(class_signal["name"])
+			if signal_data["signal"] in class_signals:
+				continue
+		
 		# Get the color based on the index so we can have the rainbow vibes
 		var slot_color = get_slot_color(current_signal_index, target_node_signal_data.size())
+		
 		# Create the slot button with the signal's name
 		create_button_slot(signal_data["signal"], target_node, Direction.RIGHT, slot_color)
 		
@@ -253,7 +307,7 @@ func create_button_slot(button_text: String, parent_node: GraphNode, slot_direct
 
 func get_slot_color(slot_index, signal_amount) -> Color:
 	var hue = float(slot_index) / float(signal_amount) 
-	return Color.from_hsv(hue, 1.0, 0.5, DEFAULT_CONNECTION_OPACITY)  
+	return Color.from_hsv(hue, 1.0, 0.5, connection_opacity)  
 
 func clean_connection_activity():
 	for connection in graph_edit.get_connection_list():
@@ -264,10 +318,11 @@ func clean_connection_activity():
 #region Signal Emission Rendering
 
 func draw_signal_emission(data: Array):
+	logger.create_log(data[0]["datetime"], data[0]["timestamp"], data[0]["node_name"], data[0]["signal_name"], data[0]["signal_arguments"], data[0]["physics_frames"], data[0]["process_frames"])
 	# Avoid trying to draw signal emission if graph not fully drawn yet
 	if graph_edit.get_child_count() <= 1: return
 	var target_node: GraphNode = graph_edit.get_child(1)
-	var port_index = get_port_index_from_signal_name(data[1])
+	var port_index = get_port_index_from_signal_name(data[0]["signal_name"])
 	if port_index == -1: return
 	for connection in graph_edit.get_connection_list():
 		if connection["from_node"] == target_node.name && connection["from_port"] == port_index:
@@ -320,8 +375,6 @@ func dont_keep_signal_emissions():
 
 #region Panel Resizing
 
-
-
 # Reference to the Split Container that holds the bottom panel in the editor
 var _editor_dock
 
@@ -367,6 +420,55 @@ func _on_visibility_changed() -> void:
 	else:  
 		_resize_panel(_original_panel_size)
 
+func _open_project_settings():
+	var base = EditorInterface.get_base_control()
+
+	# Find the Project Settings Editor
+	var settings = base.find_child('*ProjectSettingsEditor*', true, false)
+	if not settings:
+		print('ProjectSettingsEditor not found (?)')
+		return
+
+	# Grab the tab container from the sectioned editor
+	var tab_container = settings.find_child('*TabContainer*', true, false)
+	if not tab_container is TabContainer:
+		print('Could not find the tab container')
+		return
+
+	# Set the current tab to General
+	tab_container.current_tab = 0
+
+	# Find the Sectioned Editor inside it
+	var sectioned_inspector = tab_container.find_child('*SectionedInspector*', true, false)
+	if not sectioned_inspector:
+		print('SectionedInspector not found (?)')
+		return
+
+	# Find the Tree inside it
+	var tree = sectioned_inspector.find_child("Tree", true, false) as Tree
+	if not tree:
+		print('Could not find Tree')
+		return
+
+	# Find the entry in the tree
+	var found_item = null
+	var item = tree.get_root()
+	while item:
+		item = item.get_next_visible()
+		if not item:
+			print('--finished')
+			break
+		if item.get_text(0) == "Signal Lens":
+			found_item = item
+			break
+
+	# Select the found item
+	if found_item:
+		tree.set_selected(found_item, 0)
+		tree.ensure_cursor_is_visible()
+
+	# Finally popup the Project Settings Editor
+	settings.popup()
 
 #endregion
 
@@ -412,5 +514,29 @@ func _on_keep_emissions_checkbox_toggled(toggled_on: bool) -> void:
 		keep_signal_emissions()
 	else:
 		dont_keep_signal_emissions()
+
+func _on_logger_button_toggled(toggled_on: bool) -> void:
+	logger.visible = toggled_on
+	
+func _on_options_index_pressed(option_index: int) -> void:
+	if options_popup.is_item_checkable(option_index):
+		settings[option_index] = not options_popup.is_item_checked(option_index) # Change state
+		options_popup.set_item_checked(option_index, settings[option_index]) # Apply state
+		
+		if option_index in [Options.HIDE_SIGNALS_WITHOUT_CONNECTIONS, Options.HIDE_BUILT_IN_SIGNALS]:
+			refresh_button.pressed.emit()
+		elif option_index == Options.SHOW_GRAPH_TOOLBAR:
+			graph_edit.get_menu_hbox().visible = settings[option_index]
+		elif option_index == Options.SHOW_GRAPH_MINIMAP:
+			graph_edit.minimap_enabled = settings[option_index]
+	else:
+		_open_project_settings()
+
+func _on_connection_opacity_slider_value_changed(value: float) -> void:
+	connection_opacity = value
+	if graph_edit.get_child_count() <= 1: return
+	var target_node: GraphNode = graph_edit.get_child(1)
+	for slot_index in target_node.get_child_count():
+		target_node.set_slot_color_right(slot_index, Color(target_node.get_slot_color_right(slot_index), connection_opacity))
 
 #endregion

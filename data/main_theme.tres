@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://dnvygvv1c55qb"]
+[gd_resource type="Theme" load_steps=37 format=3 uid="uid://dnvygvv1c55qb"]
 
 [ext_resource type="FontFile" uid="uid://d03vkdeo2egtn" path="res://assets/JetBrainsMono-Regular.ttf" id="1_qjhx0"]
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="2_u427p"]
@@ -45,6 +45,12 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1ojjt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_amhry"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amhry"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tipki"]
 
@@ -145,13 +151,54 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ojjt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amhry"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.0823529, 0.121569, 0.160784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ojjt"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
+border_width_top = 3
+border_color = Color(0.358444, 0.450697, 0.542969, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okkhu"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.11834, 0.167543, 0.216756, 1)
+border_width_top = 3
+border_color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okkhu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rga1e"]
+bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [resource]
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_x6qos")
 Button/styles/focus = SubResource("StyleBoxFlat_qjhx0")
 Button/styles/hover = SubResource("StyleBoxFlat_24s7k")
 Button/styles/normal = SubResource("StyleBoxFlat_n1fou")
 Button/styles/pressed = SubResource("StyleBoxFlat_n1fou")
+CheckBox/icons/checked = ExtResource("2_u427p")
+CheckBox/icons/checked_disabled = ExtResource("3_7rtxy")
+CheckBox/icons/radio_checked = ExtResource("2_u427p")
+CheckBox/icons/radio_checked_disabled = ExtResource("3_7rtxy")
+CheckBox/icons/radio_unchecked = SubResource("CompressedTexture2D_1ojjt")
+CheckBox/icons/radio_unchecked_disabled = SubResource("CompressedTexture2D_amhry")
+CheckBox/icons/unchecked = ExtResource("4_hofdy")
+CheckBox/icons/unchecked_disabled = ExtResource("5_0ahyh")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_amhry")
 CodeEdit/colors/caret_color = Color(1, 1, 1, 1)
+CodeEdit/colors/current_line_color = Color(0.356863, 0.45098, 0.541176, 0.156863)
+CodeEdit/colors/line_length_guideline_color = Color(0.116654, 0.179424, 0.242188, 1)
 CodeEdit/colors/selection_color = Color(1, 1, 1, 0.117647)
 CodeEdit/constants/caret_width = 2
 CodeEdit/fonts/font = ExtResource("1_qjhx0")
@@ -189,5 +236,19 @@ PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxFlat_0wfyh")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_0wfyh")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_0wfyh")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_0wfyh")
+RichTextLabel/font_sizes/bold_font_size = 14
+RichTextLabel/font_sizes/bold_italics_font_size = 14
+RichTextLabel/font_sizes/italics_font_size = 14
+RichTextLabel/font_sizes/mono_font_size = 14
+RichTextLabel/font_sizes/normal_font_size = 14
+RichTextLabel/fonts/mono_font = ExtResource("1_qjhx0")
 SplitContainer/constants/separation = 0
+TabContainer/constants/side_margin = 0
 TabContainer/styles/panel = SubResource("StyleBoxFlat_hofdy")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_1ojjt")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_amhry")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1ojjt")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_okkhu")
+Tree/colors/guide_color = Color(0.11834, 0.167543, 0.216756, 1)
+Tree/styles/focus = SubResource("StyleBoxEmpty_okkhu")
+Tree/styles/panel = SubResource("StyleBoxFlat_rga1e")

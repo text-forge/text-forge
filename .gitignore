@@ -20,3 +20,6 @@ modes/
 
 # Intellij
 /.idea
+
+# Docs importing
+docs/**/*.import

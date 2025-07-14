@@ -2,7 +2,7 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_e6opv"]
 device = -1
-alt_pressed = true
+shift_pressed = true
 ctrl_pressed = true
 keycode = 70
 

@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqhafiwlrq0ep"]
+
+[ext_resource type="Script" uid="uid://ohmv8776bvr8" path="res://action_scripts/scenes/line_length_guides.gd" id="1_2to8j"]
+
+[node name="LineLengthGuides" type="Window" node_paths=PackedStringArray("input", "submit")]
+title = "Line Length Guides Configuration"
+initial_position = 2
+size = Vector2i(400, 131)
+unresizable = true
+popup_window = true
+keep_title_visible = true
+script = ExtResource("1_2to8j")
+input = NodePath("MarginContainer/VBoxContainer/LineEdit")
+submit = NodePath("MarginContainer/VBoxContainer/Button")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enter a comma separated list of line positions, first line will be main and hard guide line."
+autowrap_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save"

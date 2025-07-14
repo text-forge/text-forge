@@ -1,6 +1,7 @@
-﻿key,en,fa
+key,en,fa
 menu.file,File,فایل
 menu.file.new,New,جدید
+menu.file.new_window,New Window,پنجره جدید
 menu.file.new_with_template,New With Template,جدید با قابل
 menu.file.open,Open...,بازکردن...
 menu.file.recent_files,Recent Files,فایل های اخیر
@@ -17,6 +18,7 @@ menu.file.merge_with,Merge With...,ادغام با...
 menu.file.compare_with,Compare With...,مقایسه با...
 menu.file.storage_management,Storage Management...,مدیریت فضای ذخیره سازی...
 menu.file.secure_delete,Secure Delete,حذف امن
+menu.file.restart,Restart,راه اندازی دوباره
 menu.file.exit,Exit,خروج
 menu.edit,Edit,ویرایش
 menu.edit.undo,Undo,لغو عمل
@@ -41,8 +43,8 @@ menu.edit.line.select_paragraph,Select Paragraph,انتخاب بند
 menu.edit.line.join,Join Lines,ادغام خطوط
 menu.edit.line.move_to_new_file,Move To New File,انتقال به فایل جدید
 menu.edit.completion_query,Completion Query,درخواست تکمیل
-menu.edit.auto_format,Auto Format,قالب بندی خودکار
 menu.edit.indention,Indention,فرورفتگی
+menu.edit.indention.auto_indent,Auto Indent,تورفتگی خودکار
 menu.edit.indention.to_spaces,Convert Indent To Spaces,تبدیل فرورفتگی به فاصله
 menu.edit.indention.to_tabs,Convert Indent To Tabs,تبدیل فرورفتگی به تب
 menu.edit.convert_case,Convert Case,تبدیل حروف
@@ -53,14 +55,10 @@ menu.edit.convert_case.camel,camelCase,camelCase
 menu.edit.convert_case.pascal,PascalCase,PascalCase
 menu.edit.convert_case.snake,snake_case,sanke_case
 menu.search,Search,جستجو
-menu.search.find,Find...,یافتن...
+menu.search.find_and_replace,Find and Replace...,یافتن و جایگزینی...
 menu.search.find_next,Find Next,یافته بعدی
 menu.search.find_prev,Find Previous,یافته قبلی
-menu.search.replace,Replace...,جایگزینی...
 menu.search.replace_all,Replace All,چایگزینی همه
-menu.search.find_in_files,Find In Files...,یافتن در فایل ها...
-menu.search.replace_in_files,Replace In Files...,جایگزینی در فایل ها...
-menu.search.find_usages,Find Usages,یافتن استفاده ها
 menu.go_to,Go To,انتقال
 menu.go_to.line,Go To Line...,برو به خط...
 menu.go_to.code_regions,Code Regions...,محدوده کد ها...
@@ -74,10 +72,11 @@ menu.go_to.breakpoints,Breakpoints...,نقاط توقف...
 menu.go_to.toggle_breakpoint,Toggle Breakpoint,نقطه توقف
 menu.go_to.remove_all_breakpoints,Remove All Breakpoints,حذف همه نقاط توقف
 menu.command,Command,دستور
-menu.command.remove_all_indents,Remove All Indents,حذف همه تورفتگی ها
-menu.command.palette,Command Pallete...,پالت فرمان...
+menu.command.palette,Command Palette...,پالت فرمان...
 menu.format,Format,قالب
+menu.format.auto_format,Auto Format,قالب بندی خودکار
 menu.format.auto_indention,Auto Indention,تورفتگی خودکار
+menu.format.remove_all_indents,Remove All Indents,حذف همه تورفتگی ها
 menu.format.save_as_template,Save As Template...,ذخیره به عنوان قالب...
 menu.format.templates,Templates...,قالب ها...
 menu.insert,Insert,درج
@@ -96,10 +95,10 @@ menu.view.increase_font,Increase Font Size,افزایش اندازه قلم
 menu.view.reduce_font,Reduce Font Size,کاهش اندازه قلم
 menu.view.reset_font,Reset Font Size,بازنشانی اندازه قلم
 menu.view.toggle_dark_mode,Toggle Dark Mode,تغییر حالت تاریک
+menu.view.focus_editor,Focus On Editor,تمرکز روی ویرایشگر
 menu.view.notes_panel,Notes Panel,پنل یادداشت
 menu.view.changelog_panel,Change Log Panel,پنل گزارش تعییرات
-menu.view.line_length_guides,Line Lenght Guids...,خطوط راهنما...
-menu.view.show_breakpoints,Show Breakpoints,نمایش نقاط توقف
+menu.view.line_length_guides,Line Length Guides...,خطوط راهنما...
 menu.view.show_bookmarks,Show Bookmarks,نمایش نشانک ها
 menu.view.show_line_numbers,Show Line Numbers,نمایش شماره خط
 menu.view.show_fold_gutter,Show Fold Gutter,نمایش نگهدارنده خط
@@ -110,7 +109,6 @@ menu.view.highlight_current_line,Highlight Current Line,برجسته کردن خ
 menu.view.show_control_chars,Show Control Characters,نمایش کاراکتر های کنترل
 menu.view.show_tabs,Show Tabs,نمایش تب ها
 menu.view.show_spaces,Show Spaces,نمایش فاصله ها
-menu.view.syntax_highlighter,Syntax Highlighter...,برجسته ساز نحوی...
 menu.view.normal_view,Normal View,نمای عادی
 menu.view.presentation_view,Presentation View,نمای ارائه
 menu.view.reading_view,Reading View,نمای مطالعه
@@ -134,14 +132,14 @@ menu.tools.macros,Macros...,ماکرو ها...
 menu.tools.auto_backup,Auto Backup...,پشتیبان گیری خودکار...
 menu.settings,Settings,تنظیمات
 menu.settings.preferences,Preferences...,ترجیحات...
+menu.settings.mode_manager,Mode Manager...,مدیریت مود ها...
 menu.settings.extensions,Extensions...,افزونه ها...
-menu.settings.indents,Indents...,تورفتگی ها...
-menu.settings.tools,Tools,ابزار ها
+menu.settings.open_data_folder,Open Data Folder,بازکردن پوشه داده
 menu.help,Help,کمک
 menu.help.github,GitHub Repository,مخزن گیت هاب
 menu.help.mode_library,Mode Library,کتابخانه مود
 menu.help.forum,Forum,انجمن
 menu.help.feedback,Share Feedback,ارسال بازخورد
-menu.help.submit_issue,Submit issue,ثبت اشکال
+menu.help.submit_issue,Submit Issue,ثبت اشکال
 menu.help.docs,Online Docs,اسناد آنلاین
 menu.help.about,About,درباره

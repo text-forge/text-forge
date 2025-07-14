@@ -1,9 +1,9 @@
-extends CodeEdit
 class_name Editor
+extends CodeEdit
+## Main editor node.
 
-## Main editor node
-
-## Returns char index in [param line] and [param column]
+## Returns char index in [param line] and [param column], useful for use original [LineEdit]
+## functions with [String] options.
 func get_char_index(line: int, column: int) -> int:
 	var before = ""
 	var counter = 0

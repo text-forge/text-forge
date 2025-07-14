@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cqac0omsk3rtw"]
-
-[node name="SaveFile" type="FileDialog"]
-dialog_hide_on_ok = true
-access = 2
-use_native_dialog = true

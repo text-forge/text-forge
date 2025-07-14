@@ -1,0 +1,108 @@
+[gd_scene load_steps=2 format=3 uid="uid://chcbcwt46nc6s"]
+
+[ext_resource type="Script" uid="uid://cwenslu0l5275" path="res://data/panels/find/panel.gd" id="1_0rt6l"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "search", "replace", "list")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rt6l")
+counter = NodePath("MarginContainer/VBoxContainer/Label")
+match_case = NodePath("MarginContainer/VBoxContainer/MatchCase")
+whole_words = NodePath("MarginContainer/VBoxContainer/WholeWords")
+backwards = NodePath("MarginContainer/VBoxContainer/Backwards")
+search = NodePath("MarginContainer/VBoxContainer/LineEdit")
+replace = NodePath("MarginContainer/VBoxContainer/HBoxContainer/LineEdit2")
+list = NodePath("MarginContainer/VBoxContainer/ItemList")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Find"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit2" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Replace"
+
+[node name="Replace" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Replace"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "0 match"
+
+[node name="MatchCase" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Match Case"
+flat = true
+
+[node name="WholeWords" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Whole Words"
+flat = true
+
+[node name="Backwards" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Backwards"
+flat = true
+
+[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Prev" type="Button" parent="MarginContainer/VBoxContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Previous"
+
+[node name="Next" type="Button" parent="MarginContainer/VBoxContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RAll" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Replace All"
+
+[node name="All" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select All"
+
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Replace" to="." method="_on_replace_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MatchCase" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/WholeWords" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Backwards" to="." method="_on_option_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBox/Prev" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBox/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/RAll" to="." method="_on_replace_all_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/All" to="." method="_on_all_pressed"]

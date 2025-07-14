@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://bct5whbenvjw1"]
+
+[ext_resource type="Script" uid="uid://c0alxynm05pkq" path="res://action_scripts/scenes/preferences.gd" id="1_huy1r"]
+
+[node name="Preferences" type="Window" node_paths=PackedStringArray("container", "tree")]
+title = "Preferences"
+initial_position = 2
+size = Vector2i(600, 400)
+popup_window = true
+min_size = Vector2i(400, 300)
+script = ExtResource("1_huy1r")
+container = NodePath("MarginContainer/HSplitContainer/TabContainer")
+tree = NodePath("MarginContainer/HSplitContainer/Tree")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+split_offset = 150
+
+[node name="Tree" type="Tree" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+allow_reselect = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tabs_visible = false
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="MarginContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]

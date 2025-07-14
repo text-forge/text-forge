@@ -1,0 +1,10 @@
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://bkik8antnaptf"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_83eco"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 65
+
+[resource]
+events = [SubResource("InputEventKey_83eco")]
