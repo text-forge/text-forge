@@ -48,7 +48,7 @@ func signle_line_input(
 	line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	line_edit.text_submitted.connect(panel.hide.unbind(1))
 	button.pressed.connect(panel.hide)
-	panel.visibility_changed.connect(func(): if not panel.visible: output.call(line_edit.text); panel.queue_free())
+	panel.visibility_changed.connect(func(): if not panel.visible and output: output.call(line_edit.text); panel.queue_free())
 	if show:
 		panel.ready.connect(panel.popup)
 		panel.ready.connect(line_edit.grab_focus)

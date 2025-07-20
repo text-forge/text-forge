@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "👋 Hello and welcome, Forge-touched explorer!\n\nThank you for opening your first issue on Text Forge! Your insight helps shape this tool into something truly empowering and universal. Feel free to elaborate, share ideas, or ask questions—this space is yours too. 🔧✨\n\nLooking forward to building something great together!"
+        pr-message: "🎉 Whoa, first pull request alert!\n\nHuge thanks for taking the leap and contributing to Text Forge. Your involvement fuels the spirit of modularity, clarity, and collaboration that drives this project. We’ll be reviewing your work with care—expect thoughtful feedback soon! 🧠💬\n\nWelcome aboard, and let's keep crafting the future of text editing."

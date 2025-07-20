@@ -111,14 +111,14 @@ func _load_main_menu() -> void:
 		menu_name = menu_name.capitalize()
 
 		# translate name
-		new_menu_button.text = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case(), FileDatabase.TRANSLATION_FILE)
+		new_menu_button.text = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case())
 
 		# for each option in current menu
 		for item: Dictionary in current_menu:
 			# set item "popup", see _load_scripts for use case
 			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button.get_popup()
 
-			var item_text := TFT.get_text(item.get("key", ""), FileDatabase.TRANSLATION_FILE)
+			var item_text := TFT.get_text(item.get("key", ""))
 
 			match item.get("type", OptionTypes.REGULAR):
 				OptionTypes.REGULAR:
@@ -155,7 +155,7 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 			for template: String in DirAccess.get_files_at(FileDatabase.FOLDER_TEMPLATES):
 				submenu.add_item(template)
 
-		"Extensions": # needs load from another script
+		"By Extensions": # needs load from another script
 			pass
 
 		_: # just load items to another popup menu for other submenus
@@ -164,9 +164,9 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 				main_menu_data[submenu_name][main_menu_data[submenu_name].find(submenu_item)]["popup"] = submenu
 				match submenu_item.get("type", OptionTypes.REGULAR):
 					OptionTypes.REGULAR:
-						submenu.add_item(TFT.get_text(submenu_item.get("key", ""), FileDatabase.TRANSLATION_FILE), submenu_item.get("code", -1))
+						submenu.add_item(TFT.get_text(submenu_item.get("key", "")), submenu_item.get("code", -1))
 					OptionTypes.SEPARATOR:
-						submenu.add_separator(TFT.get_text(submenu_item.get("key", ""), FileDatabase.TRANSLATION_FILE))
+						submenu.add_separator(TFT.get_text(submenu_item.get("key", "")))
 					_:
 						Global.send_notification(Global.Notification.ERROR, "Can't add item to submenu!", "Currently just regular and separatior items are avaliable for submenus.")
 			# connect submenu to handle state function
@@ -176,7 +176,7 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 	if not submenu.id_pressed.is_connected(_handle_menu_option_state):
 		submenu.id_pressed.connect(_handle_menu_option_state.bind(submenu, root_option.get("text", "")))
 	# add submenu
-	root_menu.get_popup().add_submenu_node_item(TFT.get_text(root_option.get("key", ""), FileDatabase.TRANSLATION_FILE), submenu, root_option.get("code", -1))
+	root_menu.get_popup().add_submenu_node_item(TFT.get_text(root_option.get("key", "")), submenu, root_option.get("code", -1))
 	# disable empty submenus
 	if submenu.item_count == 0:
 		root_menu.get_popup().set_item_disabled(-1, true)
@@ -201,7 +201,7 @@ func _load_scripts() -> void:
 			var script = load(script_path).new()
 
 			# for MultiActionScripts (submenu roots)
-			if item.get("type", 0) == 1:
+			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
 				Signals.run_subscript.connect(script.run)
 			# for ActionScripts (regular, checkbox, radio checkbox)
 			else:

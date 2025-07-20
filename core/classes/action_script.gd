@@ -33,6 +33,8 @@ var requires_file := false
 var requires_saved_file := false
 ## [InputEventKey] for this action script. See also [method _load_shortcut].
 var action_shortcut := InputEventKey.new()
+## Specifiest this action script is now runable or no.
+var enable := true
 
 ## Called after add action script in [SceneTree]. See also [method Node._enter_tree].
 func _enter_tree() -> void:
@@ -53,7 +55,13 @@ func _initialize() -> void:
 func _check_option() -> void:
 	var has_file := Global.get_file_path() != "" if requires_file else true
 	var has_saved_file := Global.get_file_path() != "Unsaved" if requires_saved_file else true
-	menu.set_item_disabled(index, not (has_file and has_saved_file))
+	enable = has_file and has_saved_file
+	menu.set_item_disabled(index, not enable)
+
+
+## Returns [code]true[/code] if this action script is enable.
+func is_enable() -> bool:
+	return enable
 
 
 ## Loads shortcut as item accelerator (see also [method PopupMenu.set_item_accelerator]). This means

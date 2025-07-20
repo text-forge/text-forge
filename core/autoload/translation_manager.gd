@@ -59,8 +59,12 @@ func set_language(language_code: String = "default", fallback_code: String = "de
 ##  - [param source_file] does not exist: [code]Can't load translation data[/code] error, returns [param key].[br]
 ##  - [member language] does not exist but the [member fallback] is successful: [code]Translation fallback to %fallback%[/code] warning, returns translated key to fallback language.[br]
 ##  - [member language] and [member fallback] do not exist: [code]Invalid language code![/code] error, returns [param key].[br]
-##  - [param key] does not exist: [code]Invalid translation key![/code] error, returns [param key].
-func get_text(key: String, source_file: String) -> String:
+##  - [param key] does not exist: [code]Invalid translation key![/code] error, returns [param key].[br][br]
+## [b]Note:[/b] If [param source_file] is [code]"default"[/code], will use [constant FileDatabase.TRANSLATION_FILE].
+func get_text(key: String, source_file: String = "default") -> String:
+	if source_file == "default":
+		source_file = FileDatabase.TRANSLATION_FILE
+
 	if key == "":
 		return ""
 

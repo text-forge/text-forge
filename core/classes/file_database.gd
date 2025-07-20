@@ -24,7 +24,7 @@ const FOLDER_TEMPLATES: String = "user://templates/"
 const FOLDER_ACTION_SCRIPTS: String = "res://action_scripts/"
 ## Root folder for modes.
 const FOLDER_MODES: String = "user://modes/"
-## Root folder dor panels.
+## Root folder for panels.
 const FOLDER_PANELS: String = "res://data/panels/"
 ## Template file path for action script shotcut files.
 const TEMPLATE_ACTION_SCRIPT_SHORTCUT: String = "res://shortcuts/{0}.tres"
