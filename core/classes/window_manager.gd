@@ -45,31 +45,28 @@ func _load_window_settings() -> void:
 	if Engine.is_embedded_in_editor():
 		return
 
-	var config = ConfigFile.new()
-	if config.load(FileDatabase.DATA_FILE) != OK:
-		return
-	if not config.has_section(WINDOW_SECTION_ID):
+	if not Settings.config.has_section(WINDOW_SECTION_ID):
 		return
 
-	var screen = config.get_value(WINDOW_SECTION_ID, "screen", "N/A")
+	var screen = Settings.read_data(WINDOW_SECTION_ID, "screen", "N/A")
 	if screen is int and screen >= 0 and screen < DisplayServer.get_screen_count():
 		_window.current_screen = screen
 
-	var mode = config.get_value(WINDOW_SECTION_ID, "mode", "N/A")
+	var mode = Settings.read_data(WINDOW_SECTION_ID, "mode", "N/A")
 	if mode is Window.Mode:
 		match mode:
 			Window.MODE_MAXIMIZED, Window.MODE_FULLSCREEN, Window.MODE_EXCLUSIVE_FULLSCREEN:
 				_window.mode = mode
 			Window.MODE_WINDOWED:
 				var usable_rect: Rect2i = DisplayServer.screen_get_usable_rect(_window.current_screen)
-				var size = config.get_value(WINDOW_SECTION_ID, "size", "N/A")
+				var size = Settings.read_data(WINDOW_SECTION_ID, "size", "N/A")
 				if size is not Vector2i or size.x < _window.min_size.x or size.y < _window.min_size.y:
 					_window.mode = Window.MODE_WINDOWED
 				elif size.x > usable_rect.size.x and size.y > usable_rect.size.y:
 					_window.mode = Window.MODE_MAXIMIZED
 				else:
 					_window.mode = Window.MODE_WINDOWED
-					var position = config.get_value(WINDOW_SECTION_ID, "position", "N/A")
+					var position = Settings.read_data(WINDOW_SECTION_ID, "position", "N/A")
 					if position is Vector2i:
 						var safe_end: Vector2i = usable_rect.end.min(position + size)
 						var safe_position: Vector2i = usable_rect.position.max(safe_end - size)
@@ -82,12 +79,10 @@ func _save_window_settings() -> void:
 	if Engine.is_embedded_in_editor():
 		return
 
-	var config = ConfigFile.new()
-	config.set_value(WINDOW_SECTION_ID, "screen", _window.current_screen)
+	Settings.write_data(WINDOW_SECTION_ID, "screen", _window.current_screen)
 	if _window.mode != Window.MODE_MINIMIZED:
-		config.set_value(WINDOW_SECTION_ID, "mode", _window.mode)
+		Settings.write_data(WINDOW_SECTION_ID, "mode", _window.mode)
 	else:
-		config.set_value(WINDOW_SECTION_ID, "mode", _last_mode_except_minimized)
-	config.set_value(WINDOW_SECTION_ID, "size", _window.size)
-	config.set_value(WINDOW_SECTION_ID, "position", _window.position)
-	config.save(FileDatabase.DATA_FILE)
+		Settings.write_data(WINDOW_SECTION_ID, "mode", _last_mode_except_minimized)
+	Settings.write_data(WINDOW_SECTION_ID, "size", _window.size)
+	Settings.write_data(WINDOW_SECTION_ID, "position", _window.position)

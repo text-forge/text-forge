@@ -11,9 +11,6 @@ extends Object
 const MENU_BUTTON_SCENE: String = "res://core/prebuilds/menu_button.tscn"
 ## Path to UI configurations.
 const MAIN_UI_DATA: String = "res://data/main_ui.ini"
-## Path to data file, this is for custom configurations, for standard configuration save/load use
-## [SettingsAPI].
-const DATA_FILE: String = "user://data.cfg"
 ## Path to main translation source.
 const TRANSLATION_FILE: String = "res://data/translation.csv"
 ## Saved recent files list.

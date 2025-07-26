@@ -146,11 +146,13 @@ func _auto_format(script: GDScript) -> void:
 
 func _save_file(saver: GDScript, path: String) -> void:
 	saver.new().save_file(path)
+	Signals.check_options.emit()
 
 
 func _load_file(loader: GDScript, path: String) -> void:
 	Global.set_editor_text(loader.new().load_file(path))
 	Global.set_editor_disabled(false)
+	Signals.check_options.emit()
 
 
 func _load_highlighter(source: Dictionary) -> void:

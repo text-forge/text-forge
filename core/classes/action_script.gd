@@ -54,7 +54,7 @@ func _initialize() -> void:
 ## status checking based on [member requires_file] and [member requires_save_file] will be lost!
 func _check_option() -> void:
 	var has_file := Global.get_file_path() != "" if requires_file else true
-	var has_saved_file := Global.get_file_path() != "Unsaved" if requires_saved_file else true
+	var has_saved_file := Global.get_file_path().is_absolute_path() if requires_saved_file else true
 	enable = has_file and has_saved_file
 	menu.set_item_disabled(index, not enable)
 

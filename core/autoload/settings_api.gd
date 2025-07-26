@@ -37,6 +37,14 @@ const SETTINGS_FILE := "user://settings.cfg"
 ## File path to presets data, this file is storage of available settings and default values, see
 ## [method define_preset] for more information.
 const PRESETS_FILE := "user://presets.cfg"
+## File path to configuration data.
+const DATA_FILE := "user://data.cfg"
+
+var config := ConfigFile.new()
+
+func _ready() -> void:
+	if FileAccess.file_exists(DATA_FILE):
+		config.load(DATA_FILE)
 
 ## Returns stored setting, if [param default] is [code]null[/code] will load it from
 ## [method get_default] (witch will be [code]null[/code] if this preset was not defined), otherwise
@@ -47,12 +55,12 @@ func get_setting(section: String, key: String, default: Variant = null) -> Varia
 		default = get_default(section, key)
 	if not FileAccess.file_exists(SETTINGS_FILE):
 		return default
-	var config := ConfigFile.new()
-	var err := config.load(SETTINGS_FILE)
+	var setting := ConfigFile.new()
+	var err := setting.load(SETTINGS_FILE)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't load settings file!", "Error code: " + str(err))
 		return default
-	return config.get_value(section, key, default)
+	return setting.get_value(section, key, default)
 
 
 ## Sets default value for given setting, see also [method get_default].
@@ -62,11 +70,11 @@ func restore_default(section: String, key: String) -> void:
 
 ## Sets [param velue] for given setting and save settings.
 func set_setting(section: String, key: String, value: Variant = null) -> void:
-	var config = ConfigFile.new()
+	var setting = ConfigFile.new()
 	if FileAccess.file_exists(SETTINGS_FILE):
-		config.load(SETTINGS_FILE)
-	config.set_value(section, key, value)
-	var err = config.save(SETTINGS_FILE)
+		setting.load(SETTINGS_FILE)
+	setting.set_value(section, key, value)
+	var err = setting.save(SETTINGS_FILE)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't save settings file!", "Error code: " + str(err))
 
@@ -75,11 +83,11 @@ func set_setting(section: String, key: String, value: Variant = null) -> void:
 ## linked setting to it, if your module uses any setting, you should define presets for them in
 ## module initialization with this function.
 func define_preset(section: String, key: String, default: Variant = null) -> void:
-	var config = ConfigFile.new()
+	var setting = ConfigFile.new()
 	if FileAccess.file_exists(PRESETS_FILE):
-		config.load(PRESETS_FILE)
-	config.set_value(section, key, default)
-	var err = config.save(PRESETS_FILE)
+		setting.load(PRESETS_FILE)
+	setting.set_value(section, key, default)
+	var err = setting.save(PRESETS_FILE)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't save preset source!", "Error code: " + str(err))
 
@@ -89,12 +97,25 @@ func define_preset(section: String, key: String, default: Variant = null) -> voi
 func get_default(section: String, key: String) -> Variant:
 	if not FileAccess.file_exists(PRESETS_FILE):
 		return null
-	var config := ConfigFile.new()
-	var err := config.load(PRESETS_FILE)
+	var setting := ConfigFile.new()
+	var err := setting.load(PRESETS_FILE)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't load presets file!", "Error code: " + str(err))
 		return null
-	if config.has_section_key(section, key):
-		return config.get_value(section, key)
+	if setting.has_section_key(section, key):
+		return setting.get_value(section, key)
 	else:
 		return null
+
+
+func read_data(section: String, key: String, default = null) -> Variant:
+	return config.get_value(section, key, default)
+
+
+func write_data(section: String, key: String, value = null) -> void:
+	config.set_value(section, key, value)
+	_save_config()
+
+
+func _save_config() -> void:
+	config.save(DATA_FILE)

@@ -142,17 +142,12 @@ func show_panel(location: int, index: int) -> void:
 
 ## Saves current panels latout.
 func _save_layout() -> void:
-	var config := ConfigFile.new()
-	config.load(FileDatabase.DATA_FILE)
-	config.set_value("panels", "layout_data", data)
-	config.save(FileDatabase.DATA_FILE)
+	Settings.write_data("panels", "layout_data", data)
 
 
 ## Loads panels layout in [member panels]. Will ignore last loaded panels.
 func _load_layout() -> void:
-	var config := ConfigFile.new()
-	config.load(FileDatabase.DATA_FILE)
-	data = config.get_value("panels", "layout_data", data)
+	Settings.read_data("panels", "layout_data", data)
 	for side in data:
 		data[side]["panels"] = {}
 
