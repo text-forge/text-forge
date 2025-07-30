@@ -20,7 +20,7 @@ config/quit_on_go_back=false
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
 boot_splash/bg_color=Color(0.0823529, 0.121569, 0.160784, 1)
-boot_splash/show_image=false
+boot_splash/image="uid://c53xda8pdrml6"
 config/icon="uid://c5as0fd5jhnm8"
 
 [autoload]
@@ -29,10 +29,11 @@ SLib="*res://addons/SLib/SLib.gd"
 Settings="*res://core/autoload/settings_api.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
-ExtensionHub="*res://core/extension_core/extension_hub.gd"
+ExtensionHub="*res://core/extensions/extension_hub.gd"
 SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
+Extensions="*res://core/extensions/extensions.gd"
 
 [debug]
 

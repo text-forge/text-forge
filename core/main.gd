@@ -40,6 +40,8 @@ const MENU_TRANSLATION_PREFIX: String = "menu."
 @export var panel_manager: PanelManager
 ## About window.
 @export var about: Window
+## Module Profiler.
+@export var module_profiler: MenuButton
 
 ## Recent files [PopupMenu], see also [method _update_recent_files].
 var recent_files_submenu: PopupMenu
@@ -48,6 +50,7 @@ var main_menu_data: Dictionary
 
 # This is start point of Text Forge
 func _ready() -> void:
+	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files): Signals.open_file.emit(files[0]))
 
@@ -156,7 +159,9 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 				submenu.add_item(template)
 
 		"By Extensions": # needs load from another script
-			pass
+			Extensions.menu = submenu
+			submenu.id_pressed.connect(Extensions._menu_id_pressed)
+			Extensions.setup_extensions()
 
 		_: # just load items to another popup menu for other submenus
 			for submenu_item: Dictionary in config_file.get_value(DATA_SECTION, root_option.get("text", "").to_snake_case() + SUBMENU_SUFFIX):

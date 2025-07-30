@@ -11,6 +11,8 @@ func _run_action() -> void:
 
 	var line_count = Global.get_editor().get_line_count()
 	for i in line_count:
+		if not Global.get_editor().is_selection_in_line(i):
+			continue
 		var line = Global.get_editor().get_line(i)
 		var new_line = line
 		var count = 0

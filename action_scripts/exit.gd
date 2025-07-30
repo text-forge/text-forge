@@ -1,7 +1,7 @@
 extends ActionScript
 
 func _initialize() -> void:
-	get_window().close_requested.connect(func():_close())
+	get_window().close_requested.connect(_close)
 
 
 # To send signal to whole editor

@@ -23,6 +23,8 @@ const FOLDER_ACTION_SCRIPTS: String = "res://action_scripts/"
 const FOLDER_MODES: String = "user://modes/"
 ## Root folder for panels.
 const FOLDER_PANELS: String = "res://data/panels/"
+## Root folder for extensions.
+const FOLDER_EXTENSIONS: String = "user://extensions/"
 ## Template file path for action script shotcut files.
 const TEMPLATE_ACTION_SCRIPT_SHORTCUT: String = "res://shortcuts/{0}.tres"
 ## Template file path for action script files.
@@ -33,3 +35,5 @@ const TEMPLATE_PANEL_CONFIG: String = "res://data/panels/{0}/panel.cfg"
 const TEMPLATE_PANEL_SCENE: String = "res://data/panels/{0}/panel.tscn"
 ## Template file path for panel icon.
 const TEMPLATE_PANEL_ICON: String = "res://data/panels/{0}/icon.png"
+## Template file path for extension configuration file.
+const TEMPLATE_EXTENSION_CONFIG: String = "user://extensions/{0}/extension.cfg"

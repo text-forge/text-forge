@@ -12,3 +12,13 @@ func get_char_index(line: int, column: int) -> int:
 			before += i + "\n"
 		counter += 1
 	return before.length() + column
+
+
+func is_selection_in_line(line: int) -> bool:
+	for caret in get_caret_count():
+		var selection = [get_selection_origin_line(caret), get_caret_line(caret)]
+		if selection[0] > selection[1]:
+			selection.reverse()
+		if line >= selection[0] and line <= selection[1]:
+			return true
+	return false

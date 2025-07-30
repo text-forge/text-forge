@@ -1,0 +1,115 @@
+[gd_scene load_steps=3 format=3 uid="uid://bblemr1y4n5a0"]
+
+[ext_resource type="Script" uid="uid://vd2e5o5l0xv5" path="res://action_scripts/scenes/extensions.gd" id="1_sqje5"]
+[ext_resource type="Script" uid="uid://dqkf6ihia5ew7" path="res://action_scripts/scenes/extension_item.gd" id="2_7rrhf"]
+
+[node name="Extensions" type="Window" node_paths=PackedStringArray("tree", "tabs", "item", "extensions_list")]
+title = "Extensions"
+initial_position = 2
+size = Vector2i(600, 400)
+popup_window = true
+min_size = Vector2i(400, 300)
+script = ExtResource("1_sqje5")
+tree = NodePath("MarginContainer/VBoxContainer/HSplitContainer/Tree")
+tabs = NodePath("MarginContainer/VBoxContainer/HSplitContainer/TabContainer")
+item = NodePath("PanelContainer")
+extensions_list = NodePath("MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer/HFlowContainer")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11834, 0.167543, 0.216756, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Install" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Install Extension"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 150
+
+[node name="Tree" type="Tree" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+visible = false
+layout_mode = 2
+allow_reselect = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 0
+tabs_visible = false
+
+[node name="Extension Manager" type="MarginContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager"]
+layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("text", "enable", "uninstall")]
+visible = false
+offset_left = 168.0
+offset_top = 10.0
+offset_right = 590.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+script = ExtResource("2_7rrhf")
+text = NodePath("VBoxContainer/Label")
+enable = NodePath("VBoxContainer/HBoxContainer/CheckBox")
+uninstall = NodePath("VBoxContainer/HBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Example Extension"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Disabled "
+
+[node name="Export" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Export"
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Uninstall"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Install" to="." method="_on_install_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer/CheckBox" to="PanelContainer" method="_on_check_box_toggled"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Export" to="PanelContainer" method="_on_export_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Button" to="PanelContainer" method="_on_button_pressed"]

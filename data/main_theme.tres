@@ -182,6 +182,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [resource]
+AcceptDialog/colors/title_color = Color(0.358444, 0.450697, 0.542969, 1)
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_x6qos")
 Button/styles/focus = SubResource("StyleBoxFlat_qjhx0")
 Button/styles/hover = SubResource("StyleBoxFlat_24s7k")

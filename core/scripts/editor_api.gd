@@ -12,6 +12,7 @@ var selected_mode_index: int
 var current_mode: Dictionary
 
 func _ready() -> void:
+	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Defines comment delimiter
 	# TODO: Handle this with modes.
 	Global.get_editor().add_comment_delimiter("#", "", true)

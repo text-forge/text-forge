@@ -15,11 +15,14 @@ func _ready() -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	var order := commands.keys()
-	order.sort_custom(func(a, b): return new_text.similarity(a) > new_text.similarity(b))
+	order.sort_custom(_sort_commands.bind(new_text))
 	SLib.free_all_children(options)
-	for item in order:
+	for item: String in order:
 		var option: Button = sample.duplicate()
-		option.text = item
+		var modified_text = item
+		if item.containsn(new_text):
+			modified_text = item.substr(0, item.findn(new_text)) + "[bgcolor=ffffff10]" + item.substr(item.findn(new_text), new_text.length()) + "[/bgcolor]" + item.substr(item.findn(new_text) + new_text.length())
+		option.get_child(1).append_text(modified_text)
 		option.get_child(0).text = commands[item][0]
 		if option.get_child(0).text == "(Unset)": option.get_child(0).hide()
 		option.pressed.connect(commands[item][1])
@@ -27,6 +30,22 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 		options.add_child(option)
 		option.show()
 	options.set_deferred("scroll_horizontal", 0)
+
+
+func _sort_commands(a: String, b: String, text: String) -> bool:
+	var score_a: float = text.similarity(a)
+	var score_b: float = text.similarity(b)
+
+	if a.contains(text):
+		score_a += 1
+	elif a.containsn(text):
+		score_a += 0.5
+	if b.contains(text):
+		score_b += 1
+	elif b.containsn(text):
+		score_b += 0.5
+
+	return score_a > score_b
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:

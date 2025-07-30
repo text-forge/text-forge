@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=8 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
+[ext_resource type="Script" uid="uid://5cin2ow0mkq0" path="res://core/module_profiler.gd" id="5_xa854"]
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
+
+[sub_resource type="Theme" id="Theme_csopv"]
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusby"]
 bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about")]
+[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about", "module_profiler")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +28,7 @@ editor = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomS
 scripts = NodePath("Scripts")
 panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
+module_profiler = NodePath("Margin/Sections/HBoxContainer/ModuleProfiler")
 
 [node name="Back" type="ColorRect" parent="."]
 layout_mode = 1
@@ -144,6 +149,26 @@ fixed_column_width = 35
 icon_mode = 0
 fixed_icon_size = Vector2i(20, 20)
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections"]
+layout_mode = 2
+theme = SubResource("Theme_csopv")
+alignment = 2
+
+[node name="ModuleProfiler" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Module Profiler
+Number of currently connected modules"
+text = "11 Modules"
+switch_on_hover = true
+item_count = 1
+popup/item_0/text = "Reload"
+popup/item_0/id = 0
+script = ExtResource("5_xa854")
+
+[node name="Timer" type="Timer" parent="Margin/Sections/HBoxContainer/ModuleProfiler"]
+wait_time = 5.0
+autostart = true
+
 [node name="Scripts" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
@@ -238,3 +263,5 @@ text = "[b]Icons:[/b]
 [i]See [code]\"root/modes/\"[/code], [code]\"root/scripts/\"[/code], [code]\"userdata/extensions\"[/code] for other licenses. Modes, scripts and extensions without LICENSE file are onder Text Forge license."
 
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
+[connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_refresh"]
+[connection signal="close_requested" from="About" to="About" method="hide"]

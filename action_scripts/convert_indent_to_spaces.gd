@@ -13,6 +13,8 @@ func _run_action() -> void:
 
 	var line_count = Global.get_editor().get_line_count()
 	for i in line_count:
+		if not Global.get_editor().is_selection_in_line(i):
+			continue
 		var line = Global.get_editor().get_line(i)
 		if line.begins_with("\t"):
 			line = line.replace("\t", tab_replacement)

@@ -43,6 +43,8 @@ signal mode_selected(index: int)
 signal settings_changed
 ## Requests reload for recent files, [method Core._reload_recent_files] is basic connection.
 signal reload_recent_files
+## Requests refresh module list from module profiler.
+signal module_profiler_refresh
 
 @warning_ignore_restore("unused_signal")
 
