@@ -7,6 +7,7 @@ func _setup() -> void:
 
 func _set_value(to: bool) -> void:
 	Global.get_editor().gutters_draw_fold_gutter = to
+	Global.get_editor().line_folding = to
 
 func _get_value() -> bool:
 	return Global.get_editor().gutters_draw_fold_gutter

@@ -2,13 +2,12 @@ extends ActionScript
 
 func _initialize() -> void:
 	Signals.open_file.connect(_open_file)
-	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, [], _open_file, false))
 
 func _run_action() -> void:
 	if Global.get_file_name().ends_with("*"):
 		Signals.save_request.emit(id)
 		return
-	get_child(0).show()
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, [], _open_file, true, "", Global.get_last_file_path()))
 
 
 func _open_file(path: String) -> void:

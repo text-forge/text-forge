@@ -45,7 +45,7 @@ func _on_tree_item_selected() -> void:
 
 
 func _on_install_pressed() -> void:
-	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfx,*.zip;Text Forge Extensions;application/zip"], _install_extension, true))
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfx,*.zip;Text Forge Extensions;application/zip"], _install_extension, true, OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)))
 
 
 func _install_extension(path: String) -> void:

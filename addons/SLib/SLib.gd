@@ -180,7 +180,7 @@ func localize_path(path: String) -> String:
 ## # ResourceSave (.tres, .tscn , .res, .scn), save panel style in "res://theme/custom_panel.tres":
 ## SLib.save_file("res://theme/custom_panel.tres", $Panel.theme_override_styles/panel)
 ## # FileAccess (other extension), save player_data in "res://restore_point.save":
-## SLib.save_file("res://restore_point.save", player_data) 
+## SLib.save_file("res://restore_point.save", player_data)
 ## [/codeblock]
 func save_file(location: String, value = null, config: String = "") -> Error:
 	var type = location.get_extension()
@@ -320,7 +320,7 @@ func backup_file(location: String, type: Variant.Type = TYPE_NIL, suffix: String
 
 #region ANIMATIONS
 ## Valid animations for [method play_animation][br]
-## [b]Note:[/b] Some animations have two modes: [code]to[/code] & [code]by[/code], this animations have [color=green]Dual Mode[/color] badge. 
+## [b]Note:[/b] Some animations have two modes: [code]to[/code] & [code]by[/code], this animations have [color=green]Dual Mode[/color] badge.
 ## To use this animations you should have [code]to[/code] or [code]by[/code] key in [param setting] dictionary, for more information, see also [PropertyTweener] ( and as_relative method).
 enum Animations {
 	## Shows an [param object] and creates an animation to change its [code]modulate[/code].[br][b]Settings:[/b]
@@ -432,7 +432,7 @@ func play_animation(animation: Animations, object: Node, setting: Dictionary = {
 ## var scrambled = ["5", "A", "10", "K", "J", "Q", "3"]
 ## var pattern = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 ##
-## var sorted = SLib.patterned_sort(scrambled, pattern) # sorted: ["A", "3", "5", "10", "J", "Q", "K"] 
+## var sorted = SLib.patterned_sort(scrambled, pattern) # sorted: ["A", "3", "5", "10", "J", "Q", "K"]
 ## [/codeblock]
 func patterned_sort(scrambled_array : Array, pattern: Array) -> Array:
 	scrambled_array.sort_custom(func(a, b): return pattern.find(a) < pattern.find(b))
@@ -634,7 +634,7 @@ func change_pause(pause = null) -> void:
 #endregion
 
 #region DEBUGGING
-## Sends a custom error to the console that can be viewed in the engine debugger, error like this: 
+## Sends a custom error to the console that can be viewed in the engine debugger, error like this:
 ## [code]SLib.gd:x @ send_error(): [/code][param from][code]: [/code][param error]
 func send_error(error: String = _defaults["Error"], from: String = "Debugger") -> void:
 	push_error(from + ": " + error)

@@ -8,9 +8,7 @@
 
 ## Get Engine
 
-Text Forge built on Godot (v4.4.1.stable.official [49a5bc7b6]), you can get this version from this page:
-
-https://godotengine.org/download/archive/4.4.1-stable
+Text Forge built on Godot (v4.4.1.stable.official [49a5bc7b6]), you can get this version from [this page](https://godotengine.org/download/archive/4.4.1-stable).
 
 ## Get Source
 
@@ -26,4 +24,4 @@ Now you can use Godot to import project and edit it, or press `F5` to run projec
 
 !!! Important
 
-    If your clone is for conribution, Alway create a new branch for new PRs.
+    If your clone is for conribution, Always create a new branch for new PRs.

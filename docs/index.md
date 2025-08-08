@@ -1,9 +1,9 @@
 # Text Forge Documentation
 
-Welcome to the official documentation for **Text Forge** — a modular, extensible, and language-agnostic text editor 
+Welcome to the official documentation of **Text Forge** — a modular, extensible, and language-agnostic text editor 
 built with user empowerment at its core.
 
-Whether you're a developer, translator, or power user, Text Forge gives you the tools to shape your editing experience 
+Whether you're a developer, programmer, or data manager, Text Forge gives you the tools to shape your editing experience 
 exactly the way you want.
 
 ---

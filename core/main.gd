@@ -1,6 +1,6 @@
 class_name Core
 extends Control
-# official repo: https://text-forge/text-forge
+# official repo: https://github.com/text-forge/text-forge
 ## Root node of main window.
 
 ## Available option types in menus.
@@ -57,12 +57,18 @@ func _ready() -> void:
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
 
+	Settings.define_preset("files", "load_last_file_at_start", true)
+	Settings.define_preset("files", "ask_before_load_last_file_at_start", false)
+	Settings.define_preset("notifications", "automatic_load_last_file_at_start", true)
+
 	# load data in main_menu_data
 	_load_main_menu_data()
 	# Load main menu items
 	_load_main_menu()
 	# Load action scripts
 	_load_scripts()
+
+	_handle_load_last_file()
 
 
 ## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top
@@ -86,6 +92,21 @@ func append_to_recent_files(file_path: String) -> void:
 
 func show_about() -> void:
 	about.show()
+
+
+func _handle_load_last_file() -> void:
+	if not(Settings.get_setting("files", "load_last_file_at_start") and Global.get_last_file_path()):
+		return
+
+	if Settings.get_setting("files", "ask_before_load_last_file_at_start"):
+		add_child(Factory.confirmation_dialog("Do you want to load your last opened file?", "Yes", "No", "Load last file", Callable(), _load_last_file.bind(false), true))
+	else:
+		_load_last_file(true)
+
+func _load_last_file(is_automatic := true) -> void:
+	Signals.open_file.emit(Global.get_last_file_path())
+	if is_automatic and Settings.get_setting("notifications", "automatic_load_last_file_at_start"):
+		Global.send_notification(Global.Notification.INFO, "Your last opened file was loaded!", "You can change this behavior or disable this notification in preferences.")
 
 
 ## Loads data in [member main_menu_data], uses [constant FileDatabase.MAIN_UI_DATA] and [constant DATA_SECTION].

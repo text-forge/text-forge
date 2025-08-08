@@ -34,7 +34,7 @@ func _uninstall() -> void:
 
 
 func _on_export_pressed() -> void:
-	add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfx,*.zip;Text Forge Extensions;application/zip"], _export_self, true))
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfx,*.zip;Text Forge Extensions;application/zip"], _export_self, true, OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)))
 
 
 func _export_self(path: String) -> void:

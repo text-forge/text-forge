@@ -7,7 +7,7 @@ Text Forge is an open source code editor based on:
 * lightweight design
 * extensibility 
 * mode-drive design 
-* be customizable 
+* customizability
 * scriptable design 
 * language agnostic design 
 * data-driven interface 

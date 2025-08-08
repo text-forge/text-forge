@@ -35,15 +35,8 @@ func _load_mode_list() -> void:
 
 
 func _on_import_pressed() -> void:
-	var selection := FileDialog.new()
-	add_child(selection)
-	selection.visibility_changed.connect(func(): if not selection.visible: selection.queue_free())
-	selection.use_native_dialog = true
-	selection.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	selection.access = FileDialog.ACCESS_FILESYSTEM
-	selection.filters = ["*.tfmode,*.zip;Text Forge Modes;application/zip"]
-	selection.file_selected.connect(_import_mode)
-	selection.popup_centered()
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfmode,*.zip;Text Forge Modes;application/zip"], _import_mode, true, OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)))
+
 
 # from official docs
 func _import_mode(path: String) -> void:
@@ -92,14 +85,7 @@ func _on_edit_script_pressed() -> void:
 
 
 func _on_export_pressed() -> void:
-	var selection := FileDialog.new()
-	selection.access = FileDialog.ACCESS_FILESYSTEM
-	selection.filters = ["*.tfmode,*.zip;Text Forge Modes;application/zip"]
-	selection.use_native_dialog = true
-	selection.file_selected.connect(_export_mode)
-	selection.visibility_changed.connect(func(): if not selection.visible: selection.queue_free())
-	add_child(selection)
-	selection.popup_centered()
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfmode,*.zip;Text Forge Modes;application/zip"], _export_mode, true, OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)))
 
 
 func _export_mode(path: String) -> void:
@@ -175,11 +161,4 @@ func _on_create_package_toggled(toggled_on: bool) -> void:
 			mode_list.select_mode = ItemList.SELECT_SINGLE
 			mode_list.deselect_all()
 			return
-		var selection := FileDialog.new()
-		selection.access = FileDialog.ACCESS_FILESYSTEM
-		selection.filters = ["*.tfmode,*.zip;Text Forge Modes;application/zip"]
-		selection.use_native_dialog = true
-		selection.file_selected.connect(_save_package)
-		selection.visibility_changed.connect(func(): if not selection.visible: selection.queue_free())
-		add_child(selection)
-		selection.popup_centered()
+		add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.tfmode,*.zip;Text Forge Modes;application/zip"], _save_package, true, OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)))

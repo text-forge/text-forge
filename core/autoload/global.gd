@@ -148,3 +148,18 @@ func get_command_list() -> Dictionary:
 ## ([code]*[/code]) will append to its name. (See also [method get_file_name])
 func has_unsaved_change() -> bool:
 	return get_file_name().ends_with("*")
+
+
+## Returns last stored file path in [constant FileDatabase.RECENT_FILES_DATA] or [code]""[/code].
+func get_last_file_path() -> String:
+	var path := ""
+
+	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
+		var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
+		var recent_files_list = file_access.get_as_text().split("\n", false)
+		file_access.close()
+
+		if recent_files_list:
+			path = recent_files_list[0]
+
+	return path

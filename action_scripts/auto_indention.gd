@@ -1,7 +1,7 @@
 extends CheckableActionScript
 
 func _setup() -> void:
-	settings_section = "editor"
+	settings_section = "edit"
 	settings_key = "auto_indention"
 	default = true
 

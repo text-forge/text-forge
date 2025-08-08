@@ -104,7 +104,7 @@ func add_panel(location: Panels, panel: Control, icon: Texture2D) -> void:
 	match location:
 		Panels.LEFT:
 			current_tab = tab_left
-			current_panel = Panels.LEFT
+			current_panel = panel_left
 		Panels.RIGHT:
 			current_tab = tab_right
 			current_panel = panel_right

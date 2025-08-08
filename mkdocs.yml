@@ -24,9 +24,11 @@ nav:
   - Introduction:
       - Introduction: introduction.md
       - Setup: setup.md
-  - Structure:
-    - Modes: modes.md
-    - Action Scripts: action_scripts.md
+  - Architecture:
+      - Data Driven UI: data_driven_ui.md
+      - Object Oriented Design: object_oriented_design.md
+      - Modes: modes.md
+      - Action Scripts: action_scripts.md
   - Developer Guides:
       - Contributing Guide: contributing.md
       - Contribution Types: contribution_types.md

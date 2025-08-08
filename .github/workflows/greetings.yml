@@ -1,9 +1,11 @@
 name: Greetings
 
 on: [pull_request_target, issues]
+  
 
 jobs:
   greeting:
+    if: github.actor != 'mkh-user'
     runs-on: ubuntu-latest
     permissions:
       issues: write
