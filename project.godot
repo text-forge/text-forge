@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Text Forge"
-config/version="0.1"
+config/version="0.1-rc1"
 run/main_scene="uid://dx1alvj3tjt16"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Text Forge"
@@ -34,6 +34,7 @@ SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
 Extensions="*res://core/extensions/extensions.gd"
+LSP="*res://core/autoload/lsp.gd"
 
 [debug]
 

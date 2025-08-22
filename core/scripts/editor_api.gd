@@ -238,12 +238,22 @@ func _on_editor_code_completion_requested() -> void:
 ## • Linting[br]
 ## • Outline
 func _load_mode_features() -> void:
+	_handle_lsp()
 	_load_syntax_highlighter()
 	_load_delimiters()
 	_load_mode_panel()
 	_update_preview()
 	_lint_content()
 	_update_outline()
+
+
+func _handle_lsp() -> void:
+	LSP.shutdown()
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		return
+	if mode_script.get_property_list().any(func(p): return p["name"] == "lsp_host") and mode_script.get_property_list().any(func(p): return p["name"] == "lsp_port"):
+		LSP.connect_to_server(mode_script.lsp_host as String, mode_script.lsp_port as int)
 
 
 ## Updates file outline. Result will send to [signal SignalBus.outline_updated].

@@ -299,7 +299,8 @@ metadata/_tab_index = 0
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=24]Text Forge[/font_size]
-[font_size=15][color=darkgray]V0.1-beta[/color][/font_size]
+[font_size=15][color=darkgray]V0.1-rc1
+TFM API V2.0[/color][/font_size]
 
 A highly modular and extendable open-source code editor.
 Based on:
