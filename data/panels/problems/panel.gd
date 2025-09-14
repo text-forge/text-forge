@@ -32,7 +32,7 @@ func _update_problems(problems: Array[Dictionary]) -> void:
 		var item: PanelContainer = instance.duplicate()
 
 		# red for errrors, yellow for warnings
-		var icon: Texture2D = load("res://data/panels/problems/error.png" if p["error"] else "res://data/panels/problems/warning.png")
+		var icon: Texture2D = Global.load_resource("res://data/panels/problems/error.png" if p["error"] else "res://data/panels/problems/warning.png")
 		# color for title, same color as icon
 		var color: Color = Color("e50000" if p["error"] else "e8bc03")
 		# line and column prefix

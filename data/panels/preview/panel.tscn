@@ -26,6 +26,7 @@ grow_vertical = 2
 layout_mode = 2
 bbcode_enabled = true
 shortcut_keys_enabled = false
+threaded = true
 
 [node name="Message" type="Label" parent="Margin"]
 layout_mode = 2

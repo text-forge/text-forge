@@ -5,7 +5,7 @@ extends GdUnitTestSuite
 @warning_ignore('return_value_discarded')
 
 func test_translation_file() -> void:
-	var file := FileAccess.open("res://data/translation.csv", FileAccess.READ)
+	var file := FileAccess.open(SLib.globalize_path("res://data/translation.csv"), FileAccess.READ)
 	var column_names := file.get_csv_line()
 	var index = 0
 

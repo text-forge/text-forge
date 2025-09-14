@@ -1,4 +1,10 @@
 key,en,fa,pl
+menu.project,Project,پروژه
+menu.project.new_project,New Project,پروژه جدید
+menu.project.open_project,Open Project,باز کردن پروژه
+menu.project.recent_projects,Recent Projects,پروژه های اخیر
+menu.project.close_project,Close Project,بستن پروژه
+menu.project.project_settings,Project Settings,تنظیمات پروژه
 menu.file,File,فایل,Plik
 menu.file.new,New,جدید,Nowy
 menu.file.new_window,New Window,پنجره جدید,Nowe okno

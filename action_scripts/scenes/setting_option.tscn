@@ -47,9 +47,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(180, 31)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = SubResource("Theme_tnss3")
 current_tab = 2
 tabs_visible = false

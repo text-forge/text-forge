@@ -1,9 +1,0 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://3163wve042wk"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_20gis"]
-device = -1
-ctrl_pressed = true
-keycode = 79
-
-[resource]
-events = [SubResource("InputEventKey_20gis")]

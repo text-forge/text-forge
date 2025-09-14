@@ -1,9 +1,0 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://dadkkug160by1"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_dc1cb"]
-device = -1
-ctrl_pressed = true
-keycode = 82
-
-[resource]
-events = [SubResource("InputEventKey_dc1cb")]

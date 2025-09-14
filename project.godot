@@ -35,6 +35,9 @@ Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
 Extensions="*res://core/extensions/extensions.gd"
 LSP="*res://core/autoload/lsp.gd"
+BackupCore="*res://core/autoload/backup_core.gd"
+Tests="*res://core/autoload/tests.gd"
+Project="*res://core/autoload/project.gd"
 
 [debug]
 
@@ -44,6 +47,7 @@ gdscript/warnings/narrowing_conversion=0
 
 [display]
 
+window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
@@ -75,3 +79,7 @@ report/godot/push_error=true
 [gui]
 
 theme/custom="uid://dnvygvv1c55qb"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.11834, 0.167543, 0.216756, 1)

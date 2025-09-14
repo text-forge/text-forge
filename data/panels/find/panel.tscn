@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://chcbcwt46nc6s"]
 
-[ext_resource type="Script" uid="uid://cwenslu0l5275" path="res://data/panels/find/panel.gd" id="1_0rt6l"]
+[ext_resource type="Script" uid="uid://bh6amhejvq6nw" path="res://data/panels/find/panel.gd" id="1_0rt6l"]
 
 [node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "search", "replace", "list")]
 custom_minimum_size = Vector2(300, 0)

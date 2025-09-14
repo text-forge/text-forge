@@ -22,9 +22,7 @@ extends Node
 var id: int
 ## Index of linked option in [member menu], will use [code]menu.get_item_index(id)[/code] as getter.
 ## So this is a shortcut to item.
-var index: int:
-	get:
-		return menu.get_item_index(id)
+var index: int
 ## Parent [PopupMenu].
 var menu: PopupMenu
 ## Specifies whether this action script requires opened file or no. See also [method _check_option].
@@ -34,10 +32,15 @@ var requires_saved_file := false
 ## [InputEventKey] for this action script. See also [method _load_shortcut].
 var action_shortcut := InputEventKey.new()
 ## Specifiest this action script is now runable or no.
-var enable := true
+var enable := true:
+	set(value):
+		if value != enable:
+			menu.set_item_disabled(index, not value)
+		enable = value
 
 ## Called after add action script in [SceneTree]. See also [method Node._enter_tree].
 func _enter_tree() -> void:
+	index = menu.get_item_index(id)
 	_initialize()
 	_load_shortcut()
 	_define_action()
@@ -52,10 +55,9 @@ func _initialize() -> void:
 ## Sets linked item enabled/disabled based on current situation.[br][br]
 ## [b]Note:[/b] Use [method _check_option_extra] for customizing.
 func _check_option() -> void:
-	var has_file := Global.get_file_path() != "" if requires_file else true
-	var has_saved_file := Global.get_file_path().is_absolute_path() if requires_saved_file else true
+	var has_file := (not Global.is_editor_disabled()) if requires_file else true
+	var has_saved_file := Global.has_file() if requires_saved_file else true
 	enable = has_file and has_saved_file and _check_option_extra()
-	menu.set_item_disabled(index, not enable)
 
 
 ## Override this function to add more check for option state. When returns [code]false[/code] option
@@ -74,27 +76,14 @@ func is_enable() -> bool:
 ## it will call [method _run_action] when [member action_shortcut] pressed. (See
 ## [method MultiActionScript._load_shortcut] for other behavior.)
 func _load_shortcut() -> void:
-	if FileAccess.file_exists("res://shortcuts/{0}.tres".format([name])):
-		action_shortcut = load("res://shortcuts/{0}.tres".format([name])).events[0]
-		menu.set_item_accelerator(menu.get_item_index(id), _convert_event_to_key(action_shortcut))
+	action_shortcut = Global.shortcut_map.get_shortcut(name)
+	menu.set_item_accelerator(index, action_shortcut.get_keycode_with_modifiers())
 
 
 ## Defines this action as a command for command palettes, this command will be connected to
 ## [method _run_action].
 func _define_action() -> void:
 	Global.define_command(name.capitalize(), action_shortcut.as_text_keycode(), self._run_action)
-
-
-## Converts given [param event] from [InputEventKey] to [enum Key]. (For [method _load_shortcut])
-func _convert_event_to_key(event: InputEventKey) -> int:
-	var mask := 0
-	if event.ctrl_pressed:
-		mask |= KEY_MASK_CTRL
-	if event.alt_pressed:
-		mask |= KEY_MASK_ALT
-	if event.shift_pressed:
-		mask |= KEY_MASK_SHIFT
-	return mask | event.keycode
 
 
 ## Routes [signal SignalBus.run_script] to [method _run_action] if [param script_id] matches

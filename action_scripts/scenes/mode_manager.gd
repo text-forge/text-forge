@@ -67,7 +67,7 @@ func _close() -> void:
 
 func _on_data_changed(new_text: String) -> void:
 	var config = ConfigFile.new()
-	config.load("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg"))
+	config.load(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg")))
 	config.set_value("mode", "name", about.get_child(0).text.strip_edges())
 	config.set_value("mode", "version", about.get_child(1).text.strip_edges())
 	config.set_value("mode", "author", about.get_child(2).text.strip_edges())

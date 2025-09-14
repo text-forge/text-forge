@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://yyicwmyc6usr"]
+
+[ext_resource type="Script" uid="uid://cwenslu0l5275" path="res://data/panels/files/panel.gd" id="1_h88as"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h88as"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qanhg"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("tab", "tree")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h88as")
+tab = NodePath("MarginContainer/TabContainer")
+tree = NodePath("MarginContainer/TabContainer/Tree")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_h88as")
+current_tab = 0
+tabs_visible = false
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+text = "Please open a project to see files"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_tab_index = 0
+
+[node name="Tree" type="Tree" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qanhg")
+allow_reselect = true
+hide_root = true
+metadata/_tab_index = 1
+
+[connection signal="item_selected" from="MarginContainer/TabContainer/Tree" to="." method="_on_tree_item_selected"]

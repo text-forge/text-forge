@@ -1,0 +1,167 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1sddr7ps0tem"]
+
+[ext_resource type="Script" uid="uid://p2lgrulkqol6" path="res://action_scripts/scenes/project_settings.gd" id="1_kylwx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kp10"]
+font_size = 20
+
+[node name="ProjectSettings" type="Window" node_paths=PackedStringArray("details_edit", "exclude_files", "icon_button", "include_files", "name_edit", "tags_edit")]
+title = "Project Settings..."
+initial_position = 2
+size = Vector2i(600, 500)
+min_size = Vector2i(400, 500)
+script = ExtResource("1_kylwx")
+details_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Details")
+exclude_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/ExcludeFiles")
+icon_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon")
+include_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/IncludeFiles")
+name_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Name")
+tags_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Tags")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="MainS" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Main"
+label_settings = SubResource("LabelSettings_1kp10")
+
+[node name="Placeholder" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="NameL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+
+[node name="Name" type="LineEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DetailsL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Details"
+
+[node name="Details" type="TextEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Optional"
+
+[node name="IconL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Icon"
+
+[node name="Icon" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Choose an image to use as the project icon (Optional)"
+text = "Select Image..."
+
+[node name="TagsL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tags"
+
+[node name="Tags" type="LineEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Comma-separated (e.g., tag1, tag2)"
+placeholder_text = "Comma-separated"
+clear_button_enabled = true
+
+[node name="FilesS" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Files"
+label_settings = SubResource("LabelSettings_1kp10")
+
+[node name="Placeholder2" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IncludeL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Include"
+
+[node name="Include" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Dir" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Add a directory to the include list"
+text = "Add Folder..."
+
+[node name="File" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Add files to the include list"
+text = "Add Files..."
+
+[node name="Placeholder3" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IncludeFiles" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="ExcludeL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exclude"
+
+[node name="Exclude" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Dir" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Add a directory to the exclude list"
+text = "Add Folder..."
+
+[node name="File" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Add files to the exclude list"
+text = "Add Files..."
+
+[node name="Placeholder4" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="ExcludeFiles" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save"
+
+[connection signal="close_requested" from="." to="." method="queue_free"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon" to="." method="_on_icon_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/Dir" to="." method="_on_add_include_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/File" to="." method="_on_add_include_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/Dir" to="." method="_on_add_exclude_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/File" to="." method="_on_add_exclude_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]

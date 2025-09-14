@@ -35,14 +35,14 @@ func _load_mode_list() -> void:
 	var damaged_modes: Dictionary[String, String] = {}
 
 	for mode_folder: String in DirAccess.get_directories_at(FileDatabase.FOLDER_MODES):
-		if not (FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
-		and FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder]))
-		and FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_ICON.format([mode_folder]))):
+		if not (FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder])))
+		and FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])))
+		and FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_ICON.format([mode_folder])))):
 			damaged_modes[mode_folder] = "Missing files"
 			continue
 
 		var config = ConfigFile.new()
-		var err := config.load(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
+		var err := config.load(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder])))
 
 		if err:
 			damaged_modes[mode_folder] = "Load config failed"
@@ -53,7 +53,7 @@ func _load_mode_list() -> void:
 		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
 			damaged_modes[mode_folder] = "Invalid keys"
 			continue
-		if not is_instance_of(load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
+		if not is_instance_of(Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
 			damaged_modes[mode_folder] = "Invalid script"
 			continue
 
@@ -111,6 +111,7 @@ func save_file(file_path: String) -> void:
 					Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
 					return
 				file.store_string(Global.get_editor_text())
+				Global.get_core().append_to_recent_files(file_path)
 				file.close()
 
 				Signals.check_options.emit()
@@ -124,10 +125,12 @@ func save_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
@@ -141,6 +144,9 @@ func save_file(file_path: String) -> void:
 ## Handle file loading from mode selection to targe file and then to correct mode decode system and editor.
 ## This method have same logic as [method save_file].
 func load_file(file_path: String) -> void:
+	if file_path.get_extension().to_lower() == "tfproj":
+		Project.load_project(file_path)
+		return
 	var mode := current_mode
 
 	if not _is_mode_compatible(current_mode, file_path):
@@ -152,6 +158,7 @@ func load_file(file_path: String) -> void:
 				_unload_current_mode()
 
 				Global.set_editor_text(FileAccess.get_file_as_string(file_path))
+				Global.get_core().append_to_recent_files(file_path)
 				Global.set_editor_disabled(false)
 				if FileAccess.get_open_error():
 					Global.send_notification(Global.Notification.ERROR, "Error in opening file!", "Load from {0} completed with error code {1}".format([file_path, FileAccess.get_open_error()]))
@@ -167,10 +174,12 @@ func load_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
@@ -258,6 +267,7 @@ func _handle_lsp() -> void:
 
 ## Updates file outline. Result will send to [signal SignalBus.outline_updated].
 func _update_outline() -> void:
+	await get_tree().process_frame
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.outline_updated.emit(Array())
@@ -268,6 +278,7 @@ func _update_outline() -> void:
 
 ## Updates problem list. Result will send to [signal SignalBus.problems_updated].
 func _lint_content() -> void:
+	await get_tree().process_frame
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.problems_updated.emit(Array([], TYPE_DICTIONARY, "", null))
@@ -278,6 +289,7 @@ func _lint_content() -> void:
 
 ## Updates preview. Result will send to [signal SignalBus.preview_updated].
 func _update_preview() -> void:
+	await get_tree().process_frame
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.preview_updated.emit("")
@@ -359,7 +371,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
 
-	var new_mode_script: TextForgeMode = load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
+	var new_mode_script: TextForgeMode = Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 
@@ -411,6 +423,7 @@ func _handle_save_file(file_path: String) -> void:
 		return
 
 	file.store_buffer(mode_script._string_to_buffer(Global.get_editor_text()))
+	Global.get_core().append_to_recent_files(file_path)
 	file.close()
 	Signals.check_options.emit()
 
@@ -431,6 +444,7 @@ func _handle_load_file(file_path: String) -> void:
 		return
 
 	Global.set_editor_text(mode_script._buffer_to_string(buffer))
+	Global.get_core().append_to_recent_files(file_path)
 	Global.set_editor_disabled(false)
 	Signals.check_options.emit()
 

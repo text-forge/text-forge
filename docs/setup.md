@@ -40,3 +40,54 @@ You have a ready code editor! Let's open a file:
 !!! Tip
 
     You can open a file with `Ctrl + O` shortcut or using command palette (`Command > Command Palette` option in menus or `Ctrl + P`)
+
+!!! Note
+
+    On windows, use RMB on file and click on **Open With**, then select Text Forge runnable `.exe`.
+    After this you will be able to open files with Text Forge without open it directly.
+
+## Create New Project
+
+!!! Note
+
+    Unlike most editors, you don't need to create a project before creating a file, so this section is optional.
+
+If you've used other editors, you'll notice a different **project** concept. In other editors:
+
+- A project is a folder.
+- Project information is stored in a subfolder of that folder (e.g., `.textforge`).
+
+In Text Forge:
+
+- A project is a `.tfproj` file.
+- Project information is stored in that file.
+
+But why? We have specific reasons for this design:
+
+|Feature                |Folder-based projects          |`.tfproj` projects      |
+|-----------------------|-------------------------------|------------------------|
+|File Path Flexibility  |Only files inside the folder   |Any file from any path  |
+|Single-File Projects   |Requires a folder              |A single file is enough |
+|Custom Project Settings|Scattered across multiple files|Centralized in `.tfproj`|
+
+Overall, this design gives you more flexibility. You can keep parts of a larger project in different
+folders and switch between them in the editor with a single click.
+
+Let's see Text Forge projects in action. You can create a project from **Project > New Project**.
+This opens the **New Project** window with these fields:
+
+- **Project File** — Path to your `.tfproj` file.
+- **Name** — Project name.
+- **Details** — Optional project details.
+- **Icon** — Optional project icon.
+- **Tags** — Optional comma-separated list of tags.
+- **Include** — Folders and files to add to the project.
+- **Exclude** — Folders and files to exclude from the project.
+
+When you press the **Create** button, the editor creates the project, and you can use **Project > Open Project**
+to open it. Then, navigate between project files in the **Files** panel on the left side of the editor.
+To automatically save files when moving between project files, enable
+**Settings > Preferences... > Files > Save Files When Moving Between Project Files**.
+
+!!! Tip
+    See also: [Project menu](menus.md#project)

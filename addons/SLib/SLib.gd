@@ -146,15 +146,13 @@ func set_file_path(key: String, path: String) -> void:
 ## [b]Engine Docs:[/b] See [url=https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html]File paths in Godot projects[/url] to see what those paths convert to.[br]
 ## [b]See also:[/b] [method localize_path].
 func globalize_path(path: String) -> String:
-	if path[0] == "u":
-		return ProjectSettings.globalize_path(path)
-	else:
+	if path.begins_with("res://"):
 		if OS.has_feature("editor"):
 			path = ProjectSettings.globalize_path(path)
 		else:
-			path = path.erase(0,6)
-			path = OS.get_executable_path().get_base_dir().path_join(path)
+			path = OS.get_executable_path().get_base_dir().path_join(path.replace("res://", ""))
 		return path
+	return ProjectSettings.globalize_path(path)
 
 
 ## Returns the localized path (starting with [code]res://[/code]) corresponding to the absolute, native OS [param path]. See also [method globalize_path].

@@ -12,14 +12,6 @@ script = ExtResource("1_huy1r")
 container = NodePath("MarginContainer/HSplitContainer/TabContainer")
 tree = NodePath("MarginContainer/HSplitContainer/Tree")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.11834, 0.167543, 0.216756, 1)
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0

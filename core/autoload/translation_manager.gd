@@ -55,6 +55,40 @@ func set_language(language_code: String = "default", fallback_code: String = "de
 	Settings.set_setting(CONFIG_SECTION, CONFIG_FALLBACK_KEY, fallback)
 
 
+func cache_source(source_file: String) -> Dictionary[String,Dictionary]:
+	var data: Dictionary[String, Dictionary] = {}
+	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
+		print("Can't cache translation data\nFile {0} doesn't exist!".format([source_file]))
+		return data
+
+	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
+	var column_names := file.get_csv_line()
+	while file.get_position() < file.get_length():
+		var line = file.get_csv_line()
+		var with_lang: Dictionary[String, String] = {}
+		for l in line.size():
+			if l == 0:
+				continue
+			with_lang[column_names[l]] = line[l]
+		data[line[0]] = with_lang
+	file.close()
+	return data
+
+
+func get_text_from_cache(key: String, cache: Dictionary[String, Dictionary]) -> String:
+	if key == "":
+		return ""
+
+	if not cache.has(key):
+		return key
+	var map := cache.get(key, {}) as Dictionary[String, String]
+	if map.has(language):
+		return map.get(language)
+	if map.has(fallback):
+		return map.get(fallback)
+	return key
+
+
 ## Returns translated text from a saved [b]csv[/b] file, possible exceptions:[br]
 ##  - [param source_file] does not exist: [code]Can't load translation data[/code] error, returns [param key].[br]
 ##  - [member language] does not exist but the [member fallback] is successful: [code]Translation fallback to %fallback%[/code] warning, returns translated key to fallback language.[br]
@@ -68,20 +102,20 @@ func get_text(key: String, source_file: String = "default") -> String:
 	if key == "":
 		return ""
 
-	if not FileAccess.file_exists(source_file):
-		Signals.notification.emit(Global.Notification.ERROR, "Can't load translation data", "File {0} doesn't exitsts!".format([source_file]))
+	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
+		print("Can't load translation data\nFile {0} doesn't exitsts!".format([source_file]))
 		return key
 
-	var file := FileAccess.open(source_file, FileAccess.READ)
+	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
 	var column_names := file.get_csv_line()
 	var lang
 	if not column_names.has(language):
 		if not column_names.has(fallback):
-			Signals.notification.emit(Global.Notification.ERROR, "Invalid language code!", "Language {0} doesn't exitst in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
+			print("Invalid language code!\nLanguage {0} doesn't exist in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
 			file.close()
 			return key
 		else:
-			Signals.notification.emit(Global.Notification.WARNING, "Translation fallback to {0}".format([fallback]), "Can't find language {0} in translation source: {1}, using fallback language".format([language, source_file]))
+			print("Translation fallback to {0}".format([fallback]), "\n", "Can't find language {0} in translation source: {1}, using fallback language".format([language, source_file]))
 			lang = fallback
 	else:
 		lang = language
@@ -93,12 +127,12 @@ func get_text(key: String, source_file: String = "default") -> String:
 			if line.size() == 1:
 				return line[0]
 			return line[index] if line.size() > index else line[1]
-	Signals.notification.emit(Global.Notification.ERROR, "Invalid translation key!", "Can't find key \"{0}\" in translation source: {1}".format([key, source_file]))
+	print("Invalid translation key!\nCan't find key \"{0}\" in translation source: {1}".format([key, source_file]))
 	file.close()
 
 	## Remove temprory translation file
-	if FileAccess.file_exists(TEMP_TRANSLATION_SOURCE):
-		DirAccess.remove_absolute(TEMP_TRANSLATION_SOURCE)
+	if FileAccess.file_exists(SLib.globalize_path(TEMP_TRANSLATION_SOURCE)):
+		DirAccess.remove_absolute(SLib.globalize_path(TEMP_TRANSLATION_SOURCE))
 
 	return key
 

@@ -2,7 +2,6 @@ extends MenuButton
 
 func _ready() -> void:
 	Signals.mode_changed.connect(_update_mode.unbind(1))
-	_update_mode()
 
 
 func _update_mode() -> void:

@@ -40,3 +40,7 @@ func test_set_language_restore_default() -> void:
 func test_set_language_change() -> void:
 	text_forge_translator.set_language("test")
 	assert_str(text_forge_translator.language).is_equal("test")
+
+
+func after() -> void:
+	text_forge_translator.set_language("en", "en")

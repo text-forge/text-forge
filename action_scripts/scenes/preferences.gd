@@ -9,15 +9,15 @@ func _on_close_requested() -> void:
 
 func _ready() -> void:
 	var config := ConfigFile.new()
-	config.load(Settings.PRESETS_FILE)
+	config.load(SLib.globalize_path(Settings.PRESETS_FILE))
 	tree.create_item()
 	for section in config.get_sections():
 		var scroll := ScrollContainer.new()
-		scroll.add_theme_stylebox_override("panel", preload("res://data/margin_style_box_empty.tres"))
+		scroll.add_theme_stylebox_override("panel", Global.load_resource("res://data/margin_style_box_empty.tres"))
 		var tab := VBoxContainer.new()
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		for item in config.get_section_keys(section):
-			var option = load("res://action_scripts/scenes/setting_option.tscn").instantiate()
+			var option = Global.load_resource("res://action_scripts/scenes/setting_option.tscn").instantiate()
 			option.section = section
 			option.key = item
 			tab.add_child(option)

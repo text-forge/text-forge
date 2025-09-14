@@ -6,18 +6,17 @@ extends Node
 ## out in this way.
 
 @warning_ignore_start("unused_signal")
-
+## Standard way to send notifications between modules.[br]
+## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
+signal internal_notification(id: String, data: Array)
+## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
+signal editor_notification(type: Global.Notification, title: String, text: String)
 ## Emits when a script run requested, it will send to all [ActionScript]s. (See also [method ActionScript.run])
 signal run_script(script_id: int)
 ## Emits when a subscript run requested, it will send to all [MultiActionScript]s. (See also [method MultiActionScript.run])
 signal run_subscript(subscript_id: int, submenu: PopupMenu, submenu_name: String)
 ## Will send to all scripts to check current state with them activation state.
 signal check_options
-## Standard way to send notifications between modules.[br]
-## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
-signal notification(id: String, data: Array)
-## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
-signal editor_notification(type: Global.Notification, title: String, text: String)
 ## Requests close file, close script should connect itself to this.
 signal close_file
 ## Requests open file, open script should connect itself to this.
@@ -49,7 +48,6 @@ signal preview_updated(new: String)
 signal problems_updated(problems: Array[Dictionary])
 ## Shares file outline.
 signal outline_updated(outline: Array)
-
 @warning_ignore_restore("unused_signal")
 
 func _ready() -> void:
@@ -63,11 +61,11 @@ func _log_notification(type: Global.Notification, title: String, text: String) -
 	var start: String
 	match type:
 		Global.Notification.INFO:
-			start = "[color=white]Notification: Info: "
+			start = "[color=white]Info: "
 		Global.Notification.WARNING:
-			start = "[color=yellow]Notification: Warning: "
+			start = "[color=yellow]Warning: "
 		Global.Notification.ERROR:
-			start = "[color=red]Notification: Error: "
+			start = "[color=red]Error: "
 		_:
 			start = "[color=darkgray]Notification: Other: "
 	print_rich("{0}{1}[/color]{2}{3}".format([start, title, "\n\t" if text != "" else "", text]))

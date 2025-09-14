@@ -1,0 +1,414 @@
+[gd_resource type="Resource" script_class="ShortcutMap" load_steps=65 format=3 uid="uid://w0udffwchaya"]
+
+[ext_resource type="Script" uid="uid://3d7lbaegdhfi" path="res://core/classes/shortcut_map.gd" id="1_ceuua"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_83eco"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 65
+
+[sub_resource type="InputEventKey" id="InputEventKey_e6opv"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 70
+
+[sub_resource type="InputEventKey" id="InputEventKey_yobho"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 73
+unicode = 105
+
+[sub_resource type="InputEventKey" id="InputEventKey_vqhjl"]
+device = -1
+ctrl_pressed = true
+keycode = 87
+
+[sub_resource type="InputEventKey" id="InputEventKey_r3xx6"]
+device = -1
+ctrl_pressed = true
+keycode = 80
+
+[sub_resource type="InputEventKey" id="InputEventKey_iy6wi"]
+device = -1
+ctrl_pressed = true
+keycode = 46
+unicode = 46
+
+[sub_resource type="InputEventKey" id="InputEventKey_n6hrh"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 67
+
+[sub_resource type="InputEventKey" id="InputEventKey_txhd6"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+keycode = 83
+
+[sub_resource type="InputEventKey" id="InputEventKey_w0def"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+keycode = 84
+
+[sub_resource type="InputEventKey" id="InputEventKey_r66sb"]
+device = -1
+ctrl_pressed = true
+keycode = 67
+
+[sub_resource type="InputEventKey" id="InputEventKey_uyvbl"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 67
+
+[sub_resource type="InputEventKey" id="InputEventKey_p7mcj"]
+device = -1
+ctrl_pressed = true
+keycode = 88
+
+[sub_resource type="InputEventKey" id="InputEventKey_53lw0"]
+device = -1
+keycode = 4194312
+
+[sub_resource type="InputEventKey" id="InputEventKey_tcunu"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 4194312
+
+[sub_resource type="InputEventKey" id="InputEventKey_ys5uc"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 4194322
+
+[sub_resource type="InputEventKey" id="InputEventKey_sjbng"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 68
+
+[sub_resource type="InputEventKey" id="InputEventKey_l6yd8"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 69
+
+[sub_resource type="InputEventKey" id="InputEventKey_rwc0g"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 87
+
+[sub_resource type="InputEventKey" id="InputEventKey_qta5k"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 88
+
+[sub_resource type="InputEventKey" id="InputEventKey_whnus"]
+device = -1
+ctrl_pressed = true
+keycode = 70
+
+[sub_resource type="InputEventKey" id="InputEventKey_cylbn"]
+keycode = 4194334
+
+[sub_resource type="InputEventKey" id="InputEventKey_1l2oh"]
+shift_pressed = true
+keycode = 4194334
+
+[sub_resource type="InputEventKey" id="InputEventKey_tc1w7"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="InputEventKey" id="InputEventKey_1rupg"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+keycode = 70
+
+[sub_resource type="InputEventKey" id="InputEventKey_s46x3"]
+keycode = 4194342
+
+[sub_resource type="InputEventKey" id="InputEventKey_jb5fd"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 71
+
+[sub_resource type="InputEventKey" id="InputEventKey_66qun"]
+device = -1
+ctrl_pressed = true
+keycode = 71
+
+[sub_resource type="InputEventKey" id="InputEventKey_ol2ba"]
+device = -1
+ctrl_pressed = true
+keycode = 61
+
+[sub_resource type="InputEventKey" id="InputEventKey_22qkb"]
+device = -1
+keycode = 4194306
+
+[sub_resource type="InputEventKey" id="InputEventKey_o2ntf"]
+device = -1
+ctrl_pressed = true
+keycode = 74
+
+[sub_resource type="InputEventKey" id="InputEventKey_6dv2x"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 77
+
+[sub_resource type="InputEventKey" id="InputEventKey_giqns"]
+device = -1
+ctrl_pressed = true
+keycode = 77
+
+[sub_resource type="InputEventKey" id="InputEventKey_exfa4"]
+device = -1
+alt_pressed = true
+keycode = 4194322
+
+[sub_resource type="InputEventKey" id="InputEventKey_m313r"]
+device = -1
+alt_pressed = true
+keycode = 4194320
+
+[sub_resource type="InputEventKey" id="InputEventKey_47mor"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 77
+unicode = 109
+
+[sub_resource type="InputEventKey" id="InputEventKey_i77mu"]
+device = -1
+ctrl_pressed = true
+keycode = 78
+
+[sub_resource type="InputEventKey" id="InputEventKey_huh2y"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 78
+
+[sub_resource type="InputEventKey" id="InputEventKey_7s0jk"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 68
+
+[sub_resource type="InputEventKey" id="InputEventKey_20gis"]
+device = -1
+ctrl_pressed = true
+keycode = 79
+
+[sub_resource type="InputEventKey" id="InputEventKey_yfb1k"]
+device = -1
+ctrl_pressed = true
+keycode = 86
+
+[sub_resource type="InputEventKey" id="InputEventKey_7bens"]
+device = -1
+ctrl_pressed = true
+keycode = 44
+
+[sub_resource type="InputEventKey" id="InputEventKey_27ijm"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 79
+
+[sub_resource type="InputEventKey" id="InputEventKey_nxaqw"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 90
+
+[sub_resource type="InputEventKey" id="InputEventKey_ej3le"]
+device = -1
+ctrl_pressed = true
+keycode = 45
+
+[sub_resource type="InputEventKey" id="InputEventKey_dc1cb"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+
+[sub_resource type="InputEventKey" id="InputEventKey_4wp46"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+keycode = 73
+
+[sub_resource type="InputEventKey" id="InputEventKey_5gc0s"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 72
+
+[sub_resource type="InputEventKey" id="InputEventKey_gkk17"]
+device = -1
+ctrl_pressed = true
+keycode = 48
+
+[sub_resource type="InputEventKey" id="InputEventKey_f5nkv"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 82
+
+[sub_resource type="InputEventKey" id="InputEventKey_bt0vd"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="InputEventKey" id="InputEventKey_lenpj"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="InputEventKey" id="InputEventKey_ng22g"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+ctrl_pressed = true
+keycode = 68
+unicode = 100
+
+[sub_resource type="InputEventKey" id="InputEventKey_0r16f"]
+device = -1
+ctrl_pressed = true
+keycode = 65
+
+[sub_resource type="InputEventKey" id="InputEventKey_ykkk2"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 76
+
+[sub_resource type="InputEventKey" id="InputEventKey_5cg2o"]
+device = -1
+ctrl_pressed = true
+keycode = 68
+
+[sub_resource type="InputEventKey" id="InputEventKey_qdajf"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 80
+
+[sub_resource type="InputEventKey" id="InputEventKey_3rfql"]
+device = -1
+ctrl_pressed = true
+keycode = 76
+
+[sub_resource type="InputEventKey" id="InputEventKey_d1ups"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="InputEventKey" id="InputEventKey_w3dsx"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 70
+
+[sub_resource type="InputEventKey" id="InputEventKey_fwmvj"]
+device = -1
+alt_pressed = true
+ctrl_pressed = true
+keycode = 73
+
+[sub_resource type="InputEventKey" id="InputEventKey_dbk71"]
+device = -1
+ctrl_pressed = true
+keycode = 75
+
+[sub_resource type="InputEventKey" id="InputEventKey_v32vs"]
+device = -1
+ctrl_pressed = true
+keycode = 90
+
+[sub_resource type="InputEventKey" id="InputEventKey_7lx5w"]
+device = -1
+shift_pressed = true
+keycode = 4194306
+
+[resource]
+script = ExtResource("1_ceuua")
+map = Dictionary[String, InputEventKey]({
+"about": SubResource("InputEventKey_83eco"),
+"auto_format": SubResource("InputEventKey_e6opv"),
+"auto_indent": SubResource("InputEventKey_yobho"),
+"close": SubResource("InputEventKey_vqhjl"),
+"command_palette": SubResource("InputEventKey_r3xx6"),
+"completion_query": SubResource("InputEventKey_iy6wi"),
+"convert_case": SubResource("InputEventKey_n6hrh"),
+"convert_indent_to_spaces": SubResource("InputEventKey_txhd6"),
+"convert_indent_to_tabs": SubResource("InputEventKey_w0def"),
+"copy": SubResource("InputEventKey_r66sb"),
+"copy_path": SubResource("InputEventKey_uyvbl"),
+"cut": SubResource("InputEventKey_p7mcj"),
+"delete": SubResource("InputEventKey_53lw0"),
+"delete_lines": SubResource("InputEventKey_tcunu"),
+"duplicate_lines": SubResource("InputEventKey_ys5uc"),
+"duplicate_selection": SubResource("InputEventKey_sjbng"),
+"evulate_selection": SubResource("InputEventKey_l6yd8"),
+"exit": SubResource("InputEventKey_rwc0g"),
+"extensions": SubResource("InputEventKey_qta5k"),
+"find_and_replace": SubResource("InputEventKey_whnus"),
+"find_next": SubResource("InputEventKey_cylbn"),
+"find_previous": SubResource("InputEventKey_1l2oh"),
+"focus_on_editor": SubResource("InputEventKey_tc1w7"),
+"forum": SubResource("InputEventKey_1rupg"),
+"full_screen": SubResource("InputEventKey_s46x3"),
+"github_repository": SubResource("InputEventKey_jb5fd"),
+"go_to_line": SubResource("InputEventKey_66qun"),
+"increase_font_size": SubResource("InputEventKey_ol2ba"),
+"indent": SubResource("InputEventKey_22qkb"),
+"join_lines": SubResource("InputEventKey_o2ntf"),
+"mode_library": SubResource("InputEventKey_6dv2x"),
+"mode_manager": SubResource("InputEventKey_giqns"),
+"move_lines_down": SubResource("InputEventKey_exfa4"),
+"move_lines_up": SubResource("InputEventKey_m313r"),
+"move_to_new_file": SubResource("InputEventKey_47mor"),
+"new": SubResource("InputEventKey_i77mu"),
+"new_window": SubResource("InputEventKey_huh2y"),
+"online_docs": SubResource("InputEventKey_7s0jk"),
+"open": SubResource("InputEventKey_20gis"),
+"paste": SubResource("InputEventKey_yfb1k"),
+"preferences": SubResource("InputEventKey_7bens"),
+"recent_files": SubResource("InputEventKey_27ijm"),
+"redo": SubResource("InputEventKey_nxaqw"),
+"reduce_font_size": SubResource("InputEventKey_ej3le"),
+"reload": SubResource("InputEventKey_dc1cb"),
+"remove_all_indents": SubResource("InputEventKey_4wp46"),
+"replace_all": SubResource("InputEventKey_5gc0s"),
+"reset_font_size": SubResource("InputEventKey_gkk17"),
+"restart": SubResource("InputEventKey_f5nkv"),
+"save": SubResource("InputEventKey_bt0vd"),
+"save_as": SubResource("InputEventKey_lenpj"),
+"secure_delete": SubResource("InputEventKey_ng22g"),
+"select_all": SubResource("InputEventKey_0r16f"),
+"select_all_occurrences": SubResource("InputEventKey_ykkk2"),
+"select_next_occurrence": SubResource("InputEventKey_5cg2o"),
+"select_paragraph": SubResource("InputEventKey_qdajf"),
+"select_whole_line": SubResource("InputEventKey_3rfql"),
+"share_feedback": SubResource("InputEventKey_d1ups"),
+"show_in_file_system": SubResource("InputEventKey_w3dsx"),
+"submit_issue": SubResource("InputEventKey_fwmvj"),
+"toggle_comment": SubResource("InputEventKey_dbk71"),
+"undo": SubResource("InputEventKey_v32vs"),
+"unindent": SubResource("InputEventKey_7lx5w")
+})

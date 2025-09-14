@@ -23,6 +23,7 @@ func _ready() -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	matches.clear()
+	Tests.search_started.emit()
 	while true:
 		var next = Global.get_editor().search(
 			new_text,

@@ -43,8 +43,8 @@ const DATA_FILE := "user://data.cfg"
 var config := ConfigFile.new()
 
 func _ready() -> void:
-	if FileAccess.file_exists(DATA_FILE):
-		config.load(DATA_FILE)
+	if FileAccess.file_exists(SLib.globalize_path(DATA_FILE)):
+		config.load(SLib.globalize_path(DATA_FILE))
 
 ## Returns stored setting, if [param default] is [code]null[/code] will load it from
 ## [method get_default] (witch will be [code]null[/code] if this preset was not defined), otherwise
@@ -53,14 +53,19 @@ func _ready() -> void:
 func get_setting(section: String, key: String, default: Variant = null) -> Variant:
 	if default == null:
 		default = get_default(section, key)
-	if not FileAccess.file_exists(SETTINGS_FILE):
+	if not FileAccess.file_exists(SLib.globalize_path(SETTINGS_FILE)):
 		return default
 	var setting := ConfigFile.new()
-	var err := setting.load(SETTINGS_FILE)
+	var err := setting.load(SLib.globalize_path(SETTINGS_FILE))
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't load settings file!", "Error code: " + str(err))
 		return default
 	return setting.get_value(section, key, default)
+
+
+## Same as [method get_setting] but just for [bool] values. (for static typing)
+func get_setting_bool(section: String, key: String, default: Variant = null) -> bool:
+	return bool(get_setting(section, key, default))
 
 
 ## Sets default value for given setting, see also [method get_default].
@@ -71,8 +76,8 @@ func restore_default(section: String, key: String) -> void:
 ## Sets [param velue] for given setting and save settings.
 func set_setting(section: String, key: String, value: Variant = null) -> void:
 	var setting = ConfigFile.new()
-	if FileAccess.file_exists(SETTINGS_FILE):
-		setting.load(SETTINGS_FILE)
+	if FileAccess.file_exists(SLib.globalize_path(SETTINGS_FILE)):
+		setting.load(SLib.globalize_path(SETTINGS_FILE))
 	setting.set_value(section, key, value)
 	var err = setting.save(SETTINGS_FILE)
 	if err:
@@ -84,8 +89,8 @@ func set_setting(section: String, key: String, value: Variant = null) -> void:
 ## module initialization with this function.
 func define_preset(section: String, key: String, default: Variant = null) -> void:
 	var setting = ConfigFile.new()
-	if FileAccess.file_exists(PRESETS_FILE):
-		setting.load(PRESETS_FILE)
+	if FileAccess.file_exists(SLib.globalize_path(PRESETS_FILE)):
+		setting.load(SLib.globalize_path(PRESETS_FILE))
 	setting.set_value(section, key, default)
 	var err = setting.save(PRESETS_FILE)
 	if err:
@@ -95,10 +100,10 @@ func define_preset(section: String, key: String, default: Variant = null) -> voi
 ## Returns default value for given preset, witch can be set by [method define_preset]. For
 ## none-existent preset will return [code]null[/code] without any error.
 func get_default(section: String, key: String) -> Variant:
-	if not FileAccess.file_exists(PRESETS_FILE):
+	if not FileAccess.file_exists(SLib.globalize_path(PRESETS_FILE)):
 		return null
 	var setting := ConfigFile.new()
-	var err := setting.load(PRESETS_FILE)
+	var err := setting.load(SLib.globalize_path(PRESETS_FILE))
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Can't load presets file!", "Error code: " + str(err))
 		return null

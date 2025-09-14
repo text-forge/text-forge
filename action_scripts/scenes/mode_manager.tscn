@@ -18,14 +18,6 @@ mode_list = NodePath("Margin/VBox/Modes/ModesList")
 about = NodePath("Margin/VBox/Modes/Mode Editor")
 mode_kit_button = NodePath("Margin/VBox/Buttons/CreateKit")
 
-[node name="BG" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.11834, 0.167543, 0.216756, 1)
-
 [node name="Margin" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0

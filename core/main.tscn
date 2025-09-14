@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=19 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dvndxigy5lpnw" path="res://data/panels/problems/warning.png" id="7_510js"]
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
+[ext_resource type="Texture2D" uid="uid://cd6f2n7byh01c" path="res://assets/backup.png" id="8_510js"]
+[ext_resource type="Script" uid="uid://cti2u1j1m720x" path="res://core/scripts/backup_status.gd" id="9_7ua4h"]
+[ext_resource type="Script" uid="uid://812j1a3e2eym" path="res://core/scripts/caret_pos.gd" id="10_7ua4h"]
 
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
@@ -26,6 +29,8 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ge7io"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusby"]
 bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
 corner_radius_bottom_right = 5
@@ -39,13 +44,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5qli")
-menu_container = NodePath("Margin/Sections/Menus")
+menu_container = NodePath("Margin/Sections/MenuBar")
 file_label = NodePath("Margin/Sections/FileLabel")
 editor = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor")
 scripts = NodePath("Scripts")
 panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
-module_profiler = NodePath("Margin/Sections/HBoxContainer/ModuleProfiler")
+module_profiler = NodePath("Margin/Sections/BottomBar/ModuleProfiler")
 
 [node name="Back" type="ColorRect" parent="."]
 layout_mode = 1
@@ -67,8 +72,9 @@ grow_vertical = 2
 [node name="Sections" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="Menus" type="HFlowContainer" parent="Margin/Sections"]
+[node name="MenuBar" type="MenuBar" parent="Margin/Sections"]
 layout_mode = 2
+flat = true
 
 [node name="FileLabel" type="Label" parent="Margin/Sections"]
 layout_mode = 2
@@ -77,19 +83,25 @@ mouse_filter = 1
 text = "There is no opened file"
 text_overrun_behavior = 4
 
-[node name="PanelManager" type="HBoxContainer" parent="Margin/Sections" node_paths=PackedStringArray("tab_left", "tab_right", "tab_bottom", "spliter_left", "spliter_right", "spliter_bottom", "panel_left", "panel_right", "panel_bottom")]
+[node name="PanelManager" type="HBoxContainer" parent="Margin/Sections" node_paths=PackedStringArray("tabs", "spliters", "containers")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_tefeu")
-tab_left = NodePath("LeftTab")
-tab_right = NodePath("RightTab")
-tab_bottom = NodePath("../BottomTab")
-spliter_left = NodePath("LeftSpliter")
-spliter_right = NodePath("LeftSpliter/RightSpliter")
-spliter_bottom = NodePath("LeftSpliter/RightSpliter/BottomSpliter")
-panel_left = NodePath("LeftSpliter/LeftPanel")
-panel_right = NodePath("LeftSpliter/RightSpliter/RightPanel")
-panel_bottom = NodePath("LeftSpliter/RightSpliter/BottomSpliter/BottomPanel")
+tabs = {
+0: NodePath("LeftTab"),
+1: NodePath("RightTab"),
+2: NodePath("../BottomTab")
+}
+spliters = {
+0: NodePath("LeftSpliter"),
+1: NodePath("LeftSpliter/RightSpliter"),
+2: NodePath("LeftSpliter/RightSpliter/BottomSpliter")
+}
+containers = {
+0: NodePath("LeftSpliter/LeftPanel"),
+1: NodePath("LeftSpliter/RightSpliter/RightPanel"),
+2: NodePath("LeftSpliter/RightSpliter/BottomSpliter/BottomPanel")
+}
 
 [node name="LeftTab" type="ItemList" parent="Margin/Sections/PanelManager"]
 custom_minimum_size = Vector2(47, 0)
@@ -123,13 +135,10 @@ layout_mode = 2
 editable = false
 deselect_on_focus_loss_enabled = false
 scroll_smooth = true
-minimap_draw = true
+caret_draw_when_editable_disabled = true
 symbol_lookup_on_click = true
 symbol_tooltip_on_hover = true
 line_folding = true
-gutters_draw_line_numbers = true
-gutters_draw_fold_gutter = true
-indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("7_tipki")
@@ -169,36 +178,38 @@ fixed_column_width = 35
 icon_mode = 0
 fixed_icon_size = Vector2i(35, 24)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections"]
+[node name="BottomBar" type="HBoxContainer" parent="Margin/Sections"]
 layout_mode = 2
 theme = SubResource("Theme_csopv")
 alignment = 2
 
-[node name="ProblemCounter" type="HBoxContainer" parent="Margin/Sections/HBoxContainer" node_paths=PackedStringArray("error_count", "warning_count")]
+[node name="ProblemCounter" type="HBoxContainer" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("error_count", "warning_count")]
 layout_mode = 2
 size_flags_horizontal = 2
+tooltip_text = "Problem counter
+Number of detected error and warnings."
 script = ExtResource("5_xhu5d")
-error_count = NodePath("PanelContainer/HBoxContainer/Label")
-warning_count = NodePath("PanelContainer2/HBoxContainer/Label")
+error_count = NodePath("Errors/Container/Count")
+warning_count = NodePath("Warnings/Container/Count")
 
-[node name="PanelContainer" type="PanelContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter"]
+[node name="Errors" type="PanelContainer" parent="Margin/Sections/BottomBar/ProblemCounter"]
 visible = false
 custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7ua4h")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer"]
+[node name="Container" type="HBoxContainer" parent="Margin/Sections/BottomBar/ProblemCounter/Errors"]
 layout_mode = 2
 tooltip_text = "Number of errors"
 
-[node name="TextureRect" type="TextureRect" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Margin/Sections/BottomBar/ProblemCounter/Errors/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("6_rayt5")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer/HBoxContainer"]
+[node name="Count" type="Label" parent="Margin/Sections/BottomBar/ProblemCounter/Errors/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.898039, 0, 0, 1)
@@ -207,24 +218,24 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter"]
+[node name="Warnings" type="PanelContainer" parent="Margin/Sections/BottomBar/ProblemCounter"]
 visible = false
 custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ntwa4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2"]
+[node name="Container" type="HBoxContainer" parent="Margin/Sections/BottomBar/ProblemCounter/Warnings"]
 layout_mode = 2
 tooltip_text = "Number of warnings"
 
-[node name="TextureRect" type="TextureRect" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Margin/Sections/BottomBar/ProblemCounter/Warnings/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("7_510js")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2/HBoxContainer"]
+[node name="Count" type="Label" parent="Margin/Sections/BottomBar/ProblemCounter/Warnings/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.909804, 0.737255, 0.0117647, 1)
@@ -233,7 +244,78 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ModeViewer" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
+[node name="BackupStatus" type="TextureRect" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("hide_timer")]
+visible = false
+custom_minimum_size = Vector2(30, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Backup Status"
+texture = ExtResource("8_510js")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("9_7ua4h")
+hide_timer = NodePath("HideTimer")
+
+[node name="HideTimer" type="Timer" parent="Margin/Sections/BottomBar/BackupStatus"]
+wait_time = 5.0
+one_shot = true
+
+[node name="CaretPos" type="Button" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("line", "column")]
+layout_mode = 2
+tooltip_text = "Caret position
+Click to move caret."
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ge7io")
+text = "0 : 0"
+flat = true
+script = ExtResource("10_7ua4h")
+line = NodePath("PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/LineEdit")
+column = NodePath("PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/LineEdit2")
+
+[node name="PopupPanel" type="PopupPanel" parent="Margin/Sections/BottomBar/CaretPos"]
+initial_position = 2
+size = Vector2i(200, 82)
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 198.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Line"
+alignment = 1
+virtual_keyboard_type = 2
+select_all_on_focus = true
+
+[node name="LineEdit2" type="LineEdit" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Column"
+alignment = 1
+virtual_keyboard_type = 2
+select_all_on_focus = true
+
+[node name="Button" type="Button" parent="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Go"
+
+[node name="ModeViewer" type="MenuButton" parent="Margin/Sections/BottomBar"]
 layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Mode Viewer
@@ -242,7 +324,7 @@ theme_override_font_sizes/font_size = 14
 text = "Current Mode: None"
 script = ExtResource("5_kagtj")
 
-[node name="ModuleProfiler" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
+[node name="ModuleProfiler" type="MenuButton" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("modulate_timer")]
 layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Module Profiler
@@ -254,10 +336,15 @@ item_count = 1
 popup/item_0/text = "Reload"
 popup/item_0/id = 0
 script = ExtResource("5_xa854")
+modulate_timer = NodePath("ModulateTimer")
 
-[node name="Timer" type="Timer" parent="Margin/Sections/HBoxContainer/ModuleProfiler"]
+[node name="RefreshTimer" type="Timer" parent="Margin/Sections/BottomBar/ModuleProfiler"]
 wait_time = 5.0
 autostart = true
+
+[node name="ModulateTimer" type="Timer" parent="Margin/Sections/BottomBar/ModuleProfiler"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Scripts" type="Control" parent="."]
 layout_mode = 1
@@ -270,14 +357,6 @@ size = Vector2i(500, 400)
 visible = false
 min_size = Vector2i(500, 400)
 keep_title_visible = true
-
-[node name="ColorRect" type="ColorRect" parent="About"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.11834, 0.167543, 0.216756, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="About"]
 anchors_preset = 15
@@ -299,8 +378,9 @@ metadata/_tab_index = 0
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=24]Text Forge[/font_size]
-[font_size=15][color=darkgray]V0.1-rc1
-TFM API V2.0[/color][/font_size]
+[font_size=15][color=darkgray]v0.1-stable
+Mode API v2.0
+Project Module v1.0[/color][/font_size]
 
 A highly modular and extendable open-source code editor.
 Based on:
@@ -370,5 +450,11 @@ bbcode_enabled = true
 [connection signal="code_completion_requested" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor/API" method="_on_editor_code_completion_requested"]
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" method="_on_text_changed"]
-[connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_refresh"]
+[connection signal="pressed" from="Margin/Sections/BottomBar/CaretPos" to="Margin/Sections/BottomBar/CaretPos" method="_on_pressed"]
+[connection signal="about_to_popup" from="Margin/Sections/BottomBar/CaretPos/PopupPanel" to="Margin/Sections/BottomBar/CaretPos" method="_on_popup_panel_about_to_popup"]
+[connection signal="text_submitted" from="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="Margin/Sections/BottomBar/CaretPos" method="_on_go_pressed" unbinds=1]
+[connection signal="text_submitted" from="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/LineEdit2" to="Margin/Sections/BottomBar/CaretPos" method="_on_go_pressed" unbinds=1]
+[connection signal="pressed" from="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/Button" to="Margin/Sections/BottomBar/CaretPos" method="_on_go_pressed"]
+[connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/RefreshTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_refresh"]
+[connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/ModulateTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_on_timer_2_timeout"]
 [connection signal="close_requested" from="About" to="About" method="hide"]

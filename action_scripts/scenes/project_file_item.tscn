@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://du5tnjma8v24f"]
+
+[ext_resource type="Texture2D" uid="uid://4ymdoc7w7sv7" path="res://assets/deactive.png" id="1_6i370"]
+
+[node name="File" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+
+[node name="Path" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "File"
+
+[node name="Remove" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Remove"
+icon = ExtResource("1_6i370")
+flat = true
