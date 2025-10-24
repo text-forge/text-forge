@@ -36,6 +36,7 @@ nav:
   - Developer Guides:
       - Contributing Guide: contributing.md
       - Open In Godot (Build): build.md
+      - Project Structure: structure.md
       - Create Action Scripts: create_action_scripts.md
       - Mode Development: mode_development.md
 
