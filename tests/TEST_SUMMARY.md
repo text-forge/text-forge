@@ -1,4 +1,4 @@
-# Test Forge Unit Tests - Summary
+# Text Forge Unit Tests - Summary
 
 ## Overview
 This document provides a comprehensive summary of all unit tests generated for the Text Forge
