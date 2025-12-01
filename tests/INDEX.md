@@ -4,8 +4,7 @@
 
 - Path: `tests/runtime/`
 - Tests: 7
-- Files: 1 (+ 1 Test runnrer)
-
+- Files: 1 (+ 1 Test runner)
 ### Performance Tests
 
 - Path: `tests/runtime/performance.gd`
