@@ -2,19 +2,19 @@
 
 This directory contains comprehensive unit tests for the Text Forge text editor.
 
-## Maintence Notes
+## Maintenance Notes
 - Run tests before commits
 - Update tests when changing functionality
 - Review coverage monthly
 
-## Performance Beckmarks
+## Performance Benchmarks
 Current test suite execution time (estimated):
 - **All tests**: ~10 seconds
 - **Individual file**: ~1 second
 
 ## Test Generation Notes
 - Use **GDUnit4** as test framework
-- Place all tests in `test/` directory
+- Place all tests in `tests/` directory
 - Have coverage example in mind:
   - Initialization and setup
   - Simple behavior
