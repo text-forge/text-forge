@@ -261,7 +261,6 @@ func _complete_installation(
 
 func _change_theme(t_name: String) -> void:
 	Settings.set_setting("editor_ui", "theme_name", t_name)
-	Signals.settings_changed.emit()
 
 
 func _add_image(result: int, response_code: int, __: PackedStringArray, body: PackedByteArray) -> void:
