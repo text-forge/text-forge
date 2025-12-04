@@ -78,7 +78,7 @@ func test_auto_backup_default_enabled() -> void:
 	assert_bool(auto_backup is bool).is_true()
 
 func test_backup_interval_default_value() -> void:
-	var interval = Settings.get_setting("files", "auto_backup_interval_minutes")
+	var interval: int = Settings.get_setting("files", "auto_backup_interval_minutes")
 	assert_int(interval).is_equal(5)
 
 func test_keep_backup_days_default_value() -> void:

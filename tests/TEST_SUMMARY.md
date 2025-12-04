@@ -6,38 +6,41 @@ project changes.
 
 ## Test Results
 
-- **Overall:** 175 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
-- **Executed test suites:** (13/13)
-- **Executed test cases :** (175/175)
-- **Total execution time:** 13s 70ms
+- **Overall:** 263 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
+- **Executed test suites:** (19/19)
+- **Executed test cases :** (263/263)
+- **Total execution time:** 21s 817ms
 - **Runner:** GDUnit4 6.0.1
 
 ## Test Files
 
-- Unit Tests: 175
-- Files: 13
+- Unit Tests: 263
+- Files: 19
 
 ### Action Scripts Tests
 
 - Path: `tests/action_scripts/`
-- Tests: 19
+- Tests: 52
 
 |        Test File         | Tests | Lines |        Covers                 | Coverage |
 |:------------------------:|:-----:|:-----:|:-----------------------------:|:--------:|
 | `action_scripts_test.gd` |   15  |  96   | Class, Loading, Functionality | ⭐⭐⭐⭐ |
 |      `close_test.gd`     |   4   |  41   |     Class, Initialization     | ⭐⭐⭐⭐ |
+| `scenes/marketplace_test.gd` | 5 |  100  |        Dynamic reload         | ⭐ |
+| `scenes/preferences_test.gd` | 9 |  94   |    Initialization, Behavior   | ⭐⭐⭐ |
+| `scenes/setting_option_test.gd` | 19 | 209 | Initialization, Type check, Behavior, Signals | ⭐⭐⭐⭐⭐ |
 
 ### Autoloads Tests
 
 - Path: `tests/core/autoload/`
-- Tests: 93
+- Tests: 103
 
 |           Test File           | Tests | Lines |                         Covers                          | Coverage |
 |:-----------------------------:|:-----:|:-----:|:-------------------------------------------------------:|:--------:|
 |     `backup_core_test.gd`     |   14  |  87   |          Creation, Restoration, Configuration           | ⭐⭐⭐⭐⭐ |
 |       `factory_test.gd`       |   4   |  44   |                      Node creation                      | ⭐⭐ |
 |       `global_test.gd`        |   26  |  140  |    Access, File management, Commands, Notifications     | ⭐⭐⭐⭐⭐ |
-|       `settings_test.gd`      |   21  |  122  |    Configuration management, Presets, Data storage      | ⭐⭐⭐⭐⭐ |
+|       `settings_test.gd`      |   31  |  270  |    Configuration management, Presets, Data storage      | ⭐⭐⭐⭐⭐ |
 | `translation_manager_test.gd` |   7   |  47   |              Translation, Language change               | ⭐⭐⭐⭐ |
 |        `utils_test.gd`        |   21  |  107  | Syntax colors, Wait, Resource loading, Threaded loading | ⭐⭐⭐⭐ |
 
