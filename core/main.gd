@@ -43,6 +43,8 @@ const MENU_TRANSLATION_PREFIX = "menu."
 @export var module_profiler: MenuButton
 ## [ReplacePopup] for template completion.
 @export var replace_popup: ReplacePopup
+## Overlay to apply shader filter.
+@export var overlay_shader: ColorRect
 
 ## Recent files [PopupMenu], see also [method _reload_recent_files].
 var recent_files_submenu: PopupMenu
@@ -116,6 +118,10 @@ func _define_presets() -> void:
 	Settings.define_preset("edit", "indent_size", 4)
 	# 3. Theme
 	Settings.define_preset("editor_ui", "theme_name", "dark")
+	# 4. UI Filter
+	Settings.define_preset("editor_ui", "filter_hue_shift", 0.0)
+	Settings.define_preset("editor_ui", "filter_saturation", 1.0)
+	Settings.define_preset("editor_ui", "filter_brightness", 1.0)
 
 
 ## Loads core-related settings. This function supports dynamic reload for mode, theme, and indentation.
@@ -133,14 +139,17 @@ func _handle_settings() -> void:
 	if not FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
 		Settings.restore_default("editor_ui", "theme_name")
 	get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
-	# Dynamic reload
-	# 1. Mode reload
+	# 3. Mode reload
 	var current_mode := Global.get_editor_api().current_mode
 	if current_mode:
 		Global.get_editor_api()._unload_current_mode()
 		await U.wait()
 		Global.get_editor_api()._change_mode_to(current_mode)
 	_is_reloading_settings = false
+	# 4. UI Filter
+	overlay_shader.material.set_shader_parameter("hue_shift", Settings.get_setting("editor_ui", "filter_hue_shift"))
+	overlay_shader.material.set_shader_parameter("saturation", Settings.get_setting("editor_ui", "filter_saturation"))
+	overlay_shader.material.set_shader_parameter("brightness", Settings.get_setting("editor_ui", "filter_brightness"))
 
 
 ## Loads data in [member main_menu_data], uses [constant S.MAIN_UI_DATA] and [constant DATA_SECTION].

@@ -9,11 +9,6 @@ extends Window
 ## Tree for section changing.
 @export var tree: Tree
 
-func _on_close_requested() -> void:
-	Signals.settings_changed.emit()
-	queue_free()
-
-
 func _ready() -> void:
 	var config := ConfigFile.new()
 	config.load(S.globalize_path(Settings.PRESETS_FILE))

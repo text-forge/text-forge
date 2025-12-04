@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=23 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bkd665ctfsj35" path="res://core/scripts/replace_popup.gd" id="2_g0q11"]
+[ext_resource type="Shader" uid="uid://d4lcsig5si0bn" path="res://core/main.gdshader" id="2_i2u5h"]
 [ext_resource type="Texture2D" uid="uid://cbmkrx1vn2jtp" path="res://assets/close.svg" id="2_ntwa4"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://f7lveaepk802" path="res://assets/down.svg" id="3_lxu0y"]
@@ -20,10 +21,16 @@
 [ext_resource type="Script" uid="uid://812j1a3e2eym" path="res://core/scripts/caret_pos.gd" id="10_7ua4h"]
 [ext_resource type="Script" uid="uid://c4e2vkjgt6lwi" path="res://core/scripts/indentation_settings_label.gd" id="13_slld4"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7akvt"]
+shader = ExtResource("2_i2u5h")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation = 1.0
+shader_parameter/brightness = 1.0
+
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
 
-[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about", "module_profiler", "replace_popup")]
+[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about", "module_profiler", "replace_popup", "overlay_shader")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +46,19 @@ panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
 module_profiler = NodePath("Margin/Sections/BottomBar/ModuleProfiler")
 replace_popup = NodePath("Overlays/Replace popup")
+overlay_shader = NodePath("UIFilter/OverlayShader")
+
+[node name="UIFilter" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="OverlayShader" type="ColorRect" parent="UIFilter"]
+material = SubResource("ShaderMaterial_7akvt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Overlays" type="CanvasLayer" parent="."]
 layer = 2

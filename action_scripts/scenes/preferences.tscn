@@ -37,5 +37,5 @@ size_flags_horizontal = 3
 theme_type_variation = &"PreferencesSectionTab"
 tabs_visible = false
 
-[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="close_requested" from="." to="." method="queue_free"]
 [connection signal="item_selected" from="Margin/HSplit/Tree" to="." method="_on_tree_item_selected"]

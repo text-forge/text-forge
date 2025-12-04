@@ -24,7 +24,7 @@ func _ready() -> void:
 			options.current_tab = 0
 			options.get_child(0).button_pressed = value
 			if not value: options.get_child(0).text = "Off"
-		TYPE_INT, TYPE_FLOAT:
+		TYPE_INT:
 			options.current_tab = 1
 			options.get_child(1).value = value
 		TYPE_STRING:
@@ -33,6 +33,9 @@ func _ready() -> void:
 		TYPE_ARRAY:
 			options.current_tab = 3
 			options.get_child(3).text = ", ".join(value.map(func(item): return str(item)))
+		TYPE_FLOAT:
+			options.current_tab = 4
+			options.get_child(4).value = value
 		_:
 			Global.send_notification(
 				Global.Notification.ERROR,
@@ -62,4 +65,9 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 
 func _on_line_edit_2_text_submitted(new_text: String) -> void:
 	value = Array(new_text.split(",")).map(func(item: String): return item.strip_edges())
+	Settings.set_setting(section, key, value)
+
+
+func _on_spin_box_2_value_changed() -> void:
+	value = options.get_child(4).value
 	Settings.set_setting(section, key, value)
