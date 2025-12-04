@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - Class name declarations to ~40+ files for better type safety ([#139](https://github.com/text-forge/text-forge/pull/139))
 - Security validation for plugin/mod file extraction (prevents path traversal attacks) ([#139](https://github.com/text-forge/text-forge/pull/139))
 - Auto text writing direction for editor ([#144](https://github.com/text-forge/text-forge/pull/144))
+- UI Filter for editor ([#145](https://github.com/text-forge/text-forge/pull/145))
+- Enhanced dynamic reload for settings ([#145](https://github.com/text-forge/text-forge/pull/145))
 
 ### Changed
 - **Action Script:** ~Command > Command Pallete~ to Command > Command Palette (renamed, improved search) ([#139](https://github.com/text-forge/text-forge/pull/139))

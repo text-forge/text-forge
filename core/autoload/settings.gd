@@ -96,6 +96,8 @@ func restore_default(section: String, key: String) -> void:
 
 ## Sets [param velue] for given setting and save settings.
 func set_setting(section: String, key: String, value: Variant = null, force_silent := false) -> void:
+	if get_setting(section, key) == value:
+		return
 	settings.set_value(section, key, value)
 	var err := settings.save(SETTINGS_FILE)
 	if err:

@@ -90,3 +90,23 @@ To automatically save files when moving between project files, enable
 
 !!! Tip
     See also: [Project menu](menus.md#project)
+
+## Customize Editor Appearance
+
+You can customize editor appearance in multilpe ways:
+
+### Using Themes
+
+To find a theme, open `Settings > Marketplace` and set package filter to `Themes`. You can click on
+a theme and see its preview and them install it with **Install** button. When theme downloaded and
+installed, you will see a confirmation dialog that says you can enable this theme now. Next time,
+you can open `Settings > Preferences` and go to `Editor UI > Theme` to change theme. If you want to
+see where themes are installed use `Settings > Open Data Folder` and go to `themes/` folder.
+
+### UI Filter
+
+Sometimes you need to change editor appearance just to more brightness or less saturation, in this
+situations you can use **UI Filter** a feature to apply customizations in a few moments. To see how
+it works, open `Settings > Preferences` and go to `Editor UI` in this section you can find three
+options: `Filter Hue Shift`, `Filter Saturation`, and `Filter Brightness`. With this feature you can
+customize editors appearance to any base color, saturation ans brightness and see result dynamicly.
