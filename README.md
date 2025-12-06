@@ -12,7 +12,7 @@ Extensible and modular code editor with Godot 4.5
 
 **Text Forge** is a lightweight, modular code editor designed for flexibility and control. Its mode-driven design, customizable interface, and support for GDScript scripting make it easy to create a personalized editing environment.
 
-This editor is deeply language-agnostic and suitable for any text format, and its data-driven and object-oriented architectur with plug-and-play modules lets you extend functionality without touching the core.
+This editor is deeply language-agnostic and suitable for any text format, and its data-driven and object-oriented architecture with plug-and-play modules lets you extend functionality without touching the core.
 
 ![auto-formatter-after.png](docs/img/auto-formatter-after.png)
  ^ Text Forge screenshot: HTML mode, Find & Replace panel. Auto-formatted HTML (from [input](docs/img/auto-formatter-before.png)).
