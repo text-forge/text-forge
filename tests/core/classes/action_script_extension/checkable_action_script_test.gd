@@ -16,18 +16,23 @@ var test_run_action_triggers_settings_changed_signal__signal_emitted := false
 
 # Test implementation of CheckableActionScript
 class TestCheckableActionScript extends CheckableActionScript:
+	var test_section := "test_checkable_section"
+	var test_key := "test_checkable_key"
 	var setup_called := false
 	var set_value_call_count := 0
 	var last_set_value: Variant = null
 	var get_value_return := false
 	var get_value_call_count := 0
-	var custom_default := false
+	var custom_default = null
 
 	func _setup() -> void:
 		setup_called = true
-		settings_section = "test_checkable_section"
-		settings_key = "test_checkable_key"
-		default = custom_default
+		settings_section = test_section
+		settings_key = test_key
+		if custom_default != null:
+			default = custom_default
+		else:
+			default = false
 
 	func _set_value(to: bool) -> void:
 		set_value_call_count += 1
