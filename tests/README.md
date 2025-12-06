@@ -9,7 +9,7 @@ This directory contains comprehensive unit tests for the Text Forge text editor.
 
 ## Performance Benchmarks
 Current test suite execution time (estimated):
-- **All tests**: ~20 seconds
+- **All tests**: ~27 seconds
 - **Individual file**: ~1 second
 
 ## Test Generation Notes
