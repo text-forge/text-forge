@@ -25,7 +25,7 @@ This editor is deeply language-agnostic and suitable for any text format, and it
 > Please read CHANGELOG.md for complete breaking changes list.
 
 ## 👀 New to Text Forge? Start from [Text Forge Introduction](https://text-forge.github.io/docs/introduction/)
-> Explore why you need an editor loke Text Forge!
+> Explore why you need an editor like Text Forge!
 
 ## 🗺️ Want to know more? Take an [Overview of Text Forge here](https://text-forge.github.io/docs)
 > List of features will be available soon
