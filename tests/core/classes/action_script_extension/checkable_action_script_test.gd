@@ -21,16 +21,13 @@ class TestCheckableActionScript extends CheckableActionScript:
 	var last_set_value: Variant = null
 	var get_value_return := false
 	var get_value_call_count := 0
-	var custom_default: bool
+	var custom_default := false
 
 	func _setup() -> void:
 		setup_called = true
 		settings_section = "test_checkable_section"
 		settings_key = "test_checkable_key"
-		if custom_default != null:
-			default = custom_default
-		else:
-			default = false
+		default = custom_default
 
 	func _set_value(to: bool) -> void:
 		set_value_call_count += 1

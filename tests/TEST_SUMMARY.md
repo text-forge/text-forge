@@ -51,7 +51,7 @@ project changes.
 
 |           Test File           | Tests | Lines |                         Covers                          | Coverage |
 |:-----------------------------:|:-----:|:-----:|:-------------------------------------------------------:|:--------:|
-| `action_script_extension/checkable_action_script_test.gd` | 40 | 451 | Initialization, Behavior, Edge cases | ⭐⭐⭐⭐⭐ |
+| `action_script_extension/checkable_action_script_test.gd` | 38 | 451 | Initialization, Behavior, Edge cases | ⭐⭐⭐⭐⭐ |
 
 ### Core Tests
 
@@ -89,4 +89,4 @@ project changes.
 
 |           Test File            | Tests | Lines |                Covers                 | Coverage |
 |:------------------------------:|:-----:|:-----:|:-------------------------------------:|:--------:|
-| `changelog_validation_test.gd` |   27  |  326  | Existence, Strcuture, Formats, Links  | ⭐⭐⭐⭐⭐ |
+| `changelog_validation_test.gd` |   27  |  326  | Existence, Structure, Formats, Links  | ⭐⭐⭐⭐⭐ |

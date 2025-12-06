@@ -57,8 +57,6 @@ func test_changelog_sections_properly_formatted() -> void:
 	for section in sections:
 		if changelog_content.contains(section):
 			# If section exists, verify it's properly formatted
-			var regex = RegEx.new()
-			regex.compile("^" + section + "$")
 			var lines = changelog_content.split("\n")
 			var found_proper_format = false
 			for line in lines:
@@ -183,7 +181,7 @@ func test_consistent_indentation() -> void:
 
 	# If we have indentation, check it's consistent (multiples of 2 or 4)
 	for indent_size in indentation_sizes.keys():
-		var is_valid = (indent_size % 2 == 0) or (indent_size % 4 == 0)
+		var is_valid = indent_size % 2 == 0
 		assert_bool(is_valid).is_true() \
 			.append_failure_message("Inconsistent indentation size: " + str(indent_size))
 
