@@ -15,8 +15,8 @@
 ## Unit Tests
 
 - Path: `tests/`
-- Tests: 263
-- Files: 19
+- Tests: 328
+- Files: 21
 
 ### Action Scripts Tests
 
@@ -29,6 +29,12 @@
 - Path: `tests/core/autoload/`
 - Tests: 103
 - Files: 6
+
+### Classes Tests
+
+- Path: `tests/core/classes/`
+- Tests: 38
+- Files: 1
 
 ### Core Tests
 
@@ -47,6 +53,12 @@
 - Path: `tests/data/panels/`
 - Tests: 34
 - Files: 2
+
+### Docs Tests
+
+- Path: `tests/docs/`
+- Tests: 27
+- Files: 1
 
 ## Documentation
 

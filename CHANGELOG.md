@@ -34,24 +34,25 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - Unsaved file detection now uses `Global.has_unsaved_change()` instead of filename checks ([#139](https://github.com/text-forge/text-forge/pull/139))
 
 ### Removed
-- **API:** ~`FileDatabase`~ class - Use direct path references instead ([#139](https://github.com/text-forge/text-forge/pull/112))
+- **API:** ~`FileDatabase`~ class - Use direct path references instead ([#139](https://github.com/text-forge/text-forge/pull/139))
 
 ### Fixed
 - Changelog is not displayed in editor ([#133](https://github.com/text-forge/text-forge/pull/133))
-- **Action Script:** Move Lines to New File incorrect behavior ([#139](https://github.com/text-forge/text-forge/pull/92))
-- **Action Script:** Reset Font Size not loading configuration properly ([#139](https://github.com/text-forge/text-forge/pull/93))
-- **Action Script:** Toggle Bookmark incorrectly marking files as unsaved ([#139](https://github.com/text-forge/text-forge/pull/102))
+- **Action Script:** Move Lines to New File incorrect behavior ([#139](https://github.com/text-forge/text-forge/pull/139))
+- **Action Script:** Reset Font Size not loading configuration properly ([#139](https://github.com/text-forge/text-forge/pull/139))
+- **Action Script:** Toggle Bookmark incorrectly marking files as unsaved ([#139](https://github.com/text-forge/text-forge/pull/139))
 - **Action Script:** Toggle Comment delimiter detection and multi-caret handling ([#139](https://github.com/text-forge/text-forge/pull/139))
 - **Action Script:** Restart error handling with process creation validation ([#139](https://github.com/text-forge/text-forge/pull/139))
-- Backup system: Restored backup saving functionality ([#139](https://github.com/text-forge/text-forge/pull/54), [#139](https://github.com/text-forge/text-forge/pull/59))
-- Backup system: BackupStatus color updates on failure ([#139](https://github.com/text-forge/text-forge/pull/70), [#139](https://github.com/text-forge/text-forge/pull/71))
-- Backup system: Infinite save_request cycles ([#139](https://github.com/text-forge/text-forge/pull/73))
+- Backup system: Restored backup saving functionality ([#139](https://github.com/text-forge/text-forge/pull/139))
+- Backup system: BackupStatus color updates on failure ([#139](https://github.com/text-forge/text-forge/pull/139))
+- Backup system: Infinite save_request cycles ([#139](https://github.com/text-forge/text-forge/pull/139))
 - Backup system: Fixed `auto_backup_interval_minutes` setting name (was misspelled) ([#139](https://github.com/text-forge/text-forge/pull/139))
-- Internal modes no longer reinstall on every application run ([#139](https://github.com/text-forge/text-forge/pull/3))
-- Asset filename: ~`loafing.png`~ to `loading.png` ([#139](https://github.com/text-forge/text-forge/pull/26))
+- Internal modes no longer reinstall on every application run ([#139](https://github.com/text-forge/text-forge/pull/139))
+- Asset filename: ~`loafing.png`~ to `loading.png` ([#139](https://github.com/text-forge/text-forge/pull/139))
 - Unit test execution errors and disabled custom tests during test runs ([#139](https://github.com/text-forge/text-forge/pull/107), [#139](https://github.com/text-forge/text-forge/pull/109))
 - File selection dialog filters improved across multiple scenes ([#139](https://github.com/text-forge/text-forge/pull/139))
 - Action scripts loading broken due to incorrect path globalization in `core/main.gd` ([#143](https://github.com/text-forge/text-forge/pull/143))
+- Checkable menu options did not toggle correctly ([#146](https://github.com/text-forge/text-forge/pull/146))
 
 ## [v0.2-rc1] - 2025-11-20
 
@@ -102,7 +103,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ### Added
 
-- Highlight matched query segments in command palette ([#72](https://github.com/text-forge/text-forge/pull/72)) 
+- Highlight matched query segments in command palette ([#72](https://github.com/text-forge/text-forge/pull/72))
 - Refactor open file action to use NodeFactory ([#73](https://github.com/text-forge/text-forge/pull/73))
 - **API:** `Global.get_last_file_path()` ([#75](https://github.com/text-forge/text-forge/pull/75))
 - **API:** `current_dir` and `current_path` in `Factory.file_dialog()` ([#75](https://github.com/text-forge/text-forge/pull/75))

@@ -6,16 +6,16 @@ project changes.
 
 ## Test Results
 
-- **Overall:** 263 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
-- **Executed test suites:** (19/19)
-- **Executed test cases :** (263/263)
-- **Total execution time:** 21s 817ms
+- **Overall:** 328 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
+- **Executed test suites:** (21/21)
+- **Executed test cases :** (328/328)
+- **Total execution time:** 26s 605ms
 - **Runner:** GDUnit4 6.0.1
 
 ## Test Files
 
-- Unit Tests: 263
-- Files: 19
+- Unit Tests: 328
+- Files: 21
 
 ### Action Scripts Tests
 
@@ -43,6 +43,15 @@ project changes.
 |       `settings_test.gd`      |   31  |  270  |    Configuration management, Presets, Data storage      | ⭐⭐⭐⭐⭐ |
 | `translation_manager_test.gd` |   7   |  47   |              Translation, Language change               | ⭐⭐⭐⭐ |
 |        `utils_test.gd`        |   21  |  107  | Syntax colors, Wait, Resource loading, Threaded loading | ⭐⭐⭐⭐ |
+
+### Classes Tests
+
+- Path: `tests/core/classes/`
+- Tests: 38
+
+|           Test File           | Tests | Lines |                         Covers                          | Coverage |
+|:-----------------------------:|:-----:|:-----:|:-------------------------------------------------------:|:--------:|
+| `action_script_extension/checkable_action_script_test.gd` | 38 | 451 | Initialization, Behavior, Edge cases | ⭐⭐⭐⭐⭐ |
 
 ### Core Tests
 
@@ -72,3 +81,12 @@ project changes.
 |:------------------------------:|:-----:|:-----:|:-------------------------------------:|:--------:|
 | `bookmarks/item_panel_test.gd` |   20  |  150  |       Initialization, Updating        | ⭐⭐⭐⭐ |
 |    `bookmarks/panel_test.gd`   |   14  |  87   |       Initialization, Structure       | ⭐⭐⭐⭐ |
+
+### Docs Tests
+
+- Path: `tests/docs/`
+- Tests: 27
+
+|           Test File            | Tests | Lines |                Covers                 | Coverage |
+|:------------------------------:|:-----:|:-----:|:-------------------------------------:|:--------:|
+| `changelog_validation_test.gd` |   27  |  326  | Existence, Structure, Formats, Links  | ⭐⭐⭐⭐⭐ |

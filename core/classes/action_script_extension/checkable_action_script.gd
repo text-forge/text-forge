@@ -78,7 +78,6 @@ func _initialize() -> void:
 ## Changes current value and call [method _set_value] with changed value.
 func _run_action() -> void:
 	Settings.set_setting(settings_section, settings_key, not _get_value())
-	_set_value(not _get_value())
 
 
 ## Loads saved value from settings and calls [method _set_value] for it and set
