@@ -1,0 +1,45 @@
+name: Download and Run Text Forge Exports
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download archive
+        run: |
+          curl -L -o linux.zip https://github.com/text-forge/text-forge/releases/download/v0.2.0-rc2/Text.Forge.0.2.rc2.linux.zip
+
+      - name: Extract archive
+        run: |
+          unzip linux.zip -d tf-linux
+
+      - name: Change permissions
+        run: |
+          chmod +x "tf-linux/Text Forge/Text Forge.sh"
+          chmod +x "tf-linux/Text Forge/Text Forge.x86_64"
+      - name: Run Text Forge
+        # Closes editor after 5s, check logs for test
+        run: |
+          timeout -k 1s 5s ./"tf-linux/Text Forge/Text Forge.sh" --headless || true
+  run-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Download archive
+        run: |
+          Invoke-WebRequest -Uri https://github.com/text-forge/text-forge/releases/download/v0.2.0-rc2/Text.Forge.0.2.rc2.windows.zip -OutFile windows.zip
+
+      - name: Extract archive
+        run: |
+          Expand-Archive -Path windows.zip -DestinationPath tf-windows
+
+      - name: Run Text Forge (5s timeout with logs)
+        shell: pwsh
+        run: |
+          $process = Start-Process -FilePath "tf-windows/Text Forge/Text Forge.exe" -ArgumentList "--headless" -PassThru -NoNewWindow -RedirectStandardOutput stdout.log -RedirectStandardError stderr.log
+          Start-Sleep -Seconds 5
+          Stop-Process -Id $process.Id -Force
+          Get-Content stdout.log
+          Get-Content stderr.log
