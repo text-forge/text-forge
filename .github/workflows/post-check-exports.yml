@@ -3,6 +3,8 @@ name: Download and Run Text Forge Exports
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
 jobs:
   run-linux:
     runs-on: ubuntu-latest
