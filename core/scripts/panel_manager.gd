@@ -46,6 +46,7 @@ var data := {
 }
 ## Panels with name and place to load.
 var _panels: Dictionary[String, Dictionary] = {}
+var _cache: Dictionary[String, Resource] = {}
 
 func _ready() -> void:
 	for side in 3:
@@ -76,14 +77,14 @@ func _ready() -> void:
 	_load_layout()
 
 
-## Adds given [param panel] in [param location] with [param icon], it means new icon in [param location]
+## Adds given [param panel] with [param icon], it means new icon in [member TextForgePanel.place]
 ## side and new panel in [member panels].
-func add_panel(location: Panels, panel: TextForgePanel, icon: Texture2D) -> void:
+func add_panel(panel: TextForgePanel, icon: Texture2D) -> void:
+	var location := panel.place
 	var current_tab = tabs[location]
 	var current_panel = containers[location]
 	var index = current_tab.add_icon_item(icon)
 	panel.index = index
-	panel.place = location
 	if index != current_panel.get_child_count():
 		current_tab.remove_item(index)
 		Global.send_notification(Global.Notification.ERROR, "There is a bug in panel management", "")
@@ -136,34 +137,52 @@ func _load_layout() -> void:
 ## Loads all panels in [constant S.FOLDER_PANELS].
 func _load_panels() -> void:
 	var paths: Array[String] = []
-	for panel in DirAccess.get_directories_at(S.FOLDER_PANELS):
-		var config = ConfigFile.new()
-		config.load(S.globalize_path(S.TEMPLATE_PANEL_CONFIG.format([panel])))
-		var place = config.get_value("panel", "place", "L")
-		var converted: int
-		if place == "R":
-			converted = Panels.RIGHT
-		elif place == "B":
-			converted = Panels.BOTTOM
-		else: # Also panels with invalid place
-			converted = Panels.LEFT
+	var panels := Array(ResourceLoader.list_directory(S.FOLDER_PANELS)).filter(func(i: String): return i.ends_with("/"))
+	for panel in Array(panels).map(func(i: String): return i.trim_suffix("/")):
 		paths.append(S.TEMPLATE_PANEL_SCENE.format([panel]))
+		paths.append(S.TEMPLATE_PANEL_SCRIPT.format([panel]))
 		paths.append(S.TEMPLATE_PANEL_ICON.format([panel]))
 		_panels[S.TEMPLATE_PANEL_SCENE.format([panel])] = {
-			"place": converted,
 			"name": panel,
 		}
-	U.load_resources_threaded(paths, Callable(), _complete_loading)
+	U.load_resources_threaded(paths, _cache_resource, _complete_loading)
+
+
+func _cache_resource(path: String, resource: Resource) -> void:
+	if resource == null:
+		push_warning("Attempted to cache null resource for path: " + path)
+		return
+	if _cache.has(path):
+		push_warning("Overwriting cached resource for path: " + path)
+	_cache[path] = resource
 
 
 ## Adds loaded panels.
 func _complete_loading() -> void:
 	for p in _panels:
-		var info := _panels[p]
+		for file: String in [
+			S.TEMPLATE_PANEL_SCENE,
+			S.TEMPLATE_PANEL_SCRIPT,
+			S.TEMPLATE_PANEL_ICON,
+		]:
+			file = file.format([_panels[p]["name"]])
+			if not _cache.has(file):
+				push_warning("Failed to cache % with threaded loading, retry with simple load..." % file)
+				_cache[file] = U.load_resource(file)
+
+		var scene = _cache.get(p)
+		var icon = _cache.get(S.TEMPLATE_PANEL_ICON.format([_panels[p]["name"]]))
+
+		if scene == null:
+			push_error("Failed to load panel scene: " + p)
+			continue
+		if icon == null:
+			push_warning("Missing icon for panel: " + p)
+			icon = load("res://assets/deactive.png")
+
 		add_panel(
-			info["place"],
-			U.load_resource(p).instantiate(),
-			U.load_resource(S.TEMPLATE_PANEL_ICON.format([info["name"]]))
+			scene.instantiate(),
+			icon
 		)
 	_apply_split()
 	load_completed.emit()

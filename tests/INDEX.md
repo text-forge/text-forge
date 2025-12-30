@@ -50,7 +50,7 @@
 
 ### Panels Tests
 
-- Path: `tests/data/panels/`
+- Path: `tests/core/panels/`
 - Tests: 34
 - Files: 2
 

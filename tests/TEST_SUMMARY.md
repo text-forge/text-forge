@@ -82,7 +82,7 @@ project changes.
 
 ### Panels Tests
 
-- Path: `tests/data/panels/`
+- Path: `tests/core/panels/`
 - Tests: 34
 
 |           Test File            | Tests | Lines |                Covers                 | Coverage |

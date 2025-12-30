@@ -80,7 +80,7 @@ theme/custom="uid://biemqm07w26kl"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://data/translations/en.po", "res://data/translations/fa.po", "res://data/translations/pl.po")
+locale/translations=PackedStringArray("res://core/translations/en.po", "res://core/translations/fa.po", "res://core/translations/pl.po")
 
 [rendering]
 

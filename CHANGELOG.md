@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - **Hooks:** `BEFORE_SAVE` hook added ([#171](https://github.com/text-forge/text-forge/pull/171))
 - Line Endings button in bottom bar ([#171](https://github.com/text-forge/text-forge/pull/171))
 
+### Changed
+- `action_scripts/`, `data/panels/`, and `data/translations/` dropped from exports ([#176](https://github.com/text-forge/text-forge/pull/176))
+
 ## [v0.2-rc2] - 2025-12-07 & [v0.2-stable] - 2025-12-12
 
 > [!Note]

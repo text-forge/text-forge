@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8bqm0wntosaw"]
+
+[ext_resource type="Script" uid="uid://c5oujlrt244w6" path="res://core/panels/preview/panel.gd" id="1_b5vjj"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("tab", "preview", "preview_node", "preview_scroll_container")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b5vjj")
+tab = NodePath("Margin/Tab")
+preview = NodePath("Margin/Tab/Preview")
+preview_node = NodePath("Margin/Tab/Scroll/Margin")
+preview_scroll_container = NodePath("Margin/Tab/Scroll")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tab" type="TabContainer" parent="Margin"]
+layout_mode = 2
+theme_type_variation = &"FlatTabContainer"
+current_tab = 0
+tabs_visible = false
+
+[node name="Message" type="Label" parent="Margin/Tab"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Preview isn't available"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_tab_index = 0
+
+[node name="Preview" type="RichTextLabel" parent="Margin/Tab"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+shortcut_keys_enabled = false
+threaded = true
+metadata/_tab_index = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Tab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/Tab/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0

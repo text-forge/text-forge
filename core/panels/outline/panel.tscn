@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://donr0wkm0exta"]
+
+[ext_resource type="Script" uid="uid://b3e8ybbfve04f" path="res://core/panels/outline/panel.gd" id="1_pj7jf"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("outline_tree", "message")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pj7jf")
+outline_tree = NodePath("Margin/OutlineTree")
+message = NodePath("Message")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OutlineTree" type="Tree" parent="Margin"]
+layout_mode = 2
+theme_type_variation = &"OutlineTree"
+allow_reselect = true
+allow_rmb_select = true
+hide_root = true
+
+[node name="Message" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Outline isn't available"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[connection signal="item_selected" from="Margin/OutlineTree" to="." method="_on_tree_item_selected"]

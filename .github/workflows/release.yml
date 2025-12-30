@@ -85,7 +85,6 @@ jobs:
           fi
         done
         cp -r data TextForge/
-        cp -r action_scripts TextForge/
         cp icon.png TextForge/
         cp README.md TextForge/
         cp CHANGELOG.md TextForge/
