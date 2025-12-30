@@ -401,7 +401,6 @@ func _load_mode_panel() -> void:
 	if mode_script.panel:
 		mode_panel = mode_script.panel
 		Global.get_panel_manager().add_panel(
-			PanelManager.Panels.LEFT,
 			mode_script.panel,
 			ImageTexture.create_from_image(Image.load_from_file(S.globalize_path(
 				S.TEMPLATE_MODE_ICON.format([current_mode["id"]])

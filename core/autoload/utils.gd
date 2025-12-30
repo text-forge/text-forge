@@ -150,9 +150,7 @@ class ThreadedLoader extends Object:
 	func _init(tree: SceneTree, paths: PackedStringArray, for_each := Callable(), after_all := Callable()) -> void:
 		_tree = tree
 		for p in paths:
-			if p.is_empty() or not FileAccess.file_exists(S.globalize_path(p)):
-				continue
-			_pending[S.globalize_path(p)] = false
+			_pending[p] = false
 		if for_each.is_valid():
 			_for_each = for_each
 		if after_all.is_valid():
@@ -165,7 +163,9 @@ class ThreadedLoader extends Object:
 				_after_all.call()
 			return
 		for p in _pending:
-			ResourceLoader.load_threaded_request(p, "", true)
+			var err := ResourceLoader.load_threaded_request(p, "", true)
+			if err:
+				push_error("Threaded load request failed for {0} (error: {1})".format([p, str(err)]))
 		_monitor_loading()
 
 	func _monitor_loading() -> void:

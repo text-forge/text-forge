@@ -1,0 +1,108 @@
+[gd_scene load_steps=2 format=3 uid="uid://chcbcwt46nc6s"]
+
+[ext_resource type="Script" uid="uid://bh6amhejvq6nw" path="res://core/panels/find/panel.gd" id="1_0rt6l"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "search", "replace", "list")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rt6l")
+counter = NodePath("Margin/VBox/MatchCount")
+match_case = NodePath("Margin/VBox/MatchCase")
+whole_words = NodePath("Margin/VBox/WholeWords")
+backwards = NodePath("Margin/VBox/Backwards")
+search = NodePath("Margin/VBox/Find")
+replace = NodePath("Margin/VBox/Replace/ReplaceText")
+list = NodePath("Margin/VBox/MatchList")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Find" type="LineEdit" parent="Margin/VBox"]
+layout_mode = 2
+placeholder_text = "Find"
+
+[node name="Replace" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="ReplaceText" type="LineEdit" parent="Margin/VBox/Replace"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Replace"
+
+[node name="Replace" type="Button" parent="Margin/VBox/Replace"]
+layout_mode = 2
+text = "Replace"
+
+[node name="MatchCount" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+text = "0 match"
+
+[node name="MatchCase" type="CheckBox" parent="Margin/VBox"]
+layout_mode = 2
+text = "Match Case"
+flat = true
+
+[node name="WholeWords" type="CheckBox" parent="Margin/VBox"]
+layout_mode = 2
+text = "Whole Words"
+flat = true
+
+[node name="Backwards" type="CheckBox" parent="Margin/VBox"]
+layout_mode = 2
+text = "Backwards"
+flat = true
+
+[node name="MatchList" type="ItemList" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="NavigationActions" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="Prev" type="Button" parent="Margin/VBox/NavigationActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Previous"
+
+[node name="Next" type="Button" parent="Margin/VBox/NavigationActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next"
+
+[node name="GlobalActions" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="ReplaceAll" type="Button" parent="Margin/VBox/GlobalActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Replace All"
+
+[node name="SelectAll" type="Button" parent="Margin/VBox/GlobalActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select All"
+
+[connection signal="text_changed" from="Margin/VBox/Find" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="Margin/VBox/Replace/Replace" to="." method="_on_replace_pressed"]
+[connection signal="pressed" from="Margin/VBox/MatchCase" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="Margin/VBox/WholeWords" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="Margin/VBox/Backwards" to="." method="_on_option_pressed"]
+[connection signal="item_selected" from="Margin/VBox/MatchList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="Margin/VBox/NavigationActions/Prev" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="Margin/VBox/NavigationActions/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Margin/VBox/GlobalActions/ReplaceAll" to="." method="_on_replace_all_pressed"]
+[connection signal="pressed" from="Margin/VBox/GlobalActions/SelectAll" to="." method="_on_all_pressed"]

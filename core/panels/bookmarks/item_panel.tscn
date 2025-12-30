@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://boxnxmgbgyf32"]
+
+[ext_resource type="Script" uid="uid://qr85nxx8tbj" path="res://core/panels/bookmarks/item_panel.gd" id="1_3h7ny"]
+[ext_resource type="Texture2D" uid="uid://cxxbyscl8kx6a" path="res://assets/goto.svg" id="3_tm4ui"]
+[ext_resource type="Texture2D" uid="uid://cbmkrx1vn2jtp" path="res://assets/close.svg" id="4_37y3w"]
+
+[node name="Panel" type="PanelContainer" node_paths=PackedStringArray("number_label", "line_label", "goto_button", "remove_button")]
+offset_right = 373.0
+offset_bottom = 40.0
+theme_type_variation = &"BookmarkPanel"
+script = ExtResource("1_3h7ny")
+number_label = NodePath("HBox/LineNumber")
+line_label = NodePath("HBox/Text")
+goto_button = NodePath("HBox/GoTo")
+remove_button = NodePath("HBox/Remove")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LineNumber" type="Label" parent="HBox"]
+layout_mode = 2
+theme_type_variation = &"BottomBarLabel"
+text = "1"
+
+[node name="Text" type="Label" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+text = "<empty line>"
+text_overrun_behavior = 3
+
+[node name="GoTo" type="Button" parent="HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "Go to bookmark"
+theme_type_variation = &"FlatButton"
+icon = ExtResource("3_tm4ui")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Remove" type="Button" parent="HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "Remove bookmark"
+theme_type_variation = &"FlatButton"
+icon = ExtResource("4_37y3w")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="HBox/GoTo" to="." method="_on_go_to_pressed"]
+[connection signal="pressed" from="HBox/Remove" to="." method="_on_remove_pressed"]

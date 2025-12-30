@@ -206,6 +206,7 @@ func _load_main_menu() -> void:
 func _load_scripts() -> void:
 	var paths := PackedStringArray()
 	var low_priority_paths := PackedStringArray()
+	var script_list := ResourceLoader.list_directory(S.FOLDER_ACTION_SCRIPTS)
 	for menu: String in main_menu_data:
 		for item: Dictionary in main_menu_data[menu]:
 			# Ignore separators
@@ -214,7 +215,7 @@ func _load_scripts() -> void:
 			# Create script path
 			var script_path := _get_script_path_for_item(item)
 			# Disable items without script (except submenu roots)
-			if not FileAccess.file_exists(S.globalize_path(script_path)):
+			if script_path.get_file() not in script_list:
 				if item.has("popup") and item.get("type", OptionTypes.REGULAR) != OptionTypes.SUBMENU:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
@@ -496,6 +497,6 @@ func _load_last_file(is_automatic := true) -> void:
 
 ## Helper to generate script path for a menu option.
 func _get_script_path_for_item(item: Dictionary) -> String:
-	return S.globalize_path(S.TEMPLATE_ACTION_SCRIPT.format(
+	return S.TEMPLATE_ACTION_SCRIPT.format(
 		[item.get("text", "").to_snake_case().remove_chars(".")]
-	))
+	)

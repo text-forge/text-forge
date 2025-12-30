@@ -22,7 +22,7 @@ const FOLDER_ACTION_SCRIPTS = "res://action_scripts/"
 ## Root folder for modes.
 const FOLDER_MODES = "user://modes/"
 ## Root folder for panels.
-const FOLDER_PANELS = "res://data/panels/"
+const FOLDER_PANELS = "res://core/panels/"
 ## Root folder for backups.
 const FOLDER_BACKUPS = "user://backups/"
 ## Root folder for extensions.
@@ -35,12 +35,12 @@ const FOLDER_INTERNAL_THEMES = "res://data/themes/"
 const TEMPLATE_ACTION_SCRIPT_SHORTCUT = "res://shortcuts/{0}.tres"
 ## Template file path for action script files.
 const TEMPLATE_ACTION_SCRIPT = "res://action_scripts/{0}.gd"
-## Template file path for panel configs.
-const TEMPLATE_PANEL_CONFIG = "res://data/panels/{0}/panel.cfg"
 ## Template file path for panel main scene.
-const TEMPLATE_PANEL_SCENE = "res://data/panels/{0}/panel.tscn"
+const TEMPLATE_PANEL_SCENE = "res://core/panels/{0}/panel.tscn"
+## Template file path for panel main script.
+const TEMPLATE_PANEL_SCRIPT = "res://core/panels/{0}/panel.gd"
 ## Template file path for panel icon.
-const TEMPLATE_PANEL_ICON = "res://data/panels/{0}/icon.png"
+const TEMPLATE_PANEL_ICON = "res://core/panels/{0}/icon.png"
 ## Template file path for extension configuration file.
 const TEMPLATE_EXTENSION_CONFIG = "user://extensions/{0}/extension.cfg"
 ## Template file path for mode information file.

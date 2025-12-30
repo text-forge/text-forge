@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://cafjylcl3rrfp"]
+
+[ext_resource type="Script" uid="uid://rnr7228cd21m" path="res://core/panels/notifications/notification.gd" id="1_f20k5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r108h"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_uocqq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f20k5"]
+font_size = 14
+font_color = Color(0.652344, 0.652344, 0.652344, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a80sp"]
+font_size = 12
+font_color = Color(0.480469, 0.480469, 0.480469, 1)
+
+[node name="Notification" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 65.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_f20k5")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="HBox"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_r108h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+size_flags_vertical = 6
+label_settings = SubResource("LabelSettings_uocqq")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Text" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_f20k5")
+autowrap_mode = 3
+
+[node name="Timestamp" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_a80sp")

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciui3reccbsvh"]
+
+[ext_resource type="Script" uid="uid://bmnesjreymjuh" path="res://core/panels/notifications/panel.gd" id="1_fan4o"]
+[ext_resource type="Texture2D" uid="uid://8aprog837rdr" path="res://core/panels/notifications/clear.png" id="3_58sq7"]
+[ext_resource type="Texture2D" uid="uid://bofmsu8s6vye" path="res://core/panels/notifications/icon.png" id="4_uifjt"]
+
+[node name="Panel" type="Control" node_paths=PackedStringArray("options", "notifications", "mute_bottom")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fan4o")
+options = NodePath("Margin/VBox/Actions")
+notifications = NodePath("Margin/VBox/Scroll/VBox")
+mute_bottom = NodePath("Margin/VBox/Actions/Mute")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="Clear" type="Button" parent="Margin/VBox/Actions"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+tooltip_text = "Clear all notifications"
+icon = ExtResource("3_58sq7")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Mute" type="Button" parent="Margin/VBox/Actions"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "Mute notifications"
+toggle_mode = true
+icon = ExtResource("4_uifjt")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="item_rect_changed" from="." to="." method="_on_tab_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_tab_changed"]
+[connection signal="pressed" from="Margin/VBox/Actions/Clear" to="." method="_on_clear_pressed"]
+[connection signal="toggled" from="Margin/VBox/Actions/Mute" to="." method="_on_mute_toggled"]
