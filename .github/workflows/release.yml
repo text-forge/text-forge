@@ -27,7 +27,7 @@ jobs:
     name: ${{ matrix.config.name }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Wine
       if: matrix.config.needs_wine
