@@ -15,6 +15,12 @@ extends Window
 @export var extensions_list: HFlowContainer
 
 func _ready() -> void:
+	Notif.register_notification(
+		"extensions_window_reopen_request",
+		Notif.Type.INFO,
+		"Please reopen extensions window!",
+		"Extensions were (re)loaded, reopen extensions window to see changes."
+	)
 	Extensions.extensions_loaded.connect(_reopen_request)
 	# Setup tree based on tabs
 	tree.create_item()
@@ -66,8 +72,4 @@ func _install_extension(path: String) -> void:
 	Extensions.install_extension(path)
 
 func _reopen_request() -> void:
-	Global.send_notification(
-		Global.Notification.INFO,
-		"Please reopen extensions window!",
-		"Extensions was (re)loaded, reopen extensions window to see changes."
-	)
+	Notif.notif("extensions_window_reopen_request")

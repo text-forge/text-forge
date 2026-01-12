@@ -23,12 +23,17 @@ boot_splash/bg_color=Color(0.0823529, 0.121569, 0.160784, 1)
 boot_splash/image="uid://c53xda8pdrml6"
 config/icon="uid://c5as0fd5jhnm8"
 
+[audio]
+
+driver/driver="Dummy"
+
 [autoload]
 
 Signals="*res://core/autoload/signals.gd"
 Global="*res://core/autoload/global.gd"
 Tests="*res://core/autoload/tests.gd"
 Settings="*res://core/autoload/settings.gd"
+Notif="*res://core/autoload/notification_manager.gd"
 Factory="*res://core/autoload/factory.gd"
 ExtensionHub="*res://core/autoload/extension_hub.gd"
 Extensions="*res://core/autoload/extensions.gd"

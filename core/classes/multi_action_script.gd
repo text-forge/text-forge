@@ -16,6 +16,8 @@ extends Node
 ## [b]Note:[/b] Functions with [b][color=lightblue]Virtual[/color][/b] badges is intended to be
 ## overriden.
 
+## Keeps an [Array] of registered [MultiActionScript]s to use in [SignalBus] for save requests.
+static var registered_ids: Array[int] = []
 ## Unique identifier for this action script, this value is id of linked option in [member menu] too.
 var id: int
 ## Index of linked option in [member menu], will use [code]menu.get_item_index(id)[/code] as getter.
@@ -35,13 +37,29 @@ var enable := true:
 		if value != enable:
 			menu.set_item_disabled(index, not value)
 		enable = value
+## Keeps last run information for save requests. Includes [code]"id"[/code] and [code]"popup"[/code]
+## keys. See [method request_save] for more information.
+var last_run_info: Dictionary[String, Variant] = {}
 
 ## Called after add action script in [SceneTree]. See also [method Node._enter_tree].
 func _enter_tree() -> void:
 	index = menu.get_item_index(id)
+	Signals.run_saved_subscript.connect(_resume_last_run)
+	registered_ids.append(id)
 	_initialize()
 	_load_shortcut()
 	_define_action()
+
+
+func _resume_last_run(action_id: int) -> void:
+	if action_id != id:
+		return
+	if last_run_info.is_empty():
+		return
+	var run_id: int = last_run_info.id
+	var run_popup: PopupMenu = last_run_info.popup
+	last_run_info.clear()
+	_run_action(run_id, run_popup)
 
 
 ## Handles shortcut pressing, when [param event] matches with [member action_shortcut] [member menu]
@@ -88,6 +106,21 @@ func _load_shortcut() -> void:
 ## [method _shortcut_input].
 func _define_action() -> void:
 	Global.define_command(name.capitalize(), action_shortcut.events[0].as_text_keycode(), self._shortcut_input.bind(action_shortcut.events[0]))
+
+
+## Call this function with [param script_id] and [param popup] from [method _run_action] to perform
+## a safe save request like [ActionScript]s. This function returns [code]false[/code] when there
+## isn't any unsaved change, otherwise will store parameters, emits save request, and returns [code]
+## true[/code], next step will be handled to call [_run_action] after save with given parameters.
+func request_save(script_id: int, popup: PopupMenu) -> bool:
+	if not Global.has_unsaved_change():
+		return false
+	last_run_info = {
+		"id": script_id,
+		"popup": popup,
+	}
+	Global.emit_save_request(id)
+	return true
 
 
 ## Routes [signal SignalBus.run_subscript] to [method _run_action] if [param action_name] matches

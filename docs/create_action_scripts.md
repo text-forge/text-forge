@@ -7,42 +7,33 @@
 
 There is a checklist before selecting action script as your solution:
 
-- I need add an action that user can trigger it?
+- I need to add an action that a user can trigger?
 
-    If yes, It **can** be action script. Users can use menus, shortcuts, and commands to trigger action scripts. You can
-    use other ways to add triggerable actions, but action scripts are a standard way, specially for a lot of actions.
+    If yes, it **can** be an action script. Users can trigger action scripts via menus, shortcuts, and commands. You can add triggerable actions in other ways, but action scripts are the standard approach for many actions.
 
-- I need add a new option in menus?
+- I need to add a new option in menus?
 
-    If yes, It **must** be action script. Everything in menus is action script.
+    If yes, it **must** be an action script. Everything in menus is implemented via an action script.
 
-- I need add a new command?
+- I need to add a new command?
 
-    If yes, It **may** be action script. Action scripts have internal command defining system, and you can use them from
-    command palette, but you can define commands from everywhere in Text Forge, in modes, panels, extensions, action scripts, etc.
+    If yes, it **may** be an action script. Action scripts have an internal command-definition system, and you can use them from the command palette, but commands can also be defined in modes, panels, extensions, action scripts, and other parts of Text Forge.
 
 ## Regular action scripts
 
-There is some different types of action scripts based on their base classes, `ActionScript` class designed for regular
-action scripts and can handle a lot of tasks.
+There are different types of action scripts based on their base classes. The `ActionScript` class is designed for regular action scripts and can handle many tasks.
 
-To add new action script you should make sure there is an item in menus for that action script, you can use `data/main_ui.ini`
-to add new options (or menus), to understand about structure of this file you can see [here](https://text-forge.github.io/docs/data_driven_ui/#menus).
-After select your option create a script in `action_scripts/` directory with same name (but in snake_case), it this case
-we will create **Copy Path** action script that will copy file path of opened file in clipboard, so we will create
-`action_scripts/copy_path.gd` and use this script as start point:
+To add a new action script, first ensure there is a matching menu item. You can add options (or menus) in `data/main_ui.ini`; see the [Data-driven UI menu structure](https://text-forge.github.io/docs/data_driven_ui/#menus). After selecting your option, create a script in the `action_scripts/` directory with the same name in snake_case. In this example, we will create a **Copy Path** action script to copy the currently opened file path to the clipboard, so we create `action_scripts/copy_path.gd` and start with:
 
 ```gdscript
 extends ActionScript
 ```
 
-Just that! Run project and see option is enabled. But there is no action for now, so we have 3 steps to complete our 
-action script:
+That’s it for setup. Run the project and confirm the option is enabled. There is no behavior yet, so complete these three steps:
 
 ### Add initializing
 
-We needn't any special initializing for this action script, all we need is disabling it when there is no opened file, 
-there is ready-made feature for this:
+We don't need special initialization for this action script. We only need to disable when no file exists or when the file hasn’t been saved yet; `ActionScript` already provides this:
 
 ```gdscript
 extends ActionScript
@@ -52,15 +43,11 @@ func _initialize() -> void:
     requires_saved_file = true
 ```
 
-With this function `ActionScript` class will disable option when there isn't saved file, it means when you create a new
-file this option will keep disabled until that file saved, because before that there is no file path. Otherwise, (for 
-example when user uses Open) option will be enabled.
+With this function, `ActionScript` disables the option when no saved file exists. For example, after creating a new file, the option stays disabled until the file is saved (because no file path exists yet). When opening an existing file, the option is enabled.
 
 ### Add main action
 
-We have initialized action script, but there is no action, so let's add it. To do this we use `_run_action()` function,
-this function will be called when user clicks in option in menus, presses shortcut (we will add shortcut later) or uses
-command palette. So we can complete our action script with this function:
+We have initialized the action script, but it still has no behavior, so let’s add it. We do this with `_run_action()`, which runs when the user clicks the menu option, presses the shortcut (added later), or uses the command palette.
 
 ```gdscript
 extends ActionScript
@@ -73,13 +60,8 @@ func _run_action() -> void:
 	DisplayServer.clipboard_set(Global.get_file_path())
 ```
 
-Almost done! We have completed action script, and you can try it now in witch way you want.
+Almost done! The action script logic is complete, and you can try it now. Next, we'll add a shortcut.
 
 ### Add shortcut
 
-There is an easy way for adding shortcuts to action scripts, so let's see how we can do it. To have shortcut we need a
-`Shortcut` resource stored in `shortcuts/` directory, so go to Godot's FileSystem dock and use RMB on `res://shortcuts/`,
-then click on Create New > Resource... and create a `Shortcut` resource and save it as `copy_path.tres`. Shortcut will
-be opened in Inspector, click on `Events` and add new element, then create a new `InputEventKey` in that element. Use 
-`Configure` button and set your shortcut, then run project and try it. You can open command palette (Ctrl+P) and type `copy path`
-to see shortcut.
+To add a shortcut, open `data/shortcuts.tres` from Godot’s FileSystem dock and add a new `String: InputEventKey` pair (for example, key `copy_path`). Click **Configure** to set the keybinding, run the project, then open the command palette (`Ctrl+P`) and type `copy path` to confirm the shortcut appears.

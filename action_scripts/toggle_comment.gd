@@ -1,15 +1,17 @@
 extends ActionScript
 
 func _initialize() -> void:
+	Notif.register_notification(
+		"comment_delimiter_required",
+		Notif.Type.ERR,
+		"There is no comment delimiter!",
+		"Please select a mode with comment delimiter."
+	)
 	requires_file = true
 
 func _run_action() -> void:
 	if Global.get_editor().delimiter_comments.size() == 0:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"There is no comment delimiter!",
-			"Please select a mode with comment delimiter."
-		)
+		Notif.notif("comment_delimiter_required")
 		return
 	Global.get_editor().begin_complex_operation()
 	Global.get_editor().begin_multicaret_edit()

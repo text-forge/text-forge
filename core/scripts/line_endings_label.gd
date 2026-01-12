@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _update_label() -> void:
-	var _is_enable := Settings.get_setting_bool("edit", "normalize_line_endings")
+	var _is_enable: bool = Settings.get_setting("edit", "normalize_line_endings")
 	var _char: String = Settings.get_setting("edit", "line_endings")
 	if _is_enable:
 		text = _char

@@ -1,15 +1,12 @@
 # Explanation about Text Forge "Data Driven UI"
 
-Text Forge uses a data driven system for important parts UI, including menu options and texts. This architecture make
-a dynamic UI and clean translation system.
+Text Forge uses a data-driven system for important parts of the UI, including menu options and texts. This architecture makes a dynamic UI and a clean translation system.
 
 ## Menus
 
-All data related to menus stored in `data/main_ui.ini`, this file have a section for menus and a key for each menu (or 
-submenu). Each item is an array of dictionaries and each dictionary has the following structure:
+All data related to menus is stored in `data/main_ui.ini`. This file has a section for menus and a key for each menu (or submenu). Each item is an array of dictionaries and each dictionary has the following structure:
 
-- `"code"` - a unique integer for connect this option to its action script, its value can be any non-negative int bug must
-  be unique.
+- `"code"` - a unique integer used to connect this option to its action script; its value can be any non-negative int but must be unique.
 - `"text"` - english text of option, it will be used for add name to action scripts and call them based on names.
 - `"key"` - linked translation key in translation file, menu loader will use it to set item text.
 - `"type"` - an integer related to option type, this key can have these values:
@@ -19,12 +16,4 @@ submenu). Each item is an array of dictionaries and each dictionary has the foll
   - `2` - Checkbox
   - `3` - Radio Checkbox
 
-Each key must have `_menu` or `_submenu` suffix, items with `_menu` suffix will load in main menu and items with `_submenu`
-suffix will load as submenus based on texts, for example `Convert Case` submenu in `Edit` menu will load from `convert_case_submenu`
-key (snake case of submenu text with suffix).
-
-## Panels
-
-To handle panels, we have `data/panels/` folder. Here, each panel have a folder with icon, configuration file, and scene.
-In config file, we have place of panel (`R`, `L`, or `B`). Panel manager will load panels from here based on configuration
-file and stored files.
+Each key must have a `_menu` or `_submenu` suffix. Items with the `_menu` suffix will load in the main menu, and items with the `_submenu` suffix will load as submenus based on their texts. For example, the `Convert Case` submenu in the `Edit` menu will load from the `convert_case_submenu` key (snake case of submenu text with suffix).

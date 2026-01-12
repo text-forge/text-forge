@@ -1,6 +1,6 @@
 class_name Utils
 extends Node
-## Keeps useful and helper functions for global access.
+## Keeps useful and helper functions for global access. Use with [code]U[/code] singleton.
 
 ## Available syntax colors.
 enum SyntaxColors {
@@ -52,16 +52,24 @@ const SYNTAX_COLORS_MAP: Dictionary[SyntaxColors, String] = {
 	SyntaxColors.TYPE_3: "type3",
 }
 
+func _ready() -> void:
+	Notif.register_notification(
+		"deprecated_function",
+		Notif.Type.WARN,
+		"A deprecated function used!",
+		"Please report this to avoid future bugs:\n{0}\nis used by\n{1}"
+	)
+
+
 ## Sends a deprecated notification to user.
 func deprecated() -> void:
 	var caller: Array[Dictionary] = get_stack()
 	caller.pop_front()
 	var deprecated_func := _format_stack(caller.pop_front())
 	var caller_formated := caller.map(_format_stack)
-	Global.send_notification(
-		Global.Notification.WARNING,
-		"A deprecated function used!",
-		"Please report this to avoid future bugs:\n{0}\nis used by\n{1}".format([deprecated_func, "\n".join(caller_formated)])
+	Notif.notif(
+		"deprecated_function",
+		{"format_text": [deprecated_func, "\n".join(caller_formated)]}
 	)
 	var helper_message := ["Deprecated function in core detected!", "Please use Help > Submit Issue to report it."]
 	if caller_formated[0].begins_with("user://"):
@@ -80,8 +88,11 @@ func deprecated() -> void:
 					"Please report this to extension provider."
 				]
 			_:
-				helper_message = ["Deprecated function in unknown external module dected!", ""]
-	Global.send_notification(Global.Notification.INFO, helper_message[0], helper_message[1])
+				helper_message = ["Deprecated function in unknown external module detected!", ""]
+	Notif.notif(
+		"dynamic_notification",
+		{"title": helper_message[0], "text": helper_message[1]}
+	)
 
 
 ## Creates a [SceneTreeTimer] with given p[aram time] and wait until it's [signal SceneTreeTimer.timeout]

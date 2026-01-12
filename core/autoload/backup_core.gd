@@ -10,6 +10,11 @@ signal backup_saved(was_auto: bool)
 signal backup_failed(was_auto: bool)
 
 func _ready() -> void:
+	Notif.register_notification(
+		"backup_restore_completed",
+		Notif.Type.INFO,
+		"Backup restore completed."
+	)
 	get_window().close_requested.connect(_cleanup_backups)
 	Settings.define_preset("files", "auto_backup", true)
 	Settings.define_preset("files", "auto_backup_interval_minutes", 5)
@@ -61,9 +66,9 @@ func get_backups_list() -> Dictionary[String, Dictionary]:
 ## Restores current backup to given [param path] from given [param code] backup.
 func restore_backup(code: String, path: String) -> Error:
 	if not FileAccess.file_exists(S.TEMPLATE_BACKUP_FILE.format([code])):
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to find backup file!"
+		Notif.notif(
+			"file_not_found",
+			{"text": S.TEMPLATE_BACKUP_FILE.format([code])}
 		)
 		return ERR_DOES_NOT_EXIST
 	var content := FileAccess.get_file_as_string(S.TEMPLATE_BACKUP_FILE.format([code]))
@@ -73,7 +78,7 @@ func restore_backup(code: String, path: String) -> Error:
 	Global.set_editor_text(content)
 	Signals.check_options.emit()
 	Global.mark_file_as_unsaved()
-	Global.send_notification(Global.Notification.INFO, "Backup successfully restored.")
+	Notif.notif("backup_restore_completed")
 	return OK
 
 
@@ -89,10 +94,9 @@ func backup_file(as_auto: bool) -> void:
 	var file := FileAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
 	if not file:
 		if not as_auto:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to save backup!",
-				"Could not open backup file for writing."
+			Notif.notif(
+				"save_file_failed",
+				{"format_title": ["backup"], "text_append": error_string(FileAccess.get_open_error())}
 			)
 		backup_failed.emit(as_auto)
 		return

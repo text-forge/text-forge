@@ -1,156 +1,117 @@
 # Modes In Text Forge
 
-Text Forge is lightweight and language agnostic, So there is no default dependence on any language. But how you can work
-with any file type and have special features like syntax highlighters and linters?
-This is where the modes come in, a mode is a special module designed to adapt to certain types of files and languages,
-you can install the modes and leave the rest to the editor, everything is automatically managed to you can work with files.
+Text Forge is lightweight and language-agnostic, so there is no default dependency on any language. But how can you work with any file type and have special features like syntax highlighters and linters? This is where modes come in. A mode is a special module designed to adapt to certain types of files and languages. You can install the modes and leave the rest to the editor; everything is automatically managed so you can work with your files seamlessly.
 
 ## Mode Features
 
-There is a list of all standard available features for modes, some mode can have more features with custom solutions and
-some modes can haven't one or more feature is this list. In short, you can find optional features with *optional* tag, 
-features of a mode depends on its developers:
+Below is a list of all standard features available for modes. Some modes may have additional custom features, while others might lack one or more features from this list. In short, you can identify optional features with the *optional* tag. The features of a mode depend on its developers:
 
 - **Save & Load**
 
-    Modes can encode and decode files, with this customizable encoding system you can work with a lot of files, even
-    with files they aren't text files!
+    Modes can encode and decode files. With this customizable encoding system, you can work with a wide variety of files, even those that aren't plain text files!
 
-- **Syntax Highlighter** _optional_
+- **Syntax Highlighter** *optional*
 
-    We provide both simple and advanced syntax highlighting ability to mode developers, including simple highlighters to
-    fully customized highlighters. Highlighters currently can just one theme and highlighter colors are completely mode-driven.
+    We provide both simple and advanced syntax highlighting capabilities to mode developers, ranging from basic highlighters to fully customized ones. Currently, highlighters support only one theme, and highlighter colors are completely mode-driven.
 
-- **Advanced Commenting Handling** _optional_
+- **Advanced Comment Handling** *optional*
 
-    We have easy API for defining comment delimiters and logics. Editor provides line folding and more based on these
-    information.
+    We offer an easy API for defining comment delimiters and logic. The editor provides line folding and other features based on this information.
 
-- **Mode Panels** _optional_
+- **Mode Panels** *optional*
 
-    Modes can have their panels, so you can configure a mode visually based on mode features.
+    Modes can have their own panels, allowing you to configure a mode visually according to its features.
 
-- **Auto Format** & **Auto Indent** _optional_
+- **Auto Format** & **Auto Indent** *optional*
 
-    We provide auto format and auto indent options separately, you can run these options to clean your files with modes'
-    power. You can use these features from command palette, menus, or with shortcuts; These features are available in 
-    `Format > Indentation > Auto Indent` and `Format > Auto Format`, to see shortcuts, type `Auto Indent` or `Auto Format`
-    in command palette.
+    We provide auto format and auto indent options separately. You can run these actions to clean up your files using the mode's capabilities. These features are available in `Format > Indentation > Auto Indent` and `Format > Auto Format`. To see the shortcuts, type `Auto Indent` or `Auto Format` in the command palette.
 
 - **Initialization Lifecycle**
 
-    We have high standards about your files safety, so a mode will load completely before working with your file, or if 
-    initialization fails, we will cancel task.
+    We maintain high standards for your file safety. A mode will load completely before working with your file, and if initialization fails, the task will be canceled.
 
-- **Code Completion** _optional_
+- **Code Completion** *optional*
 
-    We provide a mode-based code completion to you with complete API for mode developers, so features and smartness of
-    this feature is based on your current mode.
+    We provide mode-based code completion with a complete API for mode developers. The features and intelligence of this functionality depend on your current mode.
 
-- **Preview Rendering** _optional_
+- **Preview Rendering** *optional*
 
-    Modes can generate live preview based on your file, and you can see this preview in **Preview Panel** in right side of editor.
+    Modes can generate a live preview based on your file, which you can view in the **Preview Panel** on the right side of the editor.
 
-- **File Outline** _optional_
+- **File Outline** *optional*
 
-    You can navigate between sections in your file or review them in **Outline Panel** in left side of editor, this is a
-    mode-driven feature too, so this section features are based on your mode.
+    You can navigate between sections in your file or review them in the **Outline Panel** on the left side of the editor. This is also a mode-driven feature, so its capabilities are based on your mode.
 
-- **Linting** _optional_
+- **Linting** *optional*
 
-    We currently haven't supported LSP & DAP client ([feature tracking issue↗️](https://github.com/text-forge/text-forge/issues/88))
-    for complete language based features, but we have a simple mode-driven linting feature, and you can see your file
-    problems in **Problems Panel** in bottom of editor, in this panel all error and warnings provided by mode will show
-    , and you can navigate between them by clicking on an item.
+    We currently do not support LSP & DAP clients ([feature tracking issue↗️](https://github.com/text-forge/text-forge/issues/88)) for complete language-based features, but we do offer a simple mode-driven linting feature. You can view your file's problems in the **Problems Panel** at the bottom of the editor. In this panel, all errors and warnings provided by the mode are displayed, and you can navigate between them by clicking on an item.
 
-- **Indentation Settings** _optional_
+- **Indentation Settings** *optional*
 
-   After release of TFM API v2.2 (Text Forge v0.2), modes can provide indentation settings, so you can use multiple modes and be 
-   sure about automatic setting indentation options when you change mode. For example, in YAML indentation must be with spaces, 
-   bug in GDScript tabs are recommended, so a YAML mode can provide 2 spaces as indentation and a GDScript mode can provide
-   single tab with 4 width as indentation and you haven't need to change indentation type and size each time you open a new file.
+   Starting with TFM API v2.2 (Text Forge v0.2), modes can provide indentation settings. This allows you to use multiple modes and be confident that indentation options will be set automatically when you switch modes. For example, YAML requires spaces for indentation, but GDScript recommends tabs. A YAML mode can provide 2 spaces as indentation, while a GDScript mode can provide a single tab with a width of 4, so you don't need to change the indentation type and size each time you open a new file.
 
-   To customize this feature for each mode, you can use **Indentation Settings** menu in bottom right corner of editor 
-   (a button with a text like `Tabs (4)`), you can open a file with target mode and then use this button to set custom settings,
-   Also you can use `Format > Indentation > Reset To Mode Indentation Settings` to restore original settings. If you want disable
-   this feature (and use editor's indentation settings for all files) you can enable `Format > Indentation > Lock Indentation Settings`.
+   To customize this feature for each mode, use the **Indentation Settings** menu in the bottom-right corner of the editor (a button with text like `Tabs (4)`). Open a file with the target mode and use this button to set custom settings. You can also use `Format > Indentation > Reset To Mode Indentation Settings` to restore the original settings. If you want to disable this feature and use the editor's indentation settings for all files, enable `Format > Indentation > Lock Indentation Settings`.
 
 !!! Note
 
-    A lot of above features were added in TFM API v2.0, you can read more about this API [here](mode_development.md#text-forge-mode-api).
-    We provide a lot of these features as optional features, because a mode can work with simple text or non-code files,
-    so there is a lot of optional but basic features.
+    A lot of the above features were added in TFM API v2.0. You can read more about this API [here](mode_development.md#text-forge-mode-api). We provide many of these features as optional because a mode can work with simple text or non-code files, so there are many optional but fundamental features.
 
 !!! Note
 
-    After TFM API v2.0, we use buffer based save and load instead of file based behavior, this new system have safer 
-    error handling and modes can no longer see the file paths in your system directly when you save / load a file.
+    After TFM API v2.0, we use buffer-based save and load instead of file-based behavior. This new system provides safer error handling, and modes can no longer directly see the file paths on your system when you save or load a file.
 
 !!! Important
 
-    Modes are unlimited moduless! So you should be sure about a mode before installing it, otherwise modes can get access
-    to your files content, for completely safe experience download official and community modes in [mode library](https://github.com/text-forge/mode-library).
+    Modes are unlimited modules! You should always verify a mode before installing it, as modes can access your file contents. For a completely safe experience, download official and community modes from the [mode library](https://github.com/text-forge/mode-library).
 
 !!! Note
 
-    Auto Format and Auto Indent are triggerable actions, there is an **Auto Indent New Lines** toggleable feature in `Format > Indentation` menu that will change indentation automatically when you create new line.
+    Auto Format and Auto Indent are triggerable actions. There is an **Auto Indent New Lines** toggleable feature in the `Format > Indentation` menu that will automatically adjust indentation when you create a new line.
 
 ## Mode Kits
 
-In programming word, there is a lot of types of programmers, for example you can be a web developer, in this case you 
-need to work with some files as your basic workflow, such as `.html`, `.css`, and `.js`. So we provide mode kits, a
-mode kit is a collection from related modes create for a special type of users.
+In the programming world, there are many types of programmers. For example, if you are a web developer, your basic workflow requires working with files like `.html`, `.css`, and `.js`. To accommodate this, we provide mode kits—a mode kit is a collection of related modes created for a specific type of user.
 
 ## Installing
 
-You can install modes in different ways. In this section, we will explain standard ways.
+You can install modes in different ways. This section explains the standard methods.
 
 ### From Marketplace
 
-Marketplace is useful feature to install modes is simplest way. This way also protect you from incompatible modes and
-limits them.
+The Marketplace is a useful feature for installing modes in the simplest way. This method also protects you from incompatible modes and limits associated risks.
 
-To install a mode / mode kit from marketplace, go to **Settings > Marketplace** and select **Modes** category, then
-click on a mode to see its details. You can use **Install** button to download and install mode. If this button is
-disabled your editor isn't compatible with this mode, you can find another mode or try other ways.
+To install a mode or mode kit from the Marketplace, go to **Settings > Marketplace**, select the **Modes** category, and click on a mode to view its details. Use the **Install** button to download and install the mode. If this button is disabled, your editor is not compatible with that mode; you can find another mode or try alternative installation methods.
 
-After clicking on Install button, you should wait until see **Package Installed!** notification, then you can use your
-new mode without restarting the editor.
+After clicking the Install button, wait until you see the **Package Installed!** notification. You can then use your new mode without restarting the editor.
 
 !!! Note
 
-    You can install these modes in this way:
-    - Modes in [Marketplace](https://github.com/text-forge/marketplace)
+    You can install modes this way:
+    - Modes in the [Marketplace](https://github.com/text-forge/marketplace)
 
 ### From Mode Manager
 
-You can download mode installation files, this file is a `.zip` or `.tfmode` file that you can download it from mode
-providers, use **Mode Manager** (`Settings > Mode Manager` in menus) and select this file with `Import Mode / Mode Kit`.
-After loading, you will receive an **info** notification that says `"Load mode / mode kit completed"` and you can use 
-your new modes now without restarting the editor.
+You can download mode installation files, which are `.zip` or `.tfmode` files, from mode providers. Open the **Mode Manager** (`Settings > Mode Manager` in menus) and select the file using `Import Mode / Mode Kit`. After loading, you’ll receive a completion info notification. You can then use your new modes without restarting the editor.
 
 !!! Caution
 
-    This installation doesn't check for mode compability!
+    This installation method does not check for mode compatibility!
 
 !!! Note
 
-    You can install these modes in this way:
-    - Modes in [Mode Library](https://github.com/text-forge/mode-library)
-    - Modes in [GitHub's `text-forge` topic](https://github.com/topics/text-forge)
-    - Any mode that provides `.zip` or `.tfmode` as installation file.
+    You can install modes this way:
+    - Modes in the [Mode Library](https://github.com/text-forge/mode-library)
+    - Modes under [GitHub's `text-forge` topic](https://github.com/topics/text-forge)
+    - Any mode that provides a `.zip` or `.tfmode` installation file
 
 ### From Mode Source
 
-Modes works in isolated eviroment, so you can transfer their files to another editor data folder and use them there.
-For this installation way you should have a mode source that you can get it from GitHub or somewhere else. To install
-one or more mode from source use **Settings > Open Data Folder** and paste mode folder in `modes/` directory. When you
-restart your editor you can use new mode.
+Modes work in an isolated environment, so you can transfer their files to another editor's data folder and use them there. For this installation method, you need the mode's source code, which you can obtain from GitHub or another source. To install one or more modes from source, use **Settings > Open Data Folder** and paste the mode folder into the `modes/` directory. After restarting your editor, the new mode will be available.
 
 !!! Note
 
-    You can install these modes in this way:
-    - Modes in [Mode Library](https://github.com/text-forge/mode-library)
-    - Modes in [GitHub's `text-forge` topic](https://github.com/topics/text-forge)
-    - Modes installed in another device or user data.
-    - Any mode that provides source code.
+    You can install modes this way:
+    - Modes in the [Mode Library](https://github.com/text-forge/mode-library)
+    - Modes under [GitHub's `text-forge` topic](https://github.com/topics/text-forge)
+    - Modes installed on another device or user data
+    - Any mode that provides source code

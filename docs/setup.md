@@ -1,67 +1,60 @@
 # Setup
 
-Text Forge currently supports Linux and Windows. Just go to [Download Page](https://text-forge.github.io/download), download the editor
-for your platform and extract it where you want, there is no dependency!
+Text Forge currently supports Linux and Windows. Simply go to the [Download Page](https://text-forge.github.io/download), download the editor for your platform, and extract it wherever you want—there are no dependencies!
 
 !!! Note
 
-    Text Forge currently doesn't support other platforms because of platform-specific limits.
-    If you want to build editor from source, you can see guide here: [Open Text Forge source in Godot](build.md)
+    Text Forge does not currently support other platforms due to platform-specific limitations. If you want to build the editor from source, you can find the guide here: [Open Text Forge source in Godot](build.md)
 
-Now you can open extracted `Text Forge` directory and run Text Forge with `Text Forge` runnable file:
+Now you can open the extracted `Text Forge` directory and run Text Forge using the `Text Forge` executable file:
 
 ![image.png](https://text-forge.github.io/docs/img/setup_screenshot.png)
 
 ## Install Modes
 
-Now, you have a very lightweight editor, it's more like a core. There is a lot of plugged modules like action scripts, 
-panels, etc. but you need another type of module too for work with you editor. This type is **Mode**, you can find more 
-about modes [here](modes.md), but for now let's get your modes from Text Forge Marketplace!
+At this point, you have a very lightweight editor—it's more like a core. There are many plugged-in modules, such as action scripts, panels, etc., but you need another type of module to work with your editor. This type is called a **Mode**. You can learn more about [modes](modes.md), but for now, let's get your modes from the Text Forge Marketplace!
 
-You can use **Settings > Marketplace** to find themes, extensions, and modes and install them in one click. For modes, use filter
-option in top-right corner of marketplace window and set it from *All* to *Modes*. Now you can see available modes, click on a mode
-to see its details, if it's what you want click on **Install** button and wait until **Package Installed!** notification.
+You can use **Settings > Marketplace** to find themes, extensions, and modes and install them with a single click. For modes, use the filter option in the top-right corner of the marketplace window and change it from *All* to *Modes*. Now you can see the available modes. Click on a mode to view its details, and if it's what you want, click the **Install** button and wait for the **Package Installed!** notification.
 
 !!! Tip
 
-    You can find more about mode installation [here](modes.md#installing).
+    You can learn more in the [mode installation guide](modes.md#installing).
 
-## Open A File
+## Open a File
 
-You have a ready code editor! Let's open a file:
+You now have a ready-to-use code editor! Let's open a file:
 
-- In top left of editor you have a list of menus. Click on `File` menu in top left.
-- Click on `Open` and select your file in opened file dialog.
-  - Based on your file type (extension), Text Forge will open it in one of these ways:
-    1. **You have one installed mode for this file:** Here, Text Forge will use mode to load file in editor and loads syntax highlighter from mode.
-    2. **You have some installed mode for this file:** A popup will show, and you can select a mode to open file, then we have first situation.
-    3. **You haven't any installed mode for this file:** Text Forge will send a warning (You can see it in notification panel) and open file using UTF-8 encoding. With this behavior you can open any file type that encoded with UTF-8 without any mode (It means a lot of files!) but there is no syntax highlighter for these files.
+- In the top-left of the editor, you will see a list of menus. Click on the `File` menu.
+- Click on `Open` and select your file in the file dialog that appears.
+  - Depending on your file type (extension), Text Forge will open it in one of these ways:
+    1. **You have one installed mode for this file:** Text Forge will use the mode to load the file in the editor and apply the syntax highlighter from the mode.
+    2. **You have multiple installed modes for this file:** A popup will appear, allowing you to select a mode to open the file. After selection, the first situation applies.
+    3. **You don't have any installed mode for this file:** Text Forge will display a warning (visible in the notification panel) and open the file using UTF-8 encoding. With this behavior, you can open any file type encoded with UTF-8 without a mode (which covers a lot of files!), but there will be no syntax highlighter for these files.
 - Well done!
 
 !!! Tip
 
-    You can open a file with `Ctrl + O` shortcut or using command palette (`Command > Command Palette` option in menus or `Ctrl + P`)
+    You can open a file with the `Ctrl + O` shortcut or by using the command palette (`Command > Command Palette` in menus or `Ctrl + P`).
 
 !!! Note
 
-    On windows, use RMB on file and click on **Open With**, then select Text Forge runnable `.exe`.
-    After this you will be able to open files with Text Forge without open it directly.
+    On Windows, right-click on a file and click **Open With**, then select the Text Forge executable `.exe`. After this, you will be able to open files with Text Forge without launching the editor directly first.
 
-## Create New Project
+## Create a New Project
 
 !!! Note
 
     Unlike most editors, you don't need to create a project before creating a file, so this section is optional.
 
-If you've used other editors, you'll notice a different **project** concept. In other editors:
+If you've used other editors, you'll notice a different concept of a **project**. In other editors:
 
 - A project is a folder.
-- Project information is stored in a subfolder of that folder (e.g., `.textforge`).
+- Project information is stored in a subfolder within that folder (e.g., `.textforge`).
 
 In Text Forge:
 
 - A project is a `.tfproj` file.
-- Project information is stored in that file.
+- Project information is stored inside that file.
 
 But why? We have specific reasons for this design:
 
@@ -71,11 +64,9 @@ But why? We have specific reasons for this design:
 | Single-File Projects    | Requires a folder               | A single file is enough  |
 | Custom Project Settings | Scattered across multiple files | Centralized in `.tfproj` |
 
-Overall, this design gives you more flexibility. You can keep parts of a larger project in different
-folders and switch between them in the editor with a single click.
+Overall, this design gives you more flexibility. You can keep parts of a larger project in different folders and switch between them in the editor with a single click.
 
-Let's see Text Forge projects in action. You can create a project from **Project > New Project**.
-This opens the **New Project** window with these fields:
+Let's see Text Forge projects in action. You can create a project by going to **Project > New Project**. This opens the **New Project** window with the following fields:
 
 - **Project File** — Path to your `.tfproj` file.
 - **Name** — Project name.
@@ -85,10 +76,7 @@ This opens the **New Project** window with these fields:
 - **Include** — Folders and files to add to the project.
 - **Exclude** — Folders and files to exclude from the project.
 
-When you press the **Create** button, the editor creates the project, and you can use **Project > Open Project**
-to open it. Then, navigate between project files in the **Files** panel on the left side of the editor.
-To automatically save files when moving between project files, enable
-**Settings > Preferences... > Files > Save Files When Moving Between Project Files**.
+When you press the **Create** button, the editor creates the project, and you can use **Project > Open Project** to open it. You can then navigate between project files in the **Files** panel on the left side of the editor. To automatically save files when switching between project files, enable **Settings > Preferences... > Files > Save Files When Moving Between Project Files**.
 
 !!! Tip
 
@@ -96,20 +84,12 @@ To automatically save files when moving between project files, enable
 
 ## Customize Editor Appearance
 
-You can customize editor appearance in multiple ways:
+You can customize the editor's appearance in multiple ways:
 
 ### Using Themes
 
-To find a theme, open `Settings > Marketplace` and set package filter to `Themes`. You can click on
-a theme and see its preview and them install it with **Install** button. When the theme is downloaded
-and installed, you will see a confirmation dialog that says you can enable this theme now. Next time,
-you can open `Settings > Preferences` and go to `Editor UI > Theme` to change theme. If you want to
-see where themes are installed use `Settings > Open Data Folder` and go to `themes/` folder.
+To find a theme, open `Settings > Marketplace` and set the package filter to `Themes`. You can click on a theme to see its preview, then install it with the **Install** button. Once the theme is downloaded and installed, a confirmation dialog will appear, letting you know you can enable the theme now. In the future, you can open `Settings > Preferences` and go to `Editor UI > Theme` to change the theme. If you want to see where themes are installed, use `Settings > Open Data Folder` and navigate to the `themes/` folder.
 
 ### UI Filter
 
-Sometimes you need to change editor appearance just to add more brightness or less saturation, in these
-situations you can use **UI Filter** a feature to apply customizations in a few moments. To see how
-it works, open `Settings > Preferences` and go to `Editor UI` in this section you can find three
-options: `Filter Hue Shift`, `Filter Saturation`, and `Filter Brightness`. With this feature you can
-customize editor appearance to any base color, saturation and brightness and see result dynamically.
+Sometimes you need to adjust the editor's appearance just to add more brightness or reduce saturation. In these situations, you can use the **UI Filter**—a feature that applies customizations in just a few moments. To see how it works, open `Settings > Preferences` and go to `Editor UI`. In this section, you will find three options: `Filter Hue Shift`, `Filter Saturation`, and `Filter Brightness`. With this feature, you can customize the editor's appearance to any base color, saturation, and brightness and see the result dynamically.

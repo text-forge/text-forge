@@ -45,6 +45,44 @@ var hooks: Dictionary[Hooks, Array]
 var _temp_mode_index: int = 0
 
 func _ready() -> void:
+	Notif.register_notification(
+		"load_modes_failed",
+		Notif.Type.ERR,
+		"Failed to load some modes!"
+	)
+	Notif.register_notification(
+		"import_mode_completed",
+		Notif.Type.INFO,
+		"Import mode / mode kit completed."
+	)
+	Notif.register_notification(
+		"save_without_mode",
+		Notif.Type.WARN,
+		"Can't find any mode to save this file.",
+		"File will be saved with UTF-8 (The result may be wrong)"
+	)
+	Notif.register_notification(
+		"load_without_mode",
+		Notif.Type.WARN,
+		"Can't find any mode to open this file.",
+		"File will be loaded with UTF-8 (The result may be wrong)"
+	)
+	Notif.register_notification(
+		"mode_initialize_failed",
+		Notif.Type.ERR,
+		"Failed to initialize mode {0} for {1}!"
+	)
+	Notif.register_notification(
+		"mode_script_not_found",
+		Notif.Type.ERR,
+		"Mode script not found!"
+	)
+	Notif.register_notification(
+		"invalid_indent_size",
+		Notif.Type.ERR,
+		"Invalid indent size!",
+		"Indent size must be at least 1."
+	)
 	child_order_changed.connect(Signals.refresh_module_profiler)
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
 	Global.get_editor().type_timer_timeout.connect(_update_preview)
@@ -102,7 +140,7 @@ func _load_mode_list() -> void:
 			if damaged_modes_string != "":
 				damaged_modes_string += "\n\t"
 			damaged_modes_string += "{0}: {1}".format([problem, ", ".join(damaged_modes_grouped[problem])])
-		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", damaged_modes_string)
+		Notif.notif("load_modes_failed", {"text": damaged_modes_string})
 
 
 ## Reloads all modes with [method _load_mode_list].
@@ -113,15 +151,17 @@ func reload_modes() -> void:
 ## Imports one or more mode from a [code].tfmode[/code] file.
 func import_mode(path: String) -> void:
 	if path.get_extension().to_lower() != "tfmode":
-		Global.send_notification(Global.Notification.ERROR, "Invalid mode file!")
+		Notif.notif(
+			"invalid_file_extension",
+			{"format_text": ["tfmode", path.get_extension()]}
+		)
 		return
 	var reader = ZIPReader.new()
 	var err := reader.open(path)
 	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't load this file!",
-			"Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)])
+		Notif.notif(
+			"open_file_failed",
+			{"format_title": [path], "text_append": error_string(err)}
 		)
 		return
 	if not DirAccess.dir_exists_absolute(S.globalize_path("user://modes")):
@@ -133,10 +173,9 @@ func import_mode(path: String) -> void:
 		# Reject entries not under modes/
 		file_path = file_path.simplify_path()
 		if not file_path.begins_with("modes/"):
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Security alert!",
-				path + " file contains a file outside modes folder: " + file_path + "\nThis file extraction was skipped!"
+			Notif.notif(
+				"security_alert",
+				{"text": path + " file contains a file outside modes folder: " + file_path + "\nThis file extraction was skipped!"}
 			)
 			continue
 		if file_path.ends_with("/"):
@@ -147,7 +186,7 @@ func import_mode(path: String) -> void:
 		var buffer = reader.read_file(file_path)
 		file.store_buffer(buffer)
 	reload_modes()
-	Global.send_notification(Global.Notification.INFO, "Load mode / mode kit completed.")
+	Notif.notif("import_mode_completed")
 
 
 ## Handle file saving from mode selection to correct mode encode system and then to targe file.
@@ -160,19 +199,14 @@ func save_file(file_path: String) -> void:
 		var compatible_modes := mode_list.filter(func(m): return _is_mode_compatible(m, file_path))
 		match compatible_modes.size():
 			0:
-				Global.send_notification(
-					Global.Notification.WARNING,
-					"Can't find any mode to save this file.",
-					"Save file using UTF-8..."
-				)
+				Notif.notif("save_without_mode")
 				_unload_current_mode()
 				# Save with UTF-8
 				var file = FileAccess.open(file_path, FileAccess.WRITE)
-				if FileAccess.get_open_error():
-					Global.send_notification(
-						Global.Notification.ERROR,
-						"Failed to open file!",
-						"Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()])
+				if not file:
+					Notif.notif(
+						"save_file_failed",
+						{"format_title": ["this file"], "text_append": error_string(FileAccess.get_open_error())}
 					)
 					return
 				file.store_string(Global.get_editor_text())
@@ -201,9 +235,9 @@ func save_file(file_path: String) -> void:
 	if _change_mode_to(mode) == OK:
 		_handle_save_file(file_path)
 	else:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to initialize mode {0} for save!".format([mode["name"]])
+		Notif.notif(
+			"mode_initialize_failed",
+			{"format_title": [mode["name"], "save"]}
 		)
 
 
@@ -211,6 +245,7 @@ func save_file(file_path: String) -> void:
 ## and editor. See [url=https://text-forge.github.io/docs/setup#open-a-file]Open A File[/url] guide
 ## for possible situations in mode selection.
 func load_file(file_path: String) -> void:
+	file_path = file_path.simplify_path()
 	if file_path.get_extension().to_lower() == "tfproj":
 		Project.load_project(file_path)
 		return
@@ -221,22 +256,19 @@ func load_file(file_path: String) -> void:
 
 		match compatible_modes.size():
 			0:
-				Global.send_notification(
-					Global.Notification.WARNING,
-					"Can't find any mode to open this file.",
-					"Load file using UTF-8..."
-				)
+				Notif.notif("load_without_mode")
 				_unload_current_mode()
 				# Load with UTF-8
-				Global.set_editor_text(FileAccess.get_file_as_string(file_path))
+				var content := FileAccess.get_file_as_string(file_path)
+				if FileAccess.get_open_error():
+					Notif.notif(
+						"open_file_failed",
+						{"format_title": [file_path], "text_append": error_string(FileAccess.get_open_error())}
+					)
+					return
+				Global.set_editor_text(content)
 				Global.get_core().append_to_recent_files(file_path)
 				Global.set_editor_disabled(false)
-				if FileAccess.get_open_error():
-					Global.send_notification(
-						Global.Notification.ERROR,
-						"Error in opening file!",
-						"Load from {0} completed with error code {1}".format([file_path, FileAccess.get_open_error()])
-					)
 				# ---
 				Signals.check_options.emit()
 				update_indentation_settings(false)
@@ -262,9 +294,9 @@ func load_file(file_path: String) -> void:
 	if _change_mode_to(mode) == OK:
 		_handle_load_file(file_path)
 	else:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to initialize mode {0} for load!".format([mode["name"]])
+		Notif.notif(
+			"mode_initialize_failed",
+			{"format_title": [mode["name"], "load"]}
 		)
 
 
@@ -496,19 +528,17 @@ func _change_mode_to(mode: Dictionary) -> Error:
 func _handle_save_file(file_path: String) -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't find mode script!",
-			"Saving failed."
+		Notif.notif(
+			"mode_script_not_found",
+			{"text": "No instructions to save, Saving failed."}
 		)
 		return
 	DirAccess.make_dir_recursive_absolute(S.globalize_path(file_path.get_base_dir()))
 	var file := FileAccess.open(file_path, FileAccess.WRITE)
-	if FileAccess.get_open_error():
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to open file!",
-			"Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()])
+	if not file:
+		Notif.notif(
+			"save_file_failed",
+			{"format_title": ["this file"], "text_append": error_string(FileAccess.get_open_error())}
 		)
 		return
 	file.store_buffer(mode_script._string_to_buffer(Global.get_editor_text()))
@@ -546,20 +576,17 @@ func _save_bookmarks() -> void:
 func _handle_load_file(file_path: String) -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
-		push_error("Load error")
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't find mode script!",
-			"Loading failed."
+		Notif.notif(
+			"mode_script_not_found",
+			{"text": "No instructions to load, Loading failed."}
 		)
 		return
 	DirAccess.make_dir_recursive_absolute(S.globalize_path(file_path.get_base_dir()))
 	var buffer := FileAccess.get_file_as_bytes(file_path)
 	if FileAccess.get_open_error():
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to open file!",
-			"Load from {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()])
+		Notif.notif(
+			"open_file_failed",
+			{"format_title": [file_path], "text_append": error_string(FileAccess.get_open_error())}
 		)
 		return
 	Global.set_editor_text(mode_script._buffer_to_string(buffer))
@@ -626,10 +653,9 @@ func update_indentation_settings(use_mode := true) -> void:
 		else:
 			var mode_script := _get_mode_script()
 			if not mode_script:
-				Global.send_notification(
-					Global.Notification.ERROR,
-					"Can't find mode script!",
-					"Updating indentation settings failed."
+				Notif.notif(
+					"mode_script_not_found",
+					{"text": "No information to use, Updating indentation settings failed."}
 				)
 				return
 			if mode_script.indent_type == TextForgeMode.INDENT_TYPE.DISABLE:
@@ -667,10 +693,9 @@ func change_indentation_type(use_spaces: bool) -> void:
 	else:
 		var mode_script := _get_mode_script()
 		if not mode_script:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Can't find mode script!",
-				"Changing indentation settings failed."
+			Notif.notif(
+				"mode_script_not_found",
+				{"text": "No information to use, Changing indentation type failed."}
 			)
 			return
 		custom_mode_indentations[current_mode.id] = {
@@ -690,7 +715,7 @@ func change_indentation_type(use_spaces: bool) -> void:
 ## editor settings.
 func change_indent_size(indent_size: int) -> void:
 	if indent_size < 1:
-		Global.send_notification(Global.Notification.ERROR, "Invalid indent size!", "Indent size must be at least 1.")
+		Notif.notif("invalid_indent_size")
 		return
 	if not current_mode.has("id"):
 		Settings.set_setting("edit", "indent_size", indent_size)
@@ -701,10 +726,9 @@ func change_indent_size(indent_size: int) -> void:
 	else:
 		var mode_script := _get_mode_script()
 		if not mode_script:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Can't find mode script!",
-				"Changing indentation settings failed."
+			Notif.notif(
+				"mode_script_not_found",
+				{"text": "No information to use, Changing indent size failed."}
 			)
 			return
 		var use_spaces_value: bool

@@ -94,16 +94,6 @@ func test_get_setting_uses_default_when_not_set() -> void:
 	var retrieved = Settings.get_setting(test_section, test_key)
 	assert_str(retrieved).is_equal("default_val")
 
-func test_get_setting_bool_returns_boolean() -> void:
-	Settings.set_setting(test_section, test_key, true)
-	var retrieved = Settings.get_setting_bool(test_section, test_key)
-	assert_bool(retrieved).is_true()
-
-func test_get_setting_bool_converts_to_boolean() -> void:
-	Settings.set_setting(test_section, test_key, 1)
-	var retrieved = Settings.get_setting_bool(test_section, test_key)
-	assert_bool(retrieved).is_true()
-
 func test_restore_default_resets_to_preset() -> void:
 	Settings.define_preset(test_section, test_key, "preset_value")
 	Settings.set_setting(test_section, test_key, "changed_value")

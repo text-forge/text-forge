@@ -14,6 +14,29 @@ var mode_informations: Array[Dictionary]
 var current_mode_index: int
 
 func _ready() -> void:
+	Notif.register_notification(
+		"export_mode_failed",
+		Notif.Type.ERR,
+		"Can't export mode!",
+		"Error: ",
+	)
+	Notif.register_notification(
+		"export_mode_completed",
+		Notif.Type.INFO,
+		"Export mode completed.",
+		"Exported file: ",
+	)
+	Notif.register_notification(
+		"remove_mode_failed",
+		Notif.Type.ERR,
+		"Failed to remove mode!",
+		"Error: ",
+	)
+	Notif.register_notification(
+		"remove_mode_completed",
+		Notif.Type.INFO,
+		"Remove mode completed.",
+	)
 	mode_list.item_selected.connect(_show_about)
 	_load_mode_list()
 
@@ -103,11 +126,17 @@ func _export_mode(path: String) -> void:
 	var writer = ZIPPacker.new()
 	var err = writer.open(path)
 	if err:
-		Global.send_notification(Global.Notification.ERROR, "Can't export mode!", "Error code: " + str(err))
+		Notif.notif(
+			"export_mode_failed",
+			{"text_append": error_string(err)}
+		)
 		return
 	_add_folder_to_zip(writer, "user://modes/".path_join(mode_informations[current_mode_index]["id"]))
 	writer.close()
-	Global.send_notification(Global.Notification.INFO, "Export mode completed.", "Exported file: " + path)
+	Notif.notif(
+		"export_mode_completed",
+		{"text_append": path},
+	)
 
 
 func _add_folder_to_zip(writer: ZIPPacker, path: String) -> void:
@@ -138,9 +167,12 @@ func _on_remove_pressed() -> void:
 func _remove_mode() -> void:
 	var err := OS.move_to_trash(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"])))
 	if err:
-		Global.send_notification(Global.Notification.ERROR, "Failed to remove mode!", "Error code: " + str(err))
+		Notif.notif(
+			"remove_mode_failed",
+			{"text_append": error_string(err)}
+		)
 		return
-	Global.send_notification(Global.Notification.INFO, "Remove mode completed.")
+	Notif.notif("remove_mode_completed")
 	Global.get_editor_api().reload_modes()
 	_load_mode_list()
 	about.hide()
@@ -150,12 +182,24 @@ func _save_package(path: String) -> void:
 	var writer = ZIPPacker.new()
 	var err = writer.open(path)
 	if err:
-		Global.send_notification(Global.Notification.ERROR, "Can't export mode kit!", "Error code: " + str(err))
+		Notif.notif(
+			"export_mode_failed",
+			{
+				"title": "Can't export mode kit!",
+				"text_append": error_string(err),
+			}
+		)
 		return
 	for index in mode_list.get_selected_items():
 		_add_folder_to_zip(writer, S.FOLDER_MODES.path_join(mode_informations[index]["id"]))
 	writer.close()
-	Global.send_notification(Global.Notification.INFO, "Export mode kit completed.", "Exported file: " + path)
+	Notif.notif(
+		"export_mode_completed",
+		{
+			"title": "Export mode kit completed.",
+			"text_append": path
+		},
+	)
 	mode_list.select_mode = ItemList.SELECT_SINGLE
 	mode_list.deselect_all()
 

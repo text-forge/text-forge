@@ -4,6 +4,12 @@ extends Node
 func _ready() -> void:
 	child_entered_tree.connect(Signals.refresh_module_profiler.unbind(1))
 	child_exiting_tree.connect(Signals.refresh_module_profiler.unbind(1))
+	Notif.register_notification(
+		"http_request_failed",
+		Notif.Type.ERR,
+		"Failed to send HTTP request!",
+		"Error: "
+	)
 
 
 ## Creates a new [HTTPRequest] and initializes it with these optional parameters:[br]
@@ -16,8 +22,8 @@ func _ready() -> void:
 ##           headers to send request.[br]
 ## َ        - [code]"method"[/code] (Optional, default [constant HTTPClient.METHOD_GET]): Request method.[br]
 ## َ        - [code]"request_data_raw"[/code] (Optional, default empty [PackedByteArray]): Binary body
-##           when [code]"url"[/code] is [code]true[/code].[br]
-## َ        - [code]"request_data"[/code] (Optional, default empty [String]): String body when [code]"url"[/code]
+##           when [code]"raw"[/code] is [code]true[/code].[br]
+## َ        - [code]"request_data"[/code] (Optional, default empty [String]): String body when [code]"raw"[/code]
 ##           is [code]false[/code] (default).[br]
 ## َ    - [param timeout]: Optional timeout in seconds.[br]
 ## َ    - [param download_file]: The file to download into.[br][br]
@@ -50,7 +56,10 @@ func http_request(callback := Callable(), request := {}, timeout := 0.0, downloa
 				request.get("request_data", String())
 			)
 		if err:
-			Global.send_notification(Global.Notification.ERROR, "Failed to send HTTP request!", "Error code: " + str(err))
+			Notif.notif(
+				"http_request_failed",
+				{"text_append": error_string(err)}
+			)
 			remove_child(hr)
 			hr.queue_free()
 			return null

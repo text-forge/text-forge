@@ -57,6 +57,41 @@ var _is_reloading_settings := false
 
 # This is start point of Text Forge
 func _ready() -> void:
+	Notif.register_notification(
+		"create_themes_folder_failed",
+		Notif.Type.ERR,
+		"Failed to create themes folder!",
+		"Error: "
+	)
+	Notif.register_notification(
+		"copy_internal_theme_failed",
+		Notif.Type.ERR,
+		"Failed to copy internal theme to data folder!",
+		"Error: "
+	)
+	Notif.register_notification(
+		"add_submenu_item_failed",
+		Notif.Type.ERR,
+		"Failed to add item to submenu!",
+		"Currently regular, separator, and checkbox items are available for submenus."
+	)
+	Notif.register_notification(
+		"template_not_found",
+		Notif.Type.ERR,
+		"Template not found",
+		"Template '{0}' could not be loaded."
+	)
+	Notif.register_notification(
+		"menu_item_for_script_not_found",
+		Notif.Type.ERR,
+		"Failed to find menu item for {0} script!",
+	)
+	Notif.register_notification(
+		"automatic_load_last_file_at_start",
+		Notif.Type.INFO,
+		"Your last opened file was loaded!",
+		"You can change this behavior or disable this notification in preferences."
+	)
 	# Change window name based on project name
 	Project.project_opened.connect(func(): get_window().title = "%s - %s" % [Project.get_project_name(), WINDOW_TITLE])
 	Project.project_closed.connect(func(): get_window().title = WINDOW_TITLE)
@@ -85,21 +120,24 @@ func _ready() -> void:
 func _initialize_themes() -> void:
 	# Make directory
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_THEMES)):
-		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_THEMES))
+		var err := DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_THEMES))
+		if err:
+			Notif.notif(
+				"create_themes_folder_failed",
+				{"text_append": error_string(err)}
+			)
+			return
 	# Check each internal theme
 	for t in DirAccess.get_files_at(S.FOLDER_INTERNAL_THEMES):
 		if t.get_extension().to_lower() != "tres" or FileAccess.file_exists(S.FOLDER_THEMES.path_join(t)):
 			continue
 		# Copy theme
-		var file := FileAccess.open(S.FOLDER_THEMES.path_join(t), FileAccess.WRITE)
-		if not file:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to create theme file at %s" % S.FOLDER_THEMES.path_join(t)
+		var err := DirAccess.copy_absolute(S.FOLDER_INTERNAL_THEMES.path_join(t), S.FOLDER_THEMES.path_join(t))
+		if err:
+			Notif.notif(
+				"copy_internal_theme_failed",
+				{"text_append": error_string(err)}
 			)
-			continue
-		file.store_buffer(FileAccess.get_file_as_bytes(S.FOLDER_INTERNAL_THEMES.path_join(t)))
-		file.close()
 
 
 ## Defines core-related presets.
@@ -108,7 +146,6 @@ func _define_presets() -> void:
 	# 1. Load last file at start
 	Settings.define_preset("files", "load_last_file_at_start", true)
 	Settings.define_preset("files", "ask_before_load_last_file_at_start", false)
-	Settings.define_preset("notifications", "automatic_load_last_file_at_start", true)
 	# 2. Indentation
 	Settings.define_preset("edit", "indent_with_space", false)
 	Settings.define_preset("edit", "indent_size", 4)
@@ -136,7 +173,8 @@ func _handle_settings() -> void:
 	# 2. Theme
 	if not FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
 		Settings.restore_default("editor_ui", "theme_name")
-	get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
+	if DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_THEMES)):
+		get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
 	# 3. Mode reload
 	var current_mode := Global.get_editor_api().current_mode
 	if current_mode:
@@ -258,7 +296,7 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary) -> void:
 					OptionTypes.CHECKBOX:
 						submenu.add_check_item(submenu_item.get("key", ""), submenu_item.get("code", -1))
 					_:
-						Global.send_notification(Global.Notification.ERROR, "Can't add item to submenu!", "Currently regular, separator, and checkbox items are available for submenus.")
+						Notif.notif("add_submenu_item_failed")
 			# Connect submenu to handle state function
 			submenu.id_pressed.connect(_handle_menu_option_state.bind(submenu))
 	# Connect submenu to handle state function for special items (It will call MultiActionScripts)
@@ -294,10 +332,9 @@ func load_template(_name: String) -> void:
 	Global.set_file_path("Unsaved")
 	var path := S.TEMPLATE_TEMPLATES.format([_name])
 	if not FileAccess.file_exists(path):
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Template not found",
-			"Template '%s' could not be loaded." % _name
+		Notif.notif(
+			"template_not_found",
+			{"format_text": [_name]}
 		)
 		return
 	Global.set_editor_text(FileAccess.get_file_as_string(path))
@@ -317,9 +354,9 @@ func append_to_recent_files(file_path: String) -> void:
 	var current_files := FileAccess.get_file_as_string(S.RECENT_FILES_DATA)
 	var file_access := FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
 	if not file_access:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to update recent files!"
+		Notif.notif(
+			"save_file_failed",
+			{"format_title": ["recent files"], "text_append": error_string(FileAccess.get_open_error())}
 		)
 		return
 	file_access.store_string(file_path + "\n" + current_files)
@@ -345,9 +382,9 @@ func _reload_recent_files() -> void:
 	if FileAccess.file_exists(S.RECENT_FILES_DATA):
 		recent_files_old = FileAccess.get_file_as_string(S.RECENT_FILES_DATA)
 		if FileAccess.get_open_error():
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to reload recent files!"
+			Notif.notif(
+				"open_file_failed",
+				{"format_title": [S.RECENT_FILES_DATA], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
 	# Clear submenu
@@ -369,9 +406,9 @@ func _reload_recent_files() -> void:
 	if "\n".join(recent_files) != recent_files_old:
 		var file = FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
 		if not file:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to save recent files!"
+			Notif.notif(
+				"save_file_failed",
+				{"format_title": ["recent files"], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
 		file.store_string("\n".join(recent_files))
@@ -391,9 +428,9 @@ func _connect_script(path: String, res: Resource) -> void:
 		if was_found:
 			break
 	if not was_found:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to connect script %s!" % path
+		Notif.notif(
+			"menu_item_for_script_not_found",
+			{"format_title": [path.get_file().get_basename()]}
 		)
 		return
 	var script = res.new()
@@ -465,11 +502,11 @@ func _handle_cmdline_arguments() -> void:
 ## Checks for "Load last file at start" feature.
 func _handle_load_last_file() -> void:
 	if (Global.has_file()
-		or not Settings.get_setting_bool("files", "load_last_file_at_start")
+		or not Settings.get_setting("files", "load_last_file_at_start")
 		or Global.get_last_file_path() == ""
 		or not FileAccess.file_exists(Global.get_last_file_path())):
 		return
-	if Settings.get_setting_bool("files", "ask_before_load_last_file_at_start"):
+	if Settings.get_setting("files", "ask_before_load_last_file_at_start"):
 		add_child(Factory.confirmation_dialog(
 			"Do you want to load your last opened file?",
 			"Yes",
@@ -486,12 +523,8 @@ func _handle_load_last_file() -> void:
 ## say this action was done.
 func _load_last_file(is_automatic := true) -> void:
 	Signals.open_file.emit(Global.get_last_file_path())
-	if is_automatic and Settings.get_setting_bool("notifications", "automatic_load_last_file_at_start"):
-		Global.send_notification(
-			Global.Notification.INFO,
-			"Your last opened file was loaded!",
-			"You can change this behavior or disable this notification in preferences."
-		)
+	if is_automatic:
+		Notif.notif("automatic_load_last_file_at_start")
 	editor.grab_focus()
 
 

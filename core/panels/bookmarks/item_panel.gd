@@ -36,6 +36,5 @@ func _on_go_to_pressed() -> void:
 ## there are unsaved changes.
 func _on_remove_pressed() -> void:
 	Global.get_editor().set_line_as_bookmarked(_line, false)
-	if not Global.has_unsaved_change():
-		Global.set_file_name(Global.get_file_name() + "*")
+	Global.mark_file_as_unsaved()
 	hide()

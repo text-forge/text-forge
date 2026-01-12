@@ -10,5 +10,4 @@ func _run_action() -> void:
 			continue
 		Global.get_editor().set_line_as_bookmarked(l, not Global.get_editor().is_line_bookmarked(l))
 	Global.get_editor().type_timer_timeout.emit()
-	if not Global.has_unsaved_change():
-		Global.mark_file_as_unsaved()
+	Global.mark_file_as_unsaved()

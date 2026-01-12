@@ -96,13 +96,18 @@ func _on_create_pressed() -> void:
 	config.set_value("files", "bookmarks", Dictionary({}, TYPE_STRING, "", null, TYPE_PACKED_INT32_ARRAY, "", null))
 	var err := config.save(path_button.text)
 	if err == OK:
-		Global.send_notification(Global.Notification.INFO, "New project created at {0}.".format([path_button.text]))
+		Notif.notif(
+			"new_project_created",
+			{"format_title": [path_button.text]}
+		)
 		queue_free()
 	else:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to save project at {0}!".format([path_button.text]),
-			"Error code: {0}".format([err])
+		Notif.notif(
+			"save_project_failed",
+			{
+				"format_title": [path_button.text],
+				"text_append": error_string(err),
+			}
 		)
 
 

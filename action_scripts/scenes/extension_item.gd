@@ -60,37 +60,7 @@ func _on_export_pressed() -> void:
 
 ## Exports current extension.
 func _export_self(path: String) -> void:
-	var writer := ZIPPacker.new()
-	var err := writer.open(path)
-	if err:
-		Global.send_notification(Global.Notification.ERROR, "Can't export extension!", "Error code: " + str(err))
-		return
-	var files_written := 0
-	for f in DirAccess.get_files_at(S.FOLDER_EXTENSIONS.path_join(id)):
-		var src_path := S.FOLDER_EXTENSIONS.path_join(id).path_join(f)
-		var file := FileAccess.open(src_path, FileAccess.READ)
-		if not file:
-			var open_err := FileAccess.get_open_error()
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Can't export extension file!",
-				"File: %s\nError code: %s" % [src_path, str(open_err)]
-			)
-			continue
-		writer.start_file(id.path_join(f))
-		writer.write_file(file.get_buffer(file.get_length()))
-		file.close()
-		writer.close_file()
-		files_written += 1
-	writer.close()
-	if files_written == 0:
-		Global.send_notification(
-			Global.Notification.WARNING,
-			"Export completed with warnings.",
-			"No files were exported. The extension folder may be empty."
-		)
-		return
-	Global.send_notification(Global.Notification.INFO, "Export extension completed.", "Exported file: " + path)
+	Extensions.export_extension(id, path)
 
 
 func _update_status_text(is_enabled: bool) -> void:
