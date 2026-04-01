@@ -106,7 +106,7 @@ jobs:
         path: ${{ matrix.config.name }}.zip
 
     - name: Release
-      uses: ncipollo/release-action@v1.20.0
+      uses: ncipollo/release-action@v1.21.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
