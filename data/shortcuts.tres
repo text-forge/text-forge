@@ -125,6 +125,7 @@ keycode = 4194334
 
 [sub_resource type="InputEventKey" id="InputEventKey_tc1w7"]
 device = -1
+shift_pressed = true
 keycode = 4194305
 
 [sub_resource type="InputEventKey" id="InputEventKey_1rupg"]
@@ -160,6 +161,12 @@ keycode = 4194306
 device = -1
 ctrl_pressed = true
 keycode = 74
+
+[sub_resource type="InputEventKey" id="InputEventKey_ceuua"]
+device = -1
+alt_pressed = true
+shift_pressed = true
+keycode = 77
 
 [sub_resource type="InputEventKey" id="InputEventKey_6dv2x"]
 device = -1
@@ -344,12 +351,6 @@ keycode = 90
 device = -1
 shift_pressed = true
 keycode = 4194306
-
-[sub_resource type="InputEventKey" id="InputEventKey_ceuua"]
-device = -1
-alt_pressed = true
-shift_pressed = true
-keycode = 77
 
 [resource]
 script = ExtResource("1_ceuua")

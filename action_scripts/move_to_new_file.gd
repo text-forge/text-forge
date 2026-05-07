@@ -5,9 +5,7 @@ func _initialize() -> void:
 
 
 func _run_action() -> void:
-	if Global.has_unsaved_change():
-		Signals.save_request.emit(id)
-		return
+	if Global.emit_save_request(id): return
 	Global.get_editor().merge_overlapping_carets()
 	var text: Array = []
 	for line in Global.get_editor().get_line_count():

@@ -4,6 +4,7 @@ extends Node
 ##
 ## You can access to this class using [code]Global[/code] autoload.
 
+## @deprecated: Please use [enum NotificationManager.Type] instead.
 ## Type of [b]Editor Notification[/b]s, see also [method send_notification] and
 ## [signal SignalBus.editor_notification].
 enum Notification {
@@ -152,9 +153,16 @@ func get_panel_manager() -> PanelManager:
 	return _core.panel_manager
 
 
+## @deprecated: Please use [method NotificationManager.notif] instead.
 ## Sends an [b]Editor Notification[/b] using emit [signal SignalBus.editor_notification].
-func send_notification(type := Notification.INFO, title: String = "", text: String = "") -> void:
-	Signals.editor_notification.emit(type, title, text)
+func send_notification(type: Notification, title: String, text: String = "") -> void:
+	U.deprecated()
+	const map = {
+		Notification.INFO: Notif.Type.INFO,
+		Notification.WARNING: Notif.Type.WARN,
+		Notification.ERROR: Notif.Type.ERR,
+	}
+	Signals.editor_notification.emit(map[type], title, text)
 
 
 ## Defines new command and updates [member _commands]. Commands shoud have a unique
@@ -201,6 +209,15 @@ func load_resource(path: String) -> Resource:
 func mark_file_as_unsaved() -> void:
 	if not (Global.has_unsaved_change() or Global.is_editor_disabled()):
 		_file_label.text += "*"
+
+
+## Emits [signal SignalBus.save_request] when there is any unsaved change and returns [code]true[/code],
+## otherwise just returns [code]false[/code].
+func emit_save_request(from_id: int) -> bool:
+	if Global.has_unsaved_change():
+		Signals.save_request.emit(from_id)
+		return true
+	return false
 
 
 class WindowManager:

@@ -10,8 +10,6 @@ func _run_action() -> void:
 
 
 func _close() -> void:
-	if Global.has_unsaved_change():
-		Signals.save_request.emit(id)
-		return
+	if Global.emit_save_request(id): return
 	await get_tree().process_frame
 	get_tree().quit()

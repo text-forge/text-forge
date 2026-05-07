@@ -19,7 +19,56 @@ var recent_menu := PopupMenu.new()
 ## List of all project files. (Will be set from other modules)
 var all_files: Array[String] = []
 
+var close_project_action_script_id: int
+
 func _ready() -> void:
+	Signals.close_project.connect(close_project)
+	Notif.register_notification(
+		"save_project_failed",
+		Notif.Type.ERR,
+		"Failed to save project at {0}!",
+		"Error: ",
+	)
+	Notif.register_notification(
+		"load_project_file_failed",
+		Notif.Type.ERR,
+		"Failed to load project file!",
+		"Error: "
+	)
+	Notif.register_notification(
+		"new_project_created",
+		Notif.Type.INFO,
+		"New project created at {0}.",
+	)
+	Notif.register_notification(
+		"close_project_failed",
+		Notif.Type.ERR,
+		"Failed to close project!",
+		"Error: "
+	)
+	Notif.register_notification(
+		"incompatible_project_version",
+		Notif.Type.INFO,
+		"Incompatible project version.",
+		"The project was created with a different TFPM version."
+		+ " Please select a converter script to update it, then open the project again."
+	)
+	Notif.register_notification(
+		"invalid_project_converter",
+		Notif.Type.ERR,
+		"Converter is invalid!"
+	)
+	Notif.register_notification(
+		"project_conversion_started",
+		Notif.Type.INFO,
+		"Conversion started."
+	)
+	Notif.register_notification(
+		"project_conversion_completed",
+		Notif.Type.INFO,
+		"Conversion completed.",
+		"You can open the project file now."
+	)
 	Settings.define_preset("files", "save_files_when_moving_between_project_files", false)
 	get_window().close_requested.connect(close_project)
 	load_recent_projects()
@@ -35,8 +84,12 @@ func has_project() -> bool:
 ## Closes currently opened project.
 func close_project() -> void:
 	if Global.has_unsaved_change():
-		Signals.save_request.emit(-1)
-		await get_tree().process_frame
+		if close_project_action_script_id:
+			Signals.save_request.emit(close_project_action_script_id)
+			return
+		else:
+			Signals.save_request.emit(-1)
+			await get_tree().process_frame
 	if has_project():
 		current_project.set_value("files", "open", Global.get_file_path() if Global.has_file() else "")
 		if Global.has_file():
@@ -44,7 +97,10 @@ func close_project() -> void:
 			current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
 		var err := current_project.save(get_current_project_path())
 		if err:
-			Global.send_notification(Global.Notification.ERROR, "Failed to close project!", "Error code: " + str(err))
+			Notif.notif(
+				"close_project_failed",
+				{"text_append": error_string(err)}
+			)
 			return
 		current_project.clear()
 		load_files.emit([], [])
@@ -62,16 +118,14 @@ func load_project(file_path: String) -> void:
 		await get_tree().process_frame
 	var err := current_project.load(file_path)
 	if err:
-		Global.send_notification(Global.Notification.ERROR, "Failed to load project: {0}".format([err]))
+		Notif.notif(
+			"load_project_file_failed",
+			{"text_append": error_string(err)}
+		)
 		project_closed.emit()
 		return
 	if current_project.get_value("project", "version") != VERSION:
-		Global.send_notification(
-			Global.Notification.INFO,
-			"Incompatible project version.",
-			"The project was created with a different TFPM version."
-			+ " Please select a converter script to update it, then open the project again."
-		)
+		Notif.notif("incompatible_project_version")
 		current_project.clear()
 		add_child(Factory.file_dialog(
 			FileDialog.FILE_MODE_OPEN_FILE,
@@ -128,10 +182,9 @@ func load_recent_projects() -> void:
 	if "\n".join(recent_projects) != existing_content:
 		var file := FileAccess.open(S.RECENT_PROJECTS_DATA, FileAccess.WRITE)
 		if not file:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to save recent projects!",
-				"Error code: " + str(FileAccess.get_open_error())
+			Notif.notif(
+				"save_file_failed",
+				{"format_title": ["recent projects"], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
 		file.store_string("\n".join(recent_projects))
@@ -146,10 +199,9 @@ func append_to_recent_projects(file_path: String) -> void:
 		files = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA)
 	file = FileAccess.open(S.RECENT_PROJECTS_DATA, FileAccess.WRITE)
 	if not file:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to update recent projects list!",
-			"Error code: " + str(FileAccess.get_open_error())
+		Notif.notif(
+			"save_file_failed",
+			{"format_title": ["recent projects"], "text_append": error_string(FileAccess.get_open_error())}
 		)
 		return
 	file.store_string(file_path.replace("\\", "/") + "\n" + files)
@@ -161,14 +213,14 @@ func append_to_recent_projects(file_path: String) -> void:
 func convert_project(script_path: String, project_file: String) -> void:
 	var script: Object = U.load_resource(script_path).new()
 	if not (script.has_method("convert_project") and script.has_signal("convert_completed")):
-		Global.send_notification(Global.Notification.ERROR, "Converter is invalid!")
+		Notif.notif("invalid_project_converter")
 		script.free()
 		return
 	script.call("convert_project", project_file)
-	Global.send_notification(Global.Notification.INFO, "Conversion started.")
+	Notif.notif("project_conversion_started")
 	await script.convert_completed
 	script.free()
-	Global.send_notification(Global.Notification.INFO, "Conversion completed.", "You can open the project file now.")
+	Notif.notif("project_conversion_completed")
 
 
 ## Caches project icon in editor data.

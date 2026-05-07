@@ -1,20 +1,35 @@
 extends ActionScript
 
+var last_path := ""
+
 func _initialize() -> void:
 	Signals.open_file.connect(_open_file)
 
 
 func _run_action() -> void:
-	if Global.has_unsaved_change():
-		Signals.save_request.emit(id)
+	if Global.emit_save_request(id): return
+	if last_path:
+		_open_file(last_path)
+	else:
+		add_child(Factory.file_dialog(
+			FileDialog.FILE_MODE_OPEN_FILE,
+			FileDialog.ACCESS_FILESYSTEM,
+			[],
+			_open_file,
+			true,
+			"",
+			Global.get_last_file_path()
+		))
+
+
+func _open_file(path: String = "") -> void:
+	if Global.emit_save_request(id):
+		last_path = path
 		return
-	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, [], _open_file, true, "", Global.get_last_file_path()))
-
-
-func _open_file(path: String) -> void:
+	last_path = ""
 	Tests.open_started.emit()
 	if not FileAccess.file_exists(path):
-		Global.send_notification(Global.Notification.ERROR, "Can't find this file:", path)
+		Notif.notif("file_not_found", {"text": path})
 		return
 	if path.ends_with(".tfproj"):
 		Project.load_project(path)

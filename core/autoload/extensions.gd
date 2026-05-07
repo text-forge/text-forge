@@ -43,6 +43,66 @@ var options: Dictionary[int, Callable] = {}
 func _ready() -> void:
 	get_window().close_requested.connect(cleanup_all_extensions)
 	child_order_changed.connect(Signals.refresh_module_profiler)
+	Notif.register_notification(
+		"export_extension_failed",
+		Notif.Type.ERR,
+		"Failed to export extension!",
+		"Error: ",
+	)
+	Notif.register_notification(
+		"empty_exported_extension",
+		Notif.Type.WARN,
+		"Export extension completed without creating any file.",
+		"No files were exported. The extension folder may be empty."
+	)
+	Notif.register_notification(
+		"export_extension_completed",
+		Notif.Type.INFO,
+		"Export extension completed.",
+		"Exported file: "
+	)
+	Notif.register_notification(
+		"install_extension_completed",
+		Notif.Type.INFO,
+		"Install extension completed."
+	)
+
+
+## Exports given extension by [param extension_id] to [param path] file.
+func export_extension(extension_id: String, path: String) -> void:
+	var writer := ZIPPacker.new()
+	var err := writer.open(path)
+	if err:
+		Notif.notif(
+			"export_extension_failed",
+			{"text_append": error_string(err)}
+		)
+		return
+	var files_written := 0
+	for f in DirAccess.get_files_at(S.FOLDER_EXTENSIONS.path_join(extension_id)):
+		var src_path := S.FOLDER_EXTENSIONS.path_join(extension_id).path_join(f)
+		var file := FileAccess.open(src_path, FileAccess.READ)
+		if not file:
+			var open_err := FileAccess.get_open_error()
+			Notif.notif(
+				"export_extension_failed",
+				{"text_append": error_string(open_err) + "\nAt file: " + src_path}
+			)
+			continue
+		writer.start_file(extension_id.path_join(f))
+		writer.write_file(file.get_buffer(file.get_length()))
+		file.close()
+		writer.close_file()
+		files_written += 1
+	writer.close()
+	if files_written == 0:
+		OS.move_to_trash(path)
+		Notif.notif("empty_exported_extension")
+		return
+	Notif.notif(
+		"export_extension_completed",
+		{"text_append": path}
+	)
 
 
 ## (Re)loads all extensions. Calls [method cleanup_all_extensions], [method _load_extensions] and [method _load_enable_list].
@@ -74,31 +134,33 @@ func setup_extensions() -> void:
 ## Installs an extension from a [code].tfx[/code] file.
 func install_extension(path: String) -> void:
 	if path.get_extension().to_lower() != "tfx":
-		Global.send_notification(Global.Notification.ERROR, "Invalid extension file!")
+		Notif.notif(
+			"invalid_file_extension",
+			{"format_text": ["tfx", path.get_extension()]}
+		)
 		return
 	var reader = ZIPReader.new()
 	var err := reader.open(path)
 	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't load this file!", "Load {0} for install extension failed. Error code: {1}".format([path, str(err)])
+		Notif.notif(
+			"open_file_failed",
+			{"format_title": [path], "text_append": error_string(err)}
 		)
 		return
 
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_EXTENSIONS)):
 		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_EXTENSIONS))
 
-	var root_dir = DirAccess.open(S.FOLDER_EXTENSIONS)
+	var root_dir = DirAccess.open("user://")
 
 	var files = reader.get_files()
 	for file_path: String in files:
 		# Reject entries not under extensions
-		file_path = file_path.simplify_path()
+		file_path = "extensions/" + file_path.simplify_path()
 		if not file_path.begins_with("extensions/"):
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Security alert!",
-				path + " contains a file outside extensions folder: " + file_path + "\nThis file extraction was skipped!"
+			Notif.notif(
+				"security_alert",
+				{"text": path + " contains a file outside extensions folder: " + file_path + "\nThis file extraction was skipped!"}
 			)
 			continue
 		if file_path.ends_with("/"):
@@ -111,7 +173,7 @@ func install_extension(path: String) -> void:
 		file.store_buffer(buffer)
 
 	Global.get_editor_api().reload_modes()
-	Global.send_notification(Global.Notification.INFO, "Install extension completed.")
+	Notif.notif("install_extension_completed")
 	add_child(Factory.confirmation_dialog(
 		"Unpack extension completed, Do you want to reload extensions to use it?",
 		"Yes, Reload",

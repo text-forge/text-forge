@@ -1,38 +1,27 @@
 # Mode Development
 
-Text Forge have a powerful and feature rich API to add support for any language in the fastest way. We provide modes to
-help developers and users work with any file just with plug one module. In this page, we will show a standard way for
-mode development to you and best practices.
+Text Forge has a powerful and feature-rich API for adding support for any language in the fastest way possible. We provide modes to help developers and users work with any file type simply by plugging in one module. On this page, we will show you the standard way to develop modes, along with best practices.
 
 !!! Note
     
-    Reading [Modes Guide](modes.md) is highly recommended before develop modes, please read that document before this.
+    Reading the [Modes Guide](modes.md) is highly recommended before developing modes. Please read that document first.
 
 ## Text Forge Mode API
 
-To handle external modules we need an API, so we provide **Text Forge Mode API** (TFM API in short) as modes' connection
-way. TFM is a feature packed API for any mode, so it have a lot of features.
+To handle external modules, we need an API, so we provide the **Text Forge Mode API** (TFM API for short) as the connection layer for modes. TFM is a feature-packed API designed for any mode, offering a wide range of capabilities.
 
 !!! Note
 
-    We have multiple versions of TFM API, and each editor version just supports one TFM API version (but a TFM API 
-    version can be shared between a lot of editor versions). Currently, the latest stable TFM API version is 2.2,
-    and it supports Text Forge 0.2-stable and newer versions.
+    We have multiple versions of the TFM API, and each editor version supports only one TFM API version (although a single TFM API version can be shared across many editor versions). Currently, the latest stable TFM API version is 2.2, and it supports Text Forge 0.2-stable and newer versions.
 
-To use all features of modes, you should know about its API, so we will explain it a little more. TFM API consists of 
-two parts, the first part is in EditorAPI that connect editor to modes, the second part is the `TextForgeMode` class, 
-which keeps this connection standard and provides some ready-made features.
+To take full advantage of all mode features, you should understand the API, so we will explain it in more detail. The TFM API consists of two parts: the first is the EditorAPI, which connects the editor to modes; the second is the `TextForgeMode` class, which keeps this connection standardized and provides some ready-made features.
 
-You will work with **TextForgeMode** to complete your mode, this will define your mode and EditorAPI will do the rest.
-So a mode have a very important part, its script. This script extends TextForgeMode class and customizes behaviors to 
-provide your mode logic.
+You will work with **TextForgeMode** to build your mode. This class defines your mode, and the EditorAPI handles the rest. Therefore, a mode has one very important component: its script. This script extends the TextForgeMode class and customizes its behavior to implement your mode's logic.
 
-## Make your first mode with template
+## Make Your First Mode With a Template
 
-We provide a mode template to help mode developers, specially for first time testing. You can find it [here](https://github.com/text-forge/mode-template), 
-you can download, clone or fork it to have a simple initialization, you can find guides in template.
+We provide a mode template to help mode developers, especially for first-time testing. You can find it in the [mode template repository](https://github.com/text-forge/mode-template). You can download, clone, or fork it to get started quickly. Guides are included within the template.
 
-## Useful examples
+## Useful Examples
 
-You can see our official modes like [Web Mode Kit](https://github.com/text-forge/web-mode-kit) and 
-[GDScript Mode](https://github.com/text-forge/gdscript-mode) to find solutions for most important challenges.
+You can explore our official modes, such as [Web Mode Kit](https://github.com/text-forge/web-mode-kit) and [GDScript Mode](https://github.com/text-forge/gdscript-mode), to find solutions for the most common challenges.

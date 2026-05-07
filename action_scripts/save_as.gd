@@ -25,3 +25,4 @@ func _save_file(path: String) -> void:
 	if callback != -1:
 		Signals.save_finished.emit(callback)
 		callback = -1
+	Signals.force_save_finished.emit()

@@ -34,10 +34,9 @@ func _ready() -> void:
 			options.current_tab = 3
 			options.get_child(3).text = ", ".join(value.map(func(item): return str(item)))
 		_:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Invalid Setting Type!",
-				"There isn't support for type {0} (in {1} > {2})".format([str(typeof(value)), section, key])
+			Notif.notif(
+				"invalid_setting_type",
+				{"format_text": [type_string(typeof(value)), section, key]}
 			)
 			queue_free()
 

@@ -1,20 +1,30 @@
 extends ActionScript
 
 func _initialize() -> void:
+	Notif.register_notification(
+		"evaluate_selection_single_caret_support",
+		Notif.Type.WARN,
+		"Evaluate selection only supports main caret!"
+	)
+	Notif.register_notification(
+		"evaluate_selection_expression_action_failed",
+		Notif.Type.ERR,
+		"Failed to {0} expression!"
+	)
 	requires_file = true
 
 
 func _run_action() -> void:
 	if Global.get_editor().get_caret_count() > 1:
-		Global.send_notification(Global.Notification.WARNING, "Evaluate selection only supports main caret!")
+		Notif.notif("evaluate_selection_single_caret_support")
 	var expression := Expression.new()
 	var error := expression.parse(Global.get_editor().get_selected_text(0))
 	if error:
-		Global.send_notification(Global.Notification.ERROR, "Failed to parse expression!")
+		Notif.notif("evaluate_selection_expression_action_failed", {"format_title": ["parse"]})
 		return
 	var result = expression.execute([], self)
 	if expression.has_execute_failed():
-		Global.send_notification(Global.Notification.ERROR, "Failed to execute expression!")
+		Notif.notif("evaluate_selection_expression_action_failed", {"format_title": ["execute"]})
 		return
 	var selection := Vector2i(Global.get_editor().get_selection_origin_line(), Global.get_editor().get_selection_origin_column())
 	var caret := Vector2i(Global.get_editor().get_caret_line(), Global.get_editor().get_caret_column())

@@ -1,10 +1,8 @@
 # Text Forge Documentation
 
-Welcome to the official documentation of **Text Forge** — a modular, extensible, and language-agnostic text editor 
-built with user empowerment at its core.
+Welcome to the official documentation of **Text Forge** — a modular, extensible, and language-agnostic text editor built with user empowerment at its core.
 
-Whether you're a developer, programmer, or data manager, Text Forge gives you the tools to shape your editing experience 
-exactly the way you want.
+Whether you're a developer, programmer, or data manager, Text Forge gives you the tools to shape your editing experience exactly the way you want.
 
 ---
 
@@ -47,8 +45,7 @@ New to Text Forge? Start here: [Introduction to Text Forge](introduction.md)
 
 ## 🛠️ Contribute
 
-Text Forge is open source and community-driven. Join us on [GitHub](https://github.com/text-forge/text-forge), share 
-your ideas, and help shape the future of the editor.
+Text Forge is open source and community-driven. Join us on [GitHub](https://github.com/text-forge/text-forge), share your ideas, and help shape the future of the editor.
 
 Note that here is for documentations, so if you want to contribute in main project, please see [here](https://github.com/text-forge/text-forge)
 

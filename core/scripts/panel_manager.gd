@@ -49,6 +49,12 @@ var _panels: Dictionary[String, Dictionary] = {}
 var _cache: Dictionary[String, Resource] = {}
 
 func _ready() -> void:
+	Notif.register_notification(
+		"panel_index_mismatch",
+		Notif.Type.ERR,
+		"There is a bug in panel management.",
+		"Panel index doesn't match with expected value."
+	)
 	for side in 3:
 		# Handle panel changing
 		tabs[side].item_selected.connect(_handle_panel.bind(side))
@@ -87,7 +93,7 @@ func add_panel(panel: TextForgePanel, icon: Texture2D) -> void:
 	panel.index = index
 	if index != current_panel.get_child_count():
 		current_tab.remove_item(index)
-		Global.send_notification(Global.Notification.ERROR, "There is a bug in panel management", "")
+		Notif.notif("panel_index_mismatch")
 		return
 	current_panel.add_child(panel)
 	data[location]["panels"][index] = panel

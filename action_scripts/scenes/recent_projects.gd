@@ -13,9 +13,9 @@ func _ready() -> void:
 		var config := ConfigFile.new()
 		var err := config.load(Project.recent_menu.get_item_text(i))
 		if err:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to read project file: " + Project.recent_menu.get_item_text(i)
+			Notif.notif(
+				"load_project_file_failed",
+				{"text_append": error_string(err) + " (for file " + Project.recent_menu.get_item_text(i) + ")"}
 			)
 			continue
 		var icon_path: String = config.get_value("project", "icon", "")

@@ -41,38 +41,61 @@ const PRESETS_FILE := "user://presets.cfg"
 const DATA_FILE := "user://data.cfg"
 
 ## [ConfigFile] loaded for settings.
-var settings := ConfigFile.new()
+static var settings := ConfigFile.new()
 ## [ConfigFile] loaded for presets.
-var presets := ConfigFile.new()
+static var presets := ConfigFile.new()
 ## [ConfigFile] loaded for editor data.
-var data := ConfigFile.new()
+static var data := ConfigFile.new()
+
+static var ACTION_PLAN: Array[Dictionary] = [
+	{"path": DATA_FILE, "object": data, "open_file_name": "data", "save_file_name": "data file", "load_failed": false},
+	{"path": PRESETS_FILE, "object": presets, "open_file_name": "presets", "save_file_name": "presets source", "load_failed": false},
+	{"path": SETTINGS_FILE, "object": settings, "open_file_name": "settings", "save_file_name": "settings file", "load_failed": false},
+]
 
 func _init() -> void:
-	Global.send_notification()
-	if FileAccess.file_exists(S.globalize_path(DATA_FILE)):
-		var err := data.load(S.globalize_path(DATA_FILE))
+	for step in ACTION_PLAN:
+		if not FileAccess.file_exists(S.globalize_path(step.path)):
+			continue
+		var err: Error = step.object.load(S.globalize_path(step.path))
 		if err:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to open data file!",
-				"Error code: " + str(err)
-			)
-	if FileAccess.file_exists(S.globalize_path(PRESETS_FILE)):
-		var err := presets.load(S.globalize_path(PRESETS_FILE))
+			step.load_failed = true
+			OS.alert("Failed to open " + step.open_file_name + " to setup editor!")
+
+
+func _ready() -> void:
+	get_window().close_requested.connect(flush)
+
+
+func _notification(what: int) -> void:
+	# Additional flush calls to keep changes safe
+	if what in [
+		NOTIFICATION_CRASH,
+		NOTIFICATION_WM_GO_BACK_REQUEST,
+		NOTIFICATION_APPLICATION_FOCUS_OUT,
+		NOTIFICATION_EXIT_TREE,
+		]:
+		flush()
+
+
+## Saves [member data], [member presets], and [member settings] to data files.
+func flush() -> Error:
+	var error := OK
+	for step in ACTION_PLAN:
+		if step.load_failed:
+			continue
+		var err: Error = step.object.save(step.path)
 		if err:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to open presets file!",
-				"Error code: " + str(err)
+			Notif.notif(
+				"save_file_failed",
+				{
+					"format_title": [step.save_file_name],
+					"text_append": error_string(err)
+				}
 			)
-	if FileAccess.file_exists(S.globalize_path(SETTINGS_FILE)):
-		var err := settings.load(S.globalize_path(SETTINGS_FILE))
-		if err:
-			Global.send_notification(
-				Global.Notification.ERROR,
-				"Failed to open settings file!",
-				"Error code: " + str(err)
-			)
+			error = err
+			continue
+	return error
 
 
 ## Returns stored setting, if [param default] is [code]null[/code] will load it from
@@ -83,11 +106,6 @@ func get_setting(section: String, key: String, default: Variant = null) -> Varia
 	if default == null:
 		default = get_default(section, key)
 	return settings.get_value(section, key, default)
-
-
-## Same as [method get_setting] but just for [bool] values. (for static typing)
-func get_setting_bool(section: String, key: String, default: Variant = null) -> bool:
-	return bool(get_setting(section, key, default))
 
 
 ## Sets default value for given setting, see also [method get_default].
@@ -101,14 +119,6 @@ func set_setting(section: String, key: String, value: Variant = null, force_sile
 		if get_setting(section, key) == value:
 			return
 	settings.set_value(section, key, value)
-	var err := settings.save(SETTINGS_FILE)
-	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't save settings file!",
-			"Error code: " + str(err)
-		)
-		return
 	if not force_silent:
 		Signals.settings_changed.emit()
 
@@ -118,13 +128,6 @@ func set_setting(section: String, key: String, value: Variant = null, force_sile
 ## module initialization with this function.
 func define_preset(section: String, key: String, default: Variant = null) -> void:
 	presets.set_value(section, key, default)
-	var err := presets.save(PRESETS_FILE)
-	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't save preset source!",
-			"Error code: " + str(err)
-		)
 
 
 ## Returns default value for given preset, witch can be set by [method define_preset]. For
@@ -142,16 +145,24 @@ func read_data(section: String, key: String, default = null) -> Variant:
 
 
 ## Writes data to [member data].
-func write_data(section: String, key: String, value = null) -> void:
+func write_data(section: String, key: String, value = null, force_flush := false) -> void:
 	data.set_value(section, key, value)
-	_save_data()
-
-
-func _save_data() -> void:
-	var err := data.save(DATA_FILE)
-	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Can't save data file!",
-			"Error code: " + str(err)
-		)
+	if force_flush:
+		if ACTION_PLAN[0].load_failed:
+			Notif.notif(
+				"save_file_failed",
+				{
+					"format_title": [ACTION_PLAN[0].save_file_name],
+					"text_append": "Data was not loaded"
+				}
+			)
+			return
+		var err := data.save(DATA_FILE)
+		if err:
+			Notif.notif(
+				"save_file_failed",
+				{
+					"format_title": ["data file"],
+					"text_append": error_string(err)
+				}
+			)

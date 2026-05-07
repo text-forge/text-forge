@@ -9,12 +9,14 @@ extends Node
 ## Standard way to send notifications between modules.[br]
 ## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
 signal internal_notification(id: String, data: Array)
-## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
-signal editor_notification(type: Global.Notification, title: String, text: String)
+## Standard notifications from editor, see [enum NotificationManager.Type] for [param type] meanings.
+signal editor_notification(type: Notif.Type, title: String, text: String)
 ## Emits when a script run requested, it will send to all [ActionScript]s. (See also [method ActionScript.run])
 signal run_script(script_id: int)
 ## Emits when a subscript run requested, it will send to all [MultiActionScript]s. (See also [method MultiActionScript.run])
 signal run_subscript(subscript_id: int, submenu: PopupMenu, submenu_name: String)
+## Emits after save request when callback is a [MultiActionScript].
+signal run_saved_subscript(script_id: int)
 ## Will send to all scripts to check current state with them activation state.
 signal check_options
 ## Requests close file, close script should connect itself to this.
@@ -23,6 +25,12 @@ signal close_file
 signal open_file(path: String)
 ## Requests create new file, new script should connect itself to this.
 signal new_file
+## Request closing project from [ProjectManager].
+signal close_project
+## Requests force file save without asking.
+signal force_save
+## Emits when force file save request finished.
+signal force_save_finished
 ## Requests saving changes, [param from] will send to savers and return here to emit [signal run_script] again.
 signal save_request(from: int)
 ## Emits when save request finished, signal bus will emit [signal run_script] with [param to] id.
@@ -59,14 +67,14 @@ func _ready() -> void:
 
 
 ## Connected to [signal editor_notification]. Prints notification with types.
-func _log_notification(type: Global.Notification, title: String, text: String) -> void:
+func _log_notification(type: Notif.Type, title: String, text: String) -> void:
 	var start: String
 	match type:
-		Global.Notification.INFO:
+		Notif.Type.INFO:
 			start = "[color=white]Info: "
-		Global.Notification.WARNING:
+		Notif.Type.WARN:
 			start = "[color=yellow]Warning: "
-		Global.Notification.ERROR:
+		Notif.Type.ERR:
 			start = "[color=red]Error: "
 		_:
 			start = "[color=darkgray]Notification: Other: "
@@ -108,7 +116,10 @@ func _resume_after_save(to: int) -> void:
 		return
 	await U.wait(0.5)
 	Global.set_file_name(Global.get_file_name().replace("*", ""))
-	run_script.emit(to)
+	if MultiActionScript.registered_ids.has(to):
+		run_saved_subscript.emit(to)
+	else:
+		run_script.emit(to)
 
 
 ## Emits [signal module_profiler_refresh] signal.

@@ -51,8 +51,8 @@ func _on_tree_item_selected() -> void:
 		var path := selected.get_tooltip_text(0)
 		if Global.has_unsaved_change():
 			if Settings.get_setting("files", "save_files_when_moving_between_project_files"):
-				Signals.run_script.emit(Global.get_scripts_node().get_node("save").id)
-				await get_tree().process_frame
+				Signals.force_save.emit()
+				await Signals.force_save_finished
 			else:
 				add_child(Factory.accept_dialog("You have unsaved changes in this file.\n\nPlease save or discard them before opening another file.\n\nTip: Enable autosave in Preferences > Files > Save Files In Move Between Project Files.",
 						"Alert!", Callable(), Vector2i(600, 50), true, true))

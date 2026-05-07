@@ -15,9 +15,14 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - **API:** Hooks in `EditorAPI` ([#171](https://github.com/text-forge/text-forge/pull/171))
 - **Hooks:** `BEFORE_SAVE` hook added ([#171](https://github.com/text-forge/text-forge/pull/171))
 - Line Endings button in bottom bar ([#171](https://github.com/text-forge/text-forge/pull/171))
+- Option to disable each notification in settings ([#182](https://github.com/text-forge/text-forge/pull/182))
+- Sort setting sections and keys ([#182](https://github.com/text-forge/text-forge/pull/182))
 
 ### Changed
 - `action_scripts/`, `data/panels/`, and `data/translations/` dropped from exports ([#176](https://github.com/text-forge/text-forge/pull/176))
+
+### Fixed
+- Request save currently unsaved changes in internal `open` commands ([#182](https://github.com/text-forge/text-forge/pull/182))
 
 ## [v0.2-rc2] - 2025-12-07 & [v0.2-stable] - 2025-12-12
 
@@ -111,6 +116,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
 - Backup system ([#92](https://github.com/text-forge/text-forge/pull/92))
 - Threaded action script loading ([#93](https://github.com/text-forge/text-forge/pull/93))
+- Centralized shortcut system ([#93](https://github.com/text-forge/text-forge/pull/93))
 - Big performance improve ([#93](https://github.com/text-forge/text-forge/pull/93))
 
 ### Fixed

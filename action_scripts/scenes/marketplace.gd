@@ -59,35 +59,94 @@ var info: Array
 var version: String
 
 func _ready() -> void:
+	Notif.register_notification(
+		"marketplace_connection_failed",
+		Notif.Type.ERR,
+		"Failed to connect to marketplace!"
+	)
+	Notif.register_notification(
+		"package_information_parse_failed",
+		Notif.Type.ERR,
+		"Failed to parse package information!",
+		"Invalid JSON response from server.",
+	)
+	Notif.register_notification(
+		"package_not_found",
+		Notif.Type.ERR,
+		"Package not found!",
+		"Could not find package with id: ",
+	)
+	Notif.register_notification(
+		"invalid_package_information",
+		Notif.Type.ERR,
+		"Invalid package information!",
+		"Missing compatible_versions field.",
+	)
+	Notif.register_notification(
+		"downloading_and_installing_package",
+		Notif.Type.INFO,
+		"Please don't close marketplace window!",
+		"Downloading and installing package is in progress...",
+	)
+	Notif.register_notification(
+		"download_package_failed",
+		Notif.Type.ERR,
+		"Failed to download package!",
+		"Result code: {0}\nResponse code: {1}",
+	)
+	Notif.register_notification(
+		"save_package_failed",
+		Notif.Type.ERR,
+		"Failed to save package!",
+		"Could not open {0} for writing. Error: {1}"
+	)
+	Notif.register_notification(
+		"package_installed",
+		Notif.Type.INFO,
+		"Package installed!",
+		"You can close marketplace window now."
+	)
+	Notif.register_notification(
+		"download_package_image_failed",
+		Notif.Type.ERR,
+		"Failed to download package image!",
+		"Result code: {0}\nResponse code: {1}"
+	)
+	Notif.register_notification(
+		"load_package_image_failed",
+		Notif.Type.ERR,
+		"Failed to load package PNG image from buffer!",
+		"Error: "
+	)
+	Notif.register_notification(
+		"invalid_package_version",
+		Notif.Type.ERR,
+		"Invalid package version information!",
+		"{0} doesn't match with package version information pattern."
+	)
 	version = version_edit.text
 	if NetSuite.http_request(
 		_on_packages_info_request_completed,
 		{ "url": MP_HOST.path_join(version).path_join(PACKAGES_INFORMATION) }
 	) == null:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to connect to marketplace!",
-			"Could not initiate HTTP request."
+		Notif.notif(
+			"marketplace_connection_failed",
+			{"text": "Could not initiate HTTP request."},
 		)
 		S.free_all_children(packages)
 
 
 func _on_packages_info_request_completed(__: int, response_code: int, ___: PackedStringArray, body: PackedByteArray) -> void:
 	S.free_all_children(packages)
-	if response_code != 200:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to connect to marketplace!",
-			"Response code: " + str(response_code)
+	if response_code != HTTPClient.RESPONSE_OK:
+		Notif.notif(
+			"marketplace_connection_failed",
+			{"text": "Response code: " + str(response_code)}
 		)
 		return
 	info = JSON.parse_string(body.get_string_from_utf8())
 	if info == null:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to parse packages information!",
-			"Invalid JSON response from server."
-		)
+		Notif.notif("package_information_parse_failed")
 		return
 	for p in info:
 		if not (p is Dictionary and p.has_all(["id", "name", "version", "category", "author",
@@ -105,10 +164,9 @@ func _on_packages_info_request_completed(__: int, response_code: int, ___: Packe
 func _on_package_information_requested(id: String) -> void:
 	var filtered := info.filter(func(p): return p["id"] == id)
 	if filtered.is_empty():
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Package not found!",
-			"Could not find package with id: " + id
+		Notif.notif(
+			"package_not_found",
+			{"text_append": id},
 		)
 		return
 	var pack_info: Dictionary = filtered[0]
@@ -144,26 +202,17 @@ func _complete_package_information(
 	if install_button.pressed.is_connected(_install_package):
 		install_button.pressed.disconnect(_install_package)
 	if response_code != HTTPClient.RESPONSE_OK:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to connect to marketplace!",
-			"Package information request failed. Response code: " + str(response_code)
+		Notif.notif(
+			"marketplace_connection_failed",
+			{"text": "Response code: " + str(response_code)}
 		)
 		return
 	var _info = JSON.parse_string(body.get_string_from_utf8())
 	if _info == null:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to parse package information!",
-			"Invalid JSON response from server."
-		)
+		Notif.notif("package_information_parse_failed")
 		return
 	if not _info.has("compatible_versions"):
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Invalid package information!",
-			"Missing compatible_versions field."
-		)
+		Notif.notif("invalid_package_information")
 		return
 	match get_compatibility_status(_info["compatible_versions"]):
 		CompatibilityStatus.INCOMPATIBLE:
@@ -205,11 +254,7 @@ func _install_package(pack_info: Dictionary, _info: Dictionary) -> void:
 			"url": MP_HOST.path_join(version).path_join("packages").path_join(pack_info["id"]).path_join(_info["file"]),
 		}
 	)
-	Global.send_notification(
-		Global.Notification.INFO,
-		"Please don't close marketplace window!",
-		"Downloading and installing package is in progress..."
-	)
+	Notif.notif("downloading_and_installing_package")
 	information_popup.hide()
 
 
@@ -221,19 +266,17 @@ func _complete_installation(
 		data: Dictionary
 	) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != HTTPClient.RESPONSE_OK:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to download package!",
-			"Result code: {0}\nResponse code: {1}".format([result, response_code])
+		Notif.notif(
+			"download_package_failed",
+			{"format_text": [result, response_code]}
 		)
 		return
 	var path: String = data["file"]
 	var downloaded := FileAccess.open(path, FileAccess.WRITE)
 	if downloaded == null:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to save package!",
-			"Could not open file for writing: " + path
+		Notif.notif(
+			"save_package_failed",
+			{"format_text": [path, error_string(FileAccess.get_open_error())]}
 		)
 		return
 	downloaded.store_buffer(body)
@@ -252,11 +295,7 @@ func _complete_installation(
 				Callable(),
 				_change_theme.bind(path.get_file().get_basename())
 			))
-	Global.send_notification(
-		Global.Notification.INFO,
-		"Package installed!",
-		"You can close marketplace window now."
-	)
+	Notif.notif("package_installed")
 
 
 func _change_theme(t_name: String) -> void:
@@ -265,19 +304,17 @@ func _change_theme(t_name: String) -> void:
 
 func _add_image(result: int, response_code: int, __: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != HTTPClient.RESPONSE_OK:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to load package image!",
-			"Result code: {0}\nResponse code: {1}".format([result, response_code])
+		Notif.notif(
+			"download_package_image_failed",
+			{"format_text": [result, response_code]}
 		)
 		return
 	var image := Image.new()
 	var err := image.load_png_from_buffer(body)
 	if err:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Failed to load png image from buffer!",
-			"Error code: " + str(err)
+		Notif.notif(
+			"load_package_image_failed",
+			{"text_append": error_string(err)}
 		)
 		return
 	var texture = ImageTexture.create_from_image(image)
@@ -293,10 +330,9 @@ func get_compatibility_status(compatible_versions: String) -> CompatibilityStatu
 	regex.compile(r">(?<min_e>=?)(?<min>\d+\.\d+\.\d+)(?: <(?<max_e>=?)(?<max>\d+\.\d+\.\d+))? \|\| \?(?<unv>\d+\.\d+\.\d+)")
 	var result := regex.search(compatible_versions)
 	if not result:
-		Global.send_notification(
-			Global.Notification.ERROR,
-			"Invalid package version information!",
-			compatible_versions + " doesn't match with package version information pattern."
+		Notif.notif(
+			"invalid_package_version",
+			{"format_text": [compatible_versions]}
 		)
 		return CompatibilityStatus.INCOMPATIBLE
 	if true: # Unverified versions check

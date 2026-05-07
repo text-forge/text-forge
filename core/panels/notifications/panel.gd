@@ -14,16 +14,16 @@ func _ready() -> void:
 	Signals.editor_notification.connect(_editor_notification)
 
 
-func _editor_notification(type: int, title: String, text: String) -> void:
+func _editor_notification(type: Notif.Type, title: String, text: String) -> void:
 	var notification_panel: NotificationPanel = U.load_resource("res://core/panels/notifications/notification.tscn").instantiate()
 	notifications.add_child(notification_panel)
 	notifications.move_child(notification_panel, 0)
 	match type:
-		0: # info/message
+		Notif.Type.INFO:
 			notification_panel.icon.text = "ℹ️"
-		1: # warning
+		Notif.Type.WARN:
 			notification_panel.icon.text = "⚠️"
-		2: # error
+		Notif.Type.ERR:
 			notification_panel.icon.text = "❌"
 	notification_panel.title.text = title
 	if text == "":

@@ -6,7 +6,5 @@ func _initialize() -> void:
 
 
 func _run_action() -> void:
-	if Global.has_unsaved_change():
-		Signals.save_request.emit(id)
-		return
+	if Global.emit_save_request(id): return
 	Signals.open_file.emit(Global.get_file_path())

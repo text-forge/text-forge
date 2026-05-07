@@ -10,14 +10,17 @@ extends Window
 @export var tree: Tree
 
 func _ready() -> void:
-	var config := ConfigFile.new()
-	config.load(S.globalize_path(Settings.PRESETS_FILE))
+	var config := Settings.presets
 	tree.create_item()
-	for section in config.get_sections():
+	var sections := config.get_sections()
+	sections.sort()
+	for section in sections:
 		var scroll := ScrollContainer.new()
 		var tab := VBoxContainer.new()
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		for item in config.get_section_keys(section):
+		var keys := config.get_section_keys(section)
+		keys.sort()
+		for item in keys:
 			var option = U.load_resource("res://action_scripts/scenes/setting_option.tscn").instantiate()
 			option.section = section
 			option.key = item
