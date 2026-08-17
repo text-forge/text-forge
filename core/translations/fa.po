@@ -1,6 +1,14 @@
 msgid ""
 msgstr ""
 "Language: fa\n"
+"PO-Revision-Date: 2026-08-17 12:13+0000\n"
+"Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
+"Language-Team: Persian <https://hosted.weblate.org/projects/text-forge/code-"
+"editor/fa/>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2026.9.dev0\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 msgid "menu.project"
 msgstr "پروژه"
@@ -225,7 +233,7 @@ msgid "menu.format.indentation"
 msgstr "تورفتگی"
 
 msgid "menu.format.indentation.auto_indentation"
-msgstr "تورفتگی خودکار"
+msgstr "تنظیم خودکار تورفتگی"
 
 msgid "menu.format.indentation.remove_all_indents"
 msgstr "حذف همه تورفتگی‌ها"
