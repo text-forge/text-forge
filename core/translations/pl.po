@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Language: pl\n"
-"PO-Revision-Date: 2026-08-17 12:13+0000\n"
+"PO-Revision-Date: 2026-08-17 12:40+0000\n"
 "Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/text-forge/code-"
 "editor/pl/>\n"
@@ -240,7 +240,7 @@ msgid "menu.format.indentation.remove_all_indents"
 msgstr "Usuń wszystkie wcięcia"
 
 msgid "menu.format.indentation.auto_indent"
-msgstr "Automatyczne wcięcie"
+msgstr "automatyczne dostosowanie wcięcia"
 
 msgid "menu.format.indentation.to_spaces"
 msgstr "Zmień wcięcie na spacje"
@@ -387,7 +387,7 @@ msgid "menu.settings.preferences"
 msgstr "Preferencje..."
 
 msgid "menu.settings.mode_manager"
-msgstr "Menadżer trybów"
+msgstr "Menadżer trybów..."
 
 msgid "menu.settings.extensions"
 msgstr "Rozszerzenia..."
