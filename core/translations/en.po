@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
-"Language: en\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-02 07:30+0200\n"
 "PO-Revision-Date: 2026-08-17 12:13+0000\n"
 "Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/text-forge/code-"
 "editor/en/>\n"
+"Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.9.dev0\n"
-"Content-Transfer-Encoding: 8bit\n"
 
 msgid "menu.project"
 msgstr "Project"
@@ -232,9 +234,6 @@ msgstr "Auto Format"
 msgid "menu.format.indentation"
 msgstr "Indentation"
 
-msgid "menu.format.indentation.auto_indentation"
-msgstr "Auto Indentation"
-
 msgid "menu.format.indentation.remove_all_indents"
 msgstr "Remove All Indents"
 
@@ -420,3 +419,6 @@ msgstr "Online Docs"
 
 msgid "menu.help.about"
 msgstr "About"
+
+#~ msgid "menu.format.indentation.auto_indentation"
+#~ msgstr "Auto Indentation"
