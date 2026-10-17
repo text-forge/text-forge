@@ -154,16 +154,31 @@ static func _parse_parameters(input: String) -> PackedStringArray:
 	work.resize(buf.size())
 	var wp := 0
 	var array_depth := 0
+	var func_call_depth := 0
 	var after_comma := false
+	var escape_next := false
 
 	for c: int in buf:
 		var in_string: bool = single_quote or double_quote
+
+		# escaped character inside a string, e.g. `\"` or `\'`: copy through as-is and
+		# do not let it toggle the quote state
+		if escape_next:
+			work[wp] = c; wp += 1
+			escape_next = false
+			continue
+
+		# '\': mark the next character as escaped, only meaningful inside a quoted string
+		if c == 92 and in_string:
+			work[wp] = c; wp += 1
+			escape_next = true
+			continue
 
 		# ' ': ignore spaces between array elements
 		if c == 32:
 			if in_string:
 				work[wp] = c; wp += 1; after_comma = false
-			elif array_depth > 0 and not after_comma:
+			elif (array_depth > 0 or func_call_depth > 0) and not after_comma:
 				work[wp] = c; wp += 1
 
 		# '\n': strip newlines outside quoted strings, preserve inside
@@ -173,7 +188,7 @@ static func _parse_parameters(input: String) -> PackedStringArray:
 
 		# ',': step over array element seperator ','
 		elif c == 44:
-			if array_depth == 0:
+			if array_depth == 0 and func_call_depth == 0:
 				if wp > 0:
 					@warning_ignore("return_value_discarded")
 					output.append(work.slice(0, wp).get_string_from_utf8())
@@ -184,9 +199,10 @@ static func _parse_parameters(input: String) -> PackedStringArray:
 				if not in_string:
 					after_comma = true
 
-		# '`':
+		# '\'':
 		elif c == 39:
-			single_quote = not single_quote
+			if not double_quote:
+				single_quote = not single_quote
 			if after_comma:
 				work[wp] = 32; wp += 1; after_comma = false
 			work[wp] = c; wp += 1
@@ -211,6 +227,21 @@ static func _parse_parameters(input: String) -> PackedStringArray:
 		elif c == 93:
 			if not in_string:
 				array_depth -= 1
+			after_comma = false
+			work[wp] = c; wp += 1
+
+		# '('
+		elif c == 40:
+			if not in_string:
+				func_call_depth += 1
+			if after_comma:
+				work[wp] = 32; wp += 1; after_comma = false
+			work[wp] = c; wp += 1
+
+		# ')'
+		elif c == 41:
+			if not in_string:
+				func_call_depth -= 1
 			after_comma = false
 			work[wp] = c; wp += 1
 		else:
