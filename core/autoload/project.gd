@@ -165,21 +165,15 @@ func _on_recent_id_pressed(id: int) -> void:
 func load_recent_projects() -> void:
 	recent_menu.clear()
 	# Load recent projects
+	var existing_content := ""
 	if FileAccess.file_exists(S.RECENT_PROJECTS_DATA):
-		var recent_projects_list = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA).split("\n", false)
-		recent_projects_list = S.merge_unique(recent_projects_list, []) # Remove duplicate items
-		for recent in recent_projects_list:
-			if recent_menu.item_count == 15: # Limit list to 15 items
-				break
-			if not FileAccess.file_exists(recent): # Remove non-existent items
-				continue
-			recent_menu.add_item(recent.replace("\\", "/"))
+		existing_content = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA)
+	var recent_projects_list := S.clean_recent_list(existing_content)
+	for recent in recent_projects_list:
+		recent_menu.add_item(recent)
 	# Save recent projects again (to remove repeated and non-existent items)
-	var recent_projects := PackedStringArray()
-	for recent in recent_menu.item_count:
-		recent_projects.append(recent_menu.get_item_text(recent))
-	var existing_content: String = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA) if FileAccess.file_exists(S.RECENT_PROJECTS_DATA) else ""
-	if "\n".join(recent_projects) != existing_content:
+	var recent_projects := "\n".join(recent_projects_list)
+	if recent_projects != existing_content:
 		var file := FileAccess.open(S.RECENT_PROJECTS_DATA, FileAccess.WRITE)
 		if not file:
 			Notif.notif(
@@ -187,7 +181,7 @@ func load_recent_projects() -> void:
 				{"format_title": ["recent projects"], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
-		file.store_string("\n".join(recent_projects))
+		file.store_string(recent_projects)
 		file.close()
 
 

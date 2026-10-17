@@ -27,3 +27,6 @@ reports/
 
 # gdUnit4 test runner config (regenerated on every test run)
 addons/gdUnit4/GdUnitRunner.cfg
+
+# Agent/planning artifacts
+.omo/

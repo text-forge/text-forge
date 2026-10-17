@@ -47,11 +47,12 @@ func test_wait_zero_waits_one_frame() -> void:
 	assert_int(frame_after).is_greater(frame_before)
 
 func test_wait_with_time_creates_timer() -> void:
-	var start_time := Time.get_ticks_msec()
-	await U.wait(0.1)
-	var elapsed_time := Time.get_ticks_msec() - start_time
-	# Should wait at least 100ms (allowing some tolerance)
-	assert_int(elapsed_time).is_greater_equal(90) # ALERT: Doesn't work in 'run all'
+	# U.wait(time) must create a SceneTreeTimer with the given time (not a frame delay).
+	# Asserting the timer itself keeps this test independent from wall-clock timing.
+	var timer := U.wait(0.1).get_object() as SceneTreeTimer
+	assert_object(timer).is_not_null()
+	assert_float(timer.time_left).is_greater(0.0)
+	assert_float(timer.time_left).is_less_equal(0.1)
 
 func test_load_resource_returns_null_for_empty_path() -> void:
 	var result := U.load_resource("")

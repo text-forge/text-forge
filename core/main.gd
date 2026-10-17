@@ -387,31 +387,22 @@ func _reload_recent_files() -> void:
 				{"format_title": [S.RECENT_FILES_DATA], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
-	# Clear submenu
+	# Clear submenu and load cleaned recent files list
 	recent_files_submenu.clear()
-	# Load recent files
-	if FileAccess.file_exists(S.globalize_path(S.RECENT_FILES_DATA)):
-		var recent_files_list = recent_files_old.split("\n", false)
-		recent_files_list = S.merge_unique(recent_files_list, []) # Remove duplicate items
-		for recent in recent_files_list:
-			if recent_files_submenu.item_count == 15: # Limit list to 15 items
-				break
-			if not FileAccess.file_exists(S.globalize_path(recent)): # Remove non-existent items
-				continue
-			recent_files_submenu.add_item(recent.replace("\\", "/"))
+	var recent_files_list := S.clean_recent_list(recent_files_old)
+	for recent in recent_files_list:
+		recent_files_submenu.add_item(recent)
 	# Save recent files again (to remove repeated and non-existent items)
-	var recent_files := PackedStringArray()
-	for recent in recent_files_submenu.item_count:
-		recent_files.append(recent_files_submenu.get_item_text(recent))
-	if "\n".join(recent_files) != recent_files_old:
-		var file = FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
+	var recent_files := "\n".join(recent_files_list)
+	if recent_files != recent_files_old:
+		var file := FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
 		if not file:
 			Notif.notif(
 				"save_file_failed",
 				{"format_title": ["recent files"], "text_append": error_string(FileAccess.get_open_error())}
 			)
 			return
-		file.store_string("\n".join(recent_files))
+		file.store_string(recent_files)
 		file.close()
 
 

@@ -96,6 +96,19 @@ static func merge_unique(array1: Array, array2: Array) -> Array:
 	return merged_array
 
 
+## Cleans a newline separated list of recently used paths: removes duplicated and non-existent
+## items, limits result to [param limit] items and normalizes paths to use [code]/[/code].
+static func clean_recent_list(content: String, limit := 15) -> Array[String]:
+	var result: Array[String] = []
+	for path: String in merge_unique(Array(content.split("\n", false)), []):
+		if result.size() == limit:
+			break
+		if not FileAccess.file_exists(globalize_path(path)):
+			continue
+		result.append(path.replace("\\", "/"))
+	return result
+
+
 ## Adds a fade-out tween for given [param object].
 static func fade_out(object: Node, duration := 1.0) -> Tween:
 	var tween := object.create_tween()

@@ -39,6 +39,14 @@ func _handle_auto_save() -> void:
 	add_child(timer)
 
 
+# Loads backup database, or returns a new empty one when it doesn't exist.
+func _load_backup_database() -> ConfigFile:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
+		config.load(S.globalize_path(S.BACKUP_DATABASE))
+	return config
+
+
 ## Returns a list of all backups, in this structure:
 ## [codeblock]
 ## {
@@ -50,10 +58,7 @@ func _handle_auto_save() -> void:
 ## }
 ## [/codeblock]
 func get_backups_list() -> Dictionary[String, Dictionary]:
-	var config := ConfigFile.new()
-	if not FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
-		return Dictionary({}, TYPE_STRING, "", null, TYPE_DICTIONARY, "", null)
-	config.load(S.globalize_path(S.BACKUP_DATABASE))
+	var config := _load_backup_database()
 	if not config.has_section("backups"):
 		return Dictionary({}, TYPE_STRING, "", null, TYPE_DICTIONARY, "", null)
 	var list: Dictionary[String, Dictionary]
@@ -86,9 +91,7 @@ func restore_backup(code: String, path: String) -> Error:
 func backup_file(as_auto: bool) -> void:
 	if not Global.has_file():
 		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
-		config.load(S.globalize_path(S.BACKUP_DATABASE))
+	var config := _load_backup_database()
 	var file_backups: Dictionary = config.get_value("backups", Global.get_file_path(), {})
 	var backup_id := _generate_new_backup_id()
 	var file := FileAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
@@ -118,9 +121,7 @@ func _generate_new_backup_id() -> String:
 
 # Searches backup database for each backup file and removes backups without reference
 func _remove_backups_without_reference() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
-		config.load(S.globalize_path(S.BACKUP_DATABASE))
+	var config := _load_backup_database()
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir())):
 		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))
 	var dir := DirAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))
@@ -138,9 +139,7 @@ func _remove_backups_without_reference() -> void:
 func _remove_old_backups() -> void:
 	if Settings.get_setting("files", "keep_backup_for_days") == -1:
 		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
-		config.load(S.globalize_path(S.BACKUP_DATABASE))
+	var config := _load_backup_database()
 	if not config.has_section("backups"):
 		return
 	for file_item in config.get_section_keys("backups"):
