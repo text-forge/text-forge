@@ -77,9 +77,10 @@ body:
         - 0.1.0-stable
         - 0.2.0-beta series
         - 0.2.0-rc series
-        - 0.2.0-stable (Default)
+        - 0.2.0-stable
+        - 0.3.0-stable (Default)
         - Main branch (Edge)
-      default: 4
+      default: 5
     validations:
       required: true
   - type: dropdown

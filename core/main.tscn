@@ -480,7 +480,7 @@ current_tab = 0
 [node name="About" type="RichTextLabel" parent="About/Margin/Tabs"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[font_size=26]Text Forge[/font_size] [font_size=18][color=webgray]v0.2-stable
+text = "[font_size=26]Text Forge[/font_size] [font_size=18][color=webgray]v0.3-stable
 [font_size=12]Mode API v2.2 | Project Module v1.0[/font_size][/color][/font_size]
 
 A highly modular and extendable open-source code editor.
