@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file. (Notable ch
 The format is based on [Keep a Changelog (1.1)](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
 ## [v0.3-stable] - 2026-10-17
 
 ### Added
