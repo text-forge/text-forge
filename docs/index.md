@@ -24,7 +24,7 @@ Whether you're a developer, programmer, or data manager, Text Forge gives you th
   Generate structured files with reusable, customizable templates.
 
 - Marketplace Integration  
-  Share and discover templates and extensions with the community.
+  Share and discover modes, themes, and extensions with the community.
 
 - Syntax Highlighting  
   Language-agnostic, extensible, and theme-aware.

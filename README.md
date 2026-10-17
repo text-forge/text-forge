@@ -1,7 +1,7 @@
 # Text Forge - Simplicity to start, power to grow!
 Extensible and modular code editor with Godot 4.5
 
-![GitHub Release](https://img.shields.io/github/v/release/Text-forge/Text-forge)
+![GitHub Release](https://img.shields.io/github/v/release/text-forge/text-forge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/text-forge/text-forge/update-docs.yml?logo=github&label=docs%20update)
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 [![Up for grabs](https://img.shields.io/badge/up_for-grabs-blue)](https://github.com/text-forge/text-forge/issues?q=is%3Aissue+state%3Aopen+label%3A%22help+wanted%22)
@@ -45,7 +45,6 @@ All contributions welcome! We have a lot of source and guides for contributing:
 - [Code of Conduct](https://github.com/text-forge/text-forge?tab=coc-ov-file)
 - [Security Information](https://github.com/text-forge/text-forge?tab=security-ov-file)
 - [Contributing Guide](https://text-forge.github.io/docs/contributing/)
-- [Contribution Types](https://text-forge.github.io/docs/contribution_types/)
 - [Help Wanted Issues](https://github.com/text-forge/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22)
 - [Translation Project](https://hosted.weblate.org/projects/text-forge/) - We use [Hosted Weblate](https://hosted.weblate.org/) for translation
 

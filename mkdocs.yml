@@ -1,5 +1,5 @@
 site_name: Text Forge Docs
-site_url: https://text-forge.github.com/docs
+site_url: https://text-forge.github.io/docs
 repo_url: https://github.com/text-forge/text-forge
 repo_name: GitHub
 edit_uri: blob/Main/docs
@@ -10,12 +10,6 @@ copyright: MIT License | Copyright (c) 2025 Mahan Khalili and contributors
 
 plugins:
   - search
-  - mkdocstrings:
-      handlers:
-        # See: https://mkdocstrings.github.io/python/usage/
-        python:
-          options:
-            docstring_style: sphinx
 markdown_extensions:
   - admonition
 
@@ -43,8 +37,5 @@ nav:
 theme:
   name: readthedocs
   highlightjs: true
-  hljs_languages:
-    - gdscript
+  favicon: img/favicon.ico
   prev_next_buttons_location: both
-
-draft_docs: drafts/

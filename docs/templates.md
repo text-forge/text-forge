@@ -52,7 +52,7 @@ Templates help you create new files quickly, so we've placed them alongside othe
 
 After selecting a template, the new file is created with the template, and you enter Placeholder  replacement mode:
 
-![image.png](https://text-forge.github.io/docs/img/placeholder-replacement.png)
+![image.png](img/placeholder-replacement.png)
 
 On the left side of the replace panel, the Auto Insert option is displayed, indicating that `{{{!date}}}` is a predefined placeholder. If you hover your mouse over it, you can see more information. We can use this option to replace the placeholder with the current date, or we can enter our desired value. In any case, after pressing the `Enter` key, the replacement is done, and the next placeholder is selected. After completing this placeholder, the `{{{project}}}` placeholder is selected, and since it is not a predefined placeholder, the Auto Insert option is not available.
 

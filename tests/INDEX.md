@@ -4,7 +4,7 @@
 
 - Path: `tests/runtime/`
 - Tests: 7
-- Files: 1 (+ 1 Test runnrer)
+- Files: 1 (+ 1 Test runner)
 
 ### Performance Tests
 
@@ -15,8 +15,8 @@
 ## Unit Tests
 
 - Path: `tests/`
-- Tests: 412
-- Files: 26
+- Tests: 430
+- Files: 30
 
 ### Action Scripts Tests
 
@@ -27,14 +27,14 @@
 ### Autoloads Tests
 
 - Path: `tests/core/autoload/`
-- Tests: 96
-- Files: 5
+- Tests: 109
+- Files: 8
 
 ### Classes Tests
 
 - Path: `tests/core/classes/`
-- Tests: 38
-- Files: 1
+- Tests: 43
+- Files: 2
 
 ### Scripts Tests
 

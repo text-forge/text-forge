@@ -6,8 +6,8 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 
 ## 🛠️ Types of Contributions
 
-- Reporting [bugs](https://github.com/text-forge/text-forge/issues/new?template=bug_report.md) or [issues](https://github.com/text-forge/text-forge/issues/new/choose)
-- Proposing and implementing [new features](https://github.com/text-forge/text-forge/issues/new?template=feature_request.md)
+- Reporting [bugs](https://github.com/text-forge/text-forge/issues/new?template=bug_report.yml) or [issues](https://github.com/text-forge/text-forge/issues/new/choose)
+- Proposing and implementing [new features](https://github.com/text-forge/text-forge/issues/new?template=feature_request.yml)
 - Creating or improving [modes](https://github.com/text-forge/mode-library)
 - Writing or extending action scripts
 - Improving code or documentation

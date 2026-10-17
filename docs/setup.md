@@ -8,13 +8,13 @@ Text Forge currently supports Linux and Windows. Simply go to the [Download Page
 
 Now you can open the extracted `Text Forge` directory and run Text Forge using the `Text Forge` executable file:
 
-![image.png](https://text-forge.github.io/docs/img/setup_screenshot.png)
+![image.png](img/setup_screenshot.png)
 
 ## Install Modes
 
 At this point, you have a very lightweight editor—it's more like a core. There are many plugged-in modules, such as action scripts, panels, etc., but you need another type of module to work with your editor. This type is called a **Mode**. You can learn more about [modes](modes.md), but for now, let's get your modes from the Text Forge Marketplace!
 
-You can use **Settings > Marketplace** to find themes, extensions, and modes and install them with a single click. For modes, use the filter option in the top-right corner of the marketplace window and change it from *All* to *Modes*. Now you can see the available modes. Click on a mode to view its details, and if it's what you want, click the **Install** button and wait for the **Package Installed!** notification.
+You can use **Settings > Marketplace** to find themes, extensions, and modes and install them with a single click. For modes, use the filter option in the top-right corner of the marketplace window and change it from *All* to *Modes*. Now you can see the available modes. Click on a mode to view its details, and if it's what you want, click the **Install** button and wait for the **Package installed!** notification.
 
 !!! Tip
 

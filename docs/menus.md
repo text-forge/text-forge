@@ -4,9 +4,22 @@ In TextForge, we use menus as the main way to edit with the help of Action Scrip
 
 All actions support multi-caret editing, if not, action will show a popup and request caret selection. You can click on a text without selection (caret) when hold `Alt` to add new caret.
 
+### How menu items work
+Menus are data-driven: items are defined in `data/main_ui.ini`, where each entry declares a `text` (English source label) and a `key` (translation key). The label you see in the menu is the `key` looked up in the translation catalogue (e.g. `core/translations/en.po`). The item's action script path is derived from `text`: it is converted to snake_case and its dots are removed, giving `res://action_scripts/<name>.gd` (only the top-level `action_scripts/` folder is scanned). If that script file is missing, the item is rendered disabled (greyed out), except separators and submenu roots.
+
+An item can also declare a `type` integer (`Core.OptionTypes` in `core/main.gd`):
+
+| Value | Meaning |
+| ----- | ------- |
+| -1 | Separator |
+| 0 | Regular item (default when omitted) |
+| 1 | Submenu root |
+| 2 | Checkbox item |
+| 3 | Radio checkbox item |
+
 !!! Note
 
-    If there was something you didn't find in this list, check the [Not Available Options](#not-available-options) section; if it wasn't there either, please [report it](https://github.com/text-forge/text-forge/issues/new?template=bug_report.md).
+    If there was something you didn't find in this list, check the [Not Available Options](#not-available-options) section; if it wasn't there either, please [report it](https://github.com/text-forge/text-forge/issues/new?template=bug_report.yml).
 
 ## File
 This menu includes regular actions with working with files and the editor window. 
@@ -27,10 +40,10 @@ Creates a pop-up to select and open an existing file.
 It lists recently opened files, clicking on any file will open that file. 
 
 ### Save
-Saves the open file, if the file doesn't have a specific location (e.g. created with the New option) it will be the same as Save. 
+Saves the open file, overwriting it at its current location. If the file doesn't have a specific location yet (e.g. created with the New option), Save behaves like Save As and prompts for a location.
 
 ### Save As
-It creates a pop-up to choose a location and name to save the open file. 
+It creates a pop-up to choose a location and name to save the open file.
 
 ### Reload
 It reloads the open file, similar to reopening the same file. 
@@ -75,7 +88,7 @@ Opens the **New Project** window to create a new project.
 
 !!! Tip
 
-    See [Setup > Create New Project](setup.md#create-new-project) for a guide to `.tfproj` fields and workflow.
+    See [Setup > Create New Project](setup.md#create-a-new-project) for a guide to `.tfproj` fields and workflow.
 
 ### Open Project
 Opens a file dialog to select a `.tfproj` file and load it as the current project.
@@ -113,13 +126,13 @@ It takes a step back in memory.
 It returns the last Undo. 
 
 ### Cut
-Copies the selected text to the clipboard and deletes it in the file. It does this for the entire line if no text is selected. This option is also available in the context menu. 
+Copies the selected text to the clipboard and deletes it in the file. It does this for the entire line if no text is selected.
 
 ### Copy
-Copies the selected text (or entire line) to the clipboard. This option is also available in the context menu. 
+Copies the selected text (or entire line) to the clipboard.
 
 ### Paste
-Paste the latest clipboard content (instead of the selected text). This option is also available in the context menu. 
+Paste the latest clipboard content (instead of the selected text).
 
 ### Delete
 Deletes the selected text or the next character. 
@@ -263,6 +276,25 @@ When enabled, protects indentation settings from changing, this change can come 
 #### Reset To Mode Indentation Settings
 Resets current mode's indentation settings to defined settings by mode developer. See [Mode Features](modes.md#mode-features) for more information about mode-driven indentation settings.
 
+### Remove Trailing Whitespaces
+When enabled, trailing white spaces are stripped from every line automatically before the file is saved. On by default.
+
+### Normalize Line Endings
+When enabled, line endings are converted to the editor's configured line ending style before the file is saved. On by default.
+
+!!! Note
+
+    Use **Use LF** / **Use CRLF** / **Use CR** below to choose that style.
+
+### Use LF
+Selects LF (`\n`) as the file's line ending style. Disabled when Normalize Line Endings is off.
+
+### Use CRLF
+Selects CRLF (`\r\n`) as the file's line ending style. Disabled when Normalize Line Endings is off.
+
+### Use CR
+Selects CR (`\r`) as the file's line ending style. Disabled when Normalize Line Endings is off.
+
 ### Continue Placeholder Completion
 Returns you to Placeholder completion mode (when current file has any placeholder).
 
@@ -345,6 +377,9 @@ This menu includes options and actions related to editor data and configuration.
 
 ### Preferences
 Shows Preferences window.
+
+### Marketplace
+Shows Marketplace window to browse and download modes, themes, and extensions.
 
 ### Mode Manager
 Shows Mode Manager window.

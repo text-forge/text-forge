@@ -28,7 +28,7 @@ If you want to create themes, use the Godot editor. See the guide for opening th
 
 - [Build Text Forge from source](build.md)
 
-Then edit `res://data/themes/dark.tres` in the Godot Theme Editor or create a new theme in that folder. When your theme is complete, rename it and share it. You can test it directly; the editor copies `res://data/themes/` to `user://themes/` when you run it.
+Then edit `res://data/themes/dark.tres` in the Godot Theme Editor or create a new theme in that folder. When your theme is complete, rename it and share it. You can test it directly; when you run the editor, it copies themes from `res://data/themes/` to `user://themes/`, skipping any that already exist.
 
 ## Themes Location
 The editor loads all themes from the `themes/` folder in the editor data directory. Internal themes live at `res://data/themes/`.

@@ -44,12 +44,20 @@ tag-driven and produces a **draft** GitHub release using Godot 4.5-stable.
 - **Tabs** for indentation; **LF** line endings (`.gitattributes` enforces `eol=lf`).
 - GDScript style: follow the official GDScript Style Guide. Static typing throughout — `-> void`,
   `:=`, typed dictionaries/arrays.
-- Every `core/**/*.gd`: `class_name` on line 1, `extends` on line 2, `##` class doc from line 3.
+- Most `core/**/*.gd`: `class_name` on line 1, `extends` on line 2, `##` class doc from line 3.
+  Exceptions: `core/autoload/net_suite.gd`, `core/scripts/change_log.gd`, and the panel scripts under
+  `core/panels/{files,find,notifications}/` start with `extends` and carry no `class_name`
+  (`action_scripts/*.gd` are the same); `core/main.gd` and `core/autoload/notification_manager.gd`
+  skip the line-3 `##` doc.
 - Doc comments are `##` with BBCode (`[method]`, `[signal]`, `[param]`, `[member]`, `[code]`).
 - Load resources with `U.load_resource(path)` (returns `null` when missing), **not** `preload`;
   batch with `U.load_resources_threaded`. Only one `preload` exists in core, deliberately.
 - User-facing errors go through `Notif.notif("<registered_id>", {...})` — register the id in
   `_init`/`_ready` first. Do not use bare `print`/`push_error` for user-facing messages.
+  Caveat: `Notif.notif` needs `NotificationManager` plus something able to render (UI/console) to
+  exist. During startup or threaded/async loads neither may be there, so those error paths may
+  legitimately use `push_error`/`print` instead (see `core/scripts/panel_manager.gd:183`,
+  `core/autoload/utils.gd:179,197`).
 - Action scripts: filename = snake_case of the menu text, `extends ActionScript`, no `class_name`.
 
 ## Gotchas

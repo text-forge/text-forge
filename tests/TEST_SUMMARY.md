@@ -6,16 +6,16 @@ project changes.
 
 ## Test Results
 
-- **Overall:** 412 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
-- **Executed test suites:** (26/26)
-- **Executed test cases :** (412/412)
-- **Total execution time:** 32s 895ms
-- **Runner:** GDUnit4 6.0.3
+- **Overall:** 430 test cases | 0 errors | 0 failures | 0 flaky | 0 skipped | 0 orphans (6/6 🟢)
+- **Executed test suites:** (30/30)
+- **Executed test cases :** (430/430)
+- **Total execution time:** 27s 600ms
+- **Runner:** GDUnit4 6.2.2
 
 ## Test Files
 
-- Unit Tests: 412
-- Files: 26
+- Unit Tests: 430
+- Files: 30
 
 ### Action Scripts Tests
 
@@ -38,24 +38,28 @@ project changes.
 ### Autoloads Tests
 
 - Path: `tests/core/autoload/`
-- Tests: 96
+- Tests: 109
 
 |           Test File           | Tests | Lines |                         Covers                          | Coverage |
 |:-----------------------------:|:-----:|:-----:|:-------------------------------------------------------:|:--------:|
 |     `backup_core`     |   14  |  87   |          Creation, Restoration, Configuration           | ⭐⭐⭐⭐⭐ |
-|       `factory`       |   4   |  44   |                      Node creation                      | ⭐⭐ |
+|       `factory`       |   2   |  44   |                      Node creation                      | ⭐⭐ |
 |       `global`        |   26  |  140  |    Access, File management, Commands, Notifications     | ⭐⭐⭐⭐⭐ |
-|       `settings`      |   31  |  270  |    Configuration management, Presets, Data storage      | ⭐⭐⭐⭐⭐ |
+| `notification_manager`|   10  |  97   |    Registry, Emit overrides, Formatting, Settings gate  | ⭐⭐⭐⭐ |
+|       `project`       |   5   |  34   |              Recent projects, Cleanup                   | ⭐⭐⭐ |
+|       `settings`      |   29  |  270  |    Configuration management, Presets, Data storage      | ⭐⭐⭐⭐⭐ |
+|       `signals`       |   2   |  84   |                  Signal bus surface                     | ⭐⭐⭐ |
 |        `utils`        |   21  |  107  | Syntax colors, Wait, Resource loading, Threaded loading | ⭐⭐⭐⭐ |
 
 ### Classes Tests
 
 - Path: `tests/core/classes/`
-- Tests: 38
+- Tests: 43
 
 |           Test File           | Tests | Lines |                         Covers                          | Coverage |
 |:-----------------------------:|:-----:|:-----:|:-------------------------------------------------------:|:--------:|
 | `action_script_extension/checkable_action_script` | 38 | 451 | Initialization, Behavior, Edge cases | ⭐⭐⭐⭐⭐ |
+|        `static`       |   5   |  31   |              Recent files/projects cleanup              | ⭐⭐⭐ |
 
 ### Scripts Tests
 

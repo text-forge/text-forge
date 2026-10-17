@@ -16,9 +16,16 @@ Although files can be used in different parts of the project, categorizing them 
   - `autoload` - Contains autoload scripts
   - `classes` - Holds the classes used in the editor
     - `action_script_extension` - Holds special extensions for the action script class
+  - `main.gd` - Script of the main scene (class `Core`)
+  - `main.gdshader` - Shader applied by the UI filter overlay
+  - `main.tscn` - Main editor scene
+  - `panels` - Panels of the editor, each panel in its own folder
   - `scripts` - Scripts used in the editor are stored here
-- `data` - Information included with the editor at runtime, including themes, panels, translations, etc.
-  - `panels` - Keeps panels in separate folders
+  - `translations` - Translation files of the editor
+- `data` - Information included with the editor at runtime, such as themes and default modes
+  - `default_modes.tfmode` - Packaged default modes
+  - `main_ui.ini` - Main menu configuration
+  - `shortcuts.tres` - Default shortcut map
   - `themes` - Stores default themes
 - `docs` - Holds the project documentation, including this file
   - `img` - Holds the images used in the documentation
@@ -51,38 +58,43 @@ Text Forge utilizes the power of Godot's nodes, therefore it has a tree-structur
 
 ```text
 root/ <- Root of main window node
-    Settings <- Settings and data API
     Signals <- SignalBus API
-    TFT <- Translation API
-    ExtensionHub <- Global hub for extensions communication
     Global <- Global access point
-    Factory <- Node generator
-    Extensions <- Extensions API
-    BackupCore <- Backup API
     Tests <- Runtime tests handler
-    Project <- Project API (Including Project Module)
-    NetSuite <- Network API
+    Settings <- Settings and data API
+    Notif <- Notification manager
+    Factory <- Node generator
+    ExtensionHub <- Global hub for extensions communication
+    Extensions <- Extensions API
     U <- Utilities
+    NetSuite <- Network API
+    BackupCore <- Backup API
+    Project <- Project API (Including Project Module)
     Main (Core)/ <- Main editor scene
+        UIFilter <- UI filter layer
+            OverlayShader <- Shader overlay using main.gdshader
         Overlays <- Overlay panels, etc.
-        EditorContainer/ <- Editor placement manager
-            Menus <- Main menus
-            FileLabel <- Current file name and path
-            PanelManager/ <- Panels management
-                LeftTabs <- Left tab buttons
-                LeftSplitter/ <- Left tab splitter
-                    LeftPanels <- Left tab panels
-                    RightSplitter/ <- Right tab splitter
-                        BottomSplitter/ <- Bottom tab splitter
-                            Editor/ <- Editor
-                                EditorAPI <- Editor API (Including TFM API)
-                            BottomPanels <- Bottom tab panels
-                        RightPanels <- Right tab panels
-                RightTabs <- Right tab buttons
-            BottomTabs <- Bottom tab buttons
-            BottomBar <- Bottom [Status] bar
-    Scripts <- Action scripts
-    Sub-windows <- Sub-windows
+            Replace popup <- Replace popup for template completion
+        Background <- Background panel
+        Margin <- Main layout container
+            Sections <- Main sections container
+                MenuBar <- Main menus
+                FileLabel <- Current file name and path
+                PanelManager/ <- Panels management
+                    LeftTab <- Left tab buttons
+                    LeftSpliter/ <- Left tab splitter
+                        LeftPanel <- Left tab panels
+                        RightSpliter/ <- Right tab splitter
+                            BottomSpliter/ <- Bottom tab splitter
+                                Editor/ <- Editor
+                                    API <- Editor API (Including TFM API)
+                                BottomPanel <- Bottom tab panels
+                            RightPanel <- Right tab panels
+                    RightTab <- Right tab buttons
+                BottomTab <- Bottom tab buttons
+                BottomBar <- Bottom [Status] bar
+        Scripts <- Action scripts
+        About <- About window
 ```
 
 ### Settings API
@@ -96,9 +108,9 @@ This API allows you to utilize the settings and data capabilities of the editor 
 - `define_preset(section: String, key: String, default: Variant = null)` - Initialize your new setting option
 - `get_default(section: String, key: String)` - Get default value for given setting option
 - `get_setting(section: String, key: String, default: Variant = null)` - Get saved value for given option
-- `get_setting_bool(section: String, key: String, default: Variant = null)` - Safer version of `get_setting()` for boolean options
 - `restore_default(section: String, key: String)` - Resets given option to defined default value
-- `set_setting(section: String, key: String, value: Variant = null)` - Sets given option to a value
+- `set_setting(section: String, key: String, value: Variant = null, force_silent := false)` - Sets given option to a value
+- `flush() -> Error` - Saves data, presets, and settings to their files
 
 !!! Note
     
@@ -106,8 +118,8 @@ This API allows you to utilize the settings and data capabilities of the editor 
 
 #### Working with Data
 
-- `read_data(section: String, key: String, default: Variant = null)` - Get saved data in given key
-- `write_data(section: String, key: String, value: Variant = null)` - Save data in given key
+- `read_data(section: String, key: String, default = null)` - Get saved data in given key
+- `write_data(section: String, key: String, value = null, force_flush := false)` - Save data in given key
 
 ### SignalBus
 

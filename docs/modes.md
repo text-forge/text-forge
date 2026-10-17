@@ -82,7 +82,7 @@ The Marketplace is a useful feature for installing modes in the simplest way. Th
 
 To install a mode or mode kit from the Marketplace, go to **Settings > Marketplace**, select the **Modes** category, and click on a mode to view its details. Use the **Install** button to download and install the mode. If this button is disabled, your editor is not compatible with that mode; you can find another mode or try alternative installation methods.
 
-After clicking the Install button, wait until you see the **Package Installed!** notification. You can then use your new mode without restarting the editor.
+After clicking the Install button, wait until you see the **Package installed!** notification. You can then use your new mode without restarting the editor.
 
 !!! Note
 
@@ -91,7 +91,7 @@ After clicking the Install button, wait until you see the **Package Installed!**
 
 ### From Mode Manager
 
-You can download mode installation files, which are `.zip` or `.tfmode` files, from mode providers. Open the **Mode Manager** (`Settings > Mode Manager` in menus) and select the file using `Import Mode / Mode Kit`. After loading, you’ll receive a completion info notification. You can then use your new modes without restarting the editor.
+You can download mode installation files (`.tfmode` files) from mode providers. Open the **Mode Manager** (`Settings > Mode Manager` in menus) and select the file using `Import Mode / Mode Kit`. After loading, you’ll receive a completion info notification. You can then use your new modes without restarting the editor.
 
 !!! Caution
 
@@ -102,7 +102,7 @@ You can download mode installation files, which are `.zip` or `.tfmode` files, f
     You can install modes this way:
     - Modes in the [Mode Library](https://github.com/text-forge/mode-library)
     - Modes under [GitHub's `text-forge` topic](https://github.com/topics/text-forge)
-    - Any mode that provides a `.zip` or `.tfmode` installation file
+    - Any mode that provides a `.tfmode` installation file
 
 ### From Mode Source
 
