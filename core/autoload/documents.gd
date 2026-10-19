@@ -213,8 +213,9 @@ func _sync_forward() -> void:
 
 
 ## Removes [param doc] and its tab. When it was the active document the next one (or a
-## [constant NO_FILE_TITLE] document) takes over, so at least one document always stays open.
-func close(doc: EditorDocument) -> void:
+## [constant NO_FILE_TITLE] document) takes over, so at least one document always stays open, unless
+## [param keep_one] is [code]false[/code].
+func close(doc: EditorDocument, keep_one := true) -> void:
 	if not doc or not docs.has(doc):
 		return
 	var index := docs.find(doc)
@@ -227,13 +228,29 @@ func close(doc: EditorDocument) -> void:
 		doc.editor.queue_free()
 	if was_active:
 		if docs.is_empty():
-			var replacement := create("", NO_FILE_TITLE)
+			var replacement := create("", NO_FILE_TITLE) if keep_one else null
 			if replacement:
 				active = replacement
 		else:
 			active = docs[index] if index < docs.size() else docs[docs.size() - 1]
 	_sync_forward()
 	refresh_tabs()
+
+
+## Closes every document one by one, asking about the unsaved ones, so the tabs that are left show
+## what is still open. Closing from the last tab keeps the remaining ones in place and handles the
+## active document first. Returns [code]false[/code] while a save prompt is open: the action script
+## runs again once the user answered and picks up the documents that are still open.
+func close_all(from_id: int) -> bool:
+	var queue := docs.duplicate()
+	queue.reverse()
+	for doc in queue:
+		if doc.dirty:
+			activate(doc)
+			if Global.emit_save_request(from_id):
+				return false
+		close(doc, false)
+	return true
 
 
 ## Adopts [param original] as the first document. Idempotent for the same editor, so both

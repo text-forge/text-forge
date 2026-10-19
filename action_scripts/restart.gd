@@ -10,7 +10,7 @@ func _initialize() -> void:
 
 
 func _run_action() -> void:
-	if Global.emit_save_request(id): return
+	if not Documents.close_all(id): return
 	var pid := OS.create_process(OS.get_executable_path(), [])
 	if pid != -1:
 		get_window().close_requested.emit()
