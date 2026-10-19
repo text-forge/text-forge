@@ -315,7 +315,16 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary) -> void:
 ## Post-initialize when main action scripts loaded.
 func _post_initialize() -> void:
 	_handle_cmdline_arguments() # OS "Open With..." option
-	if Global.has_file() or Documents.restore_session():
+	if Global.has_file():
+		return
+	# This runs inside the callback of the first [method Utils.load_resources_threaded] batch, so
+	# opening files here would be counted as script loading and would delay the rest of them.
+	_restore_startup_documents.call_deferred()
+
+
+## Brings the documents of the last session back, or the last opened file when there is no session.
+func _restore_startup_documents() -> void:
+	if Documents.restore_session():
 		return
 	_handle_load_last_file() # "Load last file at start" feature
 

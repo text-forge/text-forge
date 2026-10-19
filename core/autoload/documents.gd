@@ -301,22 +301,37 @@ func restore_session() -> bool:
 		var doc := create(path, path.get_file(), "", false)
 		if not doc:
 			continue
-		activate(doc)
-		if FileAccess.file_exists(path):
-			Global.get_editor_api().load_file(path)
-		else:
-			Global.set_editor_disabled(false)
-		doc.dirty = false
+		# Caret and scroll go in before the activation that applies them, [method
+		# GlobalAccess.set_editor_text] keeps both while it fills the editor, so a session needs one
+		# activation per document instead of two, and no mode reload twice.
 		var caret: Vector2i = entry.get("caret", Vector2i.ZERO)
 		var scroll: Vector2i = entry.get("scroll", Vector2i.ZERO)
 		doc.caret = caret
 		doc.scroll = scroll
 		activate(doc)
+		if FileAccess.file_exists(path):
+			Global.get_editor_api().load_file(path)
+		else:
+			Global.set_editor_disabled(false)
+		# Loading moves the view, so put the stored scroll back on top of it, see [method
+		# _restore_view].
+		_restore_view.call_deferred(doc, scroll)
+		doc.dirty = false
 		opened.append(doc)
 	if opened.is_empty():
 		return false
 	activate(opened[clampi(active_index, 0, opened.size() - 1)])
 	return true
+
+
+## Puts [param scroll] back on [param doc] one frame after its file was loaded. Setting it in the
+## same frame clamps against the scroll range of the empty editor and is dropped.
+func _restore_view(doc: EditorDocument, scroll: Vector2i) -> void:
+	await get_tree().process_frame
+	if not is_instance_valid(doc.editor):
+		return
+	doc.editor.scroll_horizontal = scroll.x
+	doc.editor.scroll_vertical = scroll.y
 
 
 ## Adopts [param original] as the first document. Idempotent for the same editor, so both
