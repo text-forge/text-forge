@@ -170,6 +170,11 @@ func close(doc: EditorDocument) -> void:
 	var index := docs.find(doc)
 	var was_active := doc == active
 	docs.erase(doc)
+	# Detach before creating the replacement, so the tab bar never holds a page of a closed document.
+	if doc.editor:
+		if doc.editor.get_parent():
+			doc.editor.get_parent().remove_child(doc.editor)
+		doc.editor.queue_free()
 	if was_active:
 		if docs.is_empty():
 			var replacement := create("", NO_FILE_TITLE)
@@ -177,10 +182,6 @@ func close(doc: EditorDocument) -> void:
 				active = replacement
 		else:
 			active = docs[index] if index < docs.size() else docs[docs.size() - 1]
-	if doc.editor:
-		if doc.editor.get_parent():
-			doc.editor.get_parent().remove_child(doc.editor)
-		doc.editor.queue_free()
 	_sync_forward()
 	refresh_tabs()
 

@@ -178,6 +178,8 @@ func get_command_list() -> Dictionary:
 ## Returns [code]true[/code] if there is unsaved change, when opened file have unsaved change a star
 ## ([code]*[/code]) will append to its name. (See also [method get_file_name])
 func has_unsaved_change() -> bool:
+	if Documents.active:
+		return Documents.active.dirty
 	return get_file_name().ends_with("*")
 
 
@@ -195,12 +197,15 @@ func get_last_file_path() -> String:
 	return ""
 
 
-## Appends [code]*[/code] to file name to show it's changed.
+## Marks the active document as changed, its name gets a star ([code]*[/code]) from
+## [method Documents.refresh_tabs]. A disabled editor is skipped, it is the placeholder document and
+## loading a file into it fills text before it becomes editable.
 func mark_file_as_unsaved() -> void:
-	if not (Global.has_unsaved_change() or Global.is_editor_disabled()):
-		_file_label.text += "*"
-		Documents.active.dirty = true
-		Documents.refresh_tabs()
+	if not Documents.active or Documents.active.dirty or Global.is_editor_disabled():
+		return
+	Documents.active.dirty = true
+	Documents.refresh_tabs()
+	set_file_name(Documents.active.display_name + "*")
 
 
 ## Emits [signal SignalBus.save_request] when there is any unsaved change and returns [code]true[/code],

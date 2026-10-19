@@ -5,8 +5,13 @@ extends MenuButton
 func _ready() -> void:
 	Documents.watch(&"type_timer_timeout", _update_label)
 	Signals.settings_changed.connect(_update_label)
-	Signals.active_document_changed.connect(_update_label)
+	Signals.active_document_changed.connect(_on_document_changed)
 	get_popup().id_pressed.connect(_on_id_pressed)
+	_update_label()
+
+
+## [code]active_document_changed[/code] carries the new document, this label only needs the text.
+func _on_document_changed(_doc: EditorDocument) -> void:
 	_update_label()
 
 
