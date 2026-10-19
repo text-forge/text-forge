@@ -28,7 +28,8 @@ func attach_tabs(container: TabContainer) -> void:
 	tabs = container
 	var bar := tabs.get_tab_bar()
 	bar.drag_to_rearrange_enabled = true
-	bar.tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
+	# Godot has no hover policy for the close button, so every tab carries one.
+	bar.tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ALWAYS
 	tabs.tab_changed.connect(_on_tab_changed)
 	bar.tab_close_pressed.connect(_on_tab_close_pressed)
 	bar.active_tab_rearranged.connect(_on_tab_rearranged)
@@ -46,6 +47,11 @@ func refresh_tabs() -> void:
 	var index := docs.find(active)
 	if index != -1 and index < tabs.get_tab_count() and tabs.current_tab != index:
 		tabs.current_tab = index
+	# The placeholder is the "nothing is opened" state, it has no file to close.
+	var only_placeholder := docs.size() == 1 and docs[0].path == ""
+	tabs.get_tab_bar().tab_close_display_policy = (
+		TabBar.CLOSE_BUTTON_SHOW_NEVER if only_placeholder else TabBar.CLOSE_BUTTON_SHOW_ALWAYS
+	)
 
 
 func _title(doc: EditorDocument) -> String:
@@ -69,15 +75,26 @@ func _title(doc: EditorDocument) -> String:
 ## Cycles tabs with [b]Ctrl+Tab[/b] and [b]Ctrl+Shift+Tab[/b]. CodeEdit uses plain [b]Tab[/b] for
 ## indentation, so only the modified variants move between documents.
 func _shortcut_input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed or event.echo:
+	if not (event is InputEventKey):
 		return
-	if not event.ctrl_pressed or event.keycode != KEY_TAB or not tabs:
+	var key := event as InputEventKey
+	if not key.pressed or key.echo:
+		return
+	if not key.ctrl_pressed or not tabs:
 		return
 	var count := tabs.get_tab_count()
-	if count < 2:
+	if key.keycode == KEY_TAB:
+		if count < 2:
+			return
+		tabs.current_tab = (tabs.current_tab + (-1 if key.shift_pressed else 1) + count) % count
+		get_viewport().set_input_as_handled()
 		return
-	tabs.current_tab = (tabs.current_tab + (-1 if event.shift_pressed else 1) + count) % count
-	get_viewport().set_input_as_handled()
+	# Ctrl+1 to Ctrl+9 jump straight to that tab.
+	if key.keycode >= KEY_1 and key.keycode <= KEY_9:
+		var index := key.keycode - KEY_1
+		if index < count:
+			tabs.current_tab = index
+			get_viewport().set_input_as_handled()
 
 
 ## Switching tabs, by mouse or [b]Ctrl+Tab[/b], also moves the focus to the editor, so typing goes
@@ -92,8 +109,13 @@ func _on_tab_changed(index: int) -> void:
 
 
 func _on_tab_close_pressed(index: int) -> void:
-	if index >= 0 and index < docs.size() and docs[index] == active:
-		Signals.close_file.emit()
+	if index < 0 or index >= docs.size():
+		return
+	if docs[index] != active:
+		# The close action script works on the active document, so this one becomes active first and
+		# the save prompt asks about the right file.
+		activate(docs[index])
+	Signals.close_file.emit()
 
 
 ## Only the active tab can be dragged, so it is the only document that changes place.
