@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - **Tabs:** the editor slot is a tab bar, with tab titles, a dirty marker, close buttons and drag to rearrange ([#195](https://github.com/text-forge/text-forge/issues/195))
 - **Tabs:** `Ctrl+Tab` and `Ctrl+Shift+Tab` switch between documents, and switching keeps the caret and the view of the document you left
 - **Tabs:** `Ctrl+1` to `Ctrl+9` jump straight to a document, and every tab has a close button
+- **Docs:** the build guide now covers exporting the editor and running the tests
 - **Session:** the documents you had open, the active one and their caret and scroll are restored on the next start
 - **Backups:** every open file is backed up, not only the active one, and a backup is restored into its own tab ([#197](https://github.com/text-forge/text-forge/issues/197))
 - **Status bar:** the path of the active document is shown in the bottom bar
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 ### Changed
 - Opening a file or creating a new one opens a tab, it never replaces the document you are editing
 - Quitting or restarting closes the documents one by one and asks about each unsaved one, so no unsaved change is lost
+- Closing a tab works from any tab, not only from the active one
 - The file label is no longer the state of the open file, the document is, and the label only shows the path
 - A document keeps its syntax highlighter and its comment and string delimiters when another document of the same mode is active
 - Switching a document moves the focus to the editor
