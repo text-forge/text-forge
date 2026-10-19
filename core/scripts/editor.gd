@@ -15,6 +15,8 @@ func _ready() -> void:
 	add_child(type_timer, false, Node.INTERNAL_MODE_FRONT)
 	type_timer_timeout.connect(code_completion_requested.emit)
 	set_gutter_clickable(0, true)
+	gutter_clicked.connect(_on_gutter_clicked)
+	text_changed.connect(_on_text_changed)
 
 
 ## Returns char index in [param line] and [param column], useful for [String]-based functions.
