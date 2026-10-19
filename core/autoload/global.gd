@@ -50,6 +50,7 @@ func _ready() -> void:
 		_core = main_scene.instantiate()
 		_editor = _core.editor
 		_file_label = _core.file_label
+	Documents.ensure_bootstrap(_editor)
 
 
 ## Returns last window mode but [constant Window.MODE_FULLSCREEN] excluded.[br][br]
@@ -87,8 +88,10 @@ func has_file() -> bool:
 	return get_file_path().is_absolute_path()
 
 
-## Returns editor node, it's accessable with [member Core.editor] too.
+## Returns [Editor] node of active document, it's accessable with [member Core.editor] too.
 func get_editor() -> Editor:
+	if Documents.active:
+		return Documents.active.editor
 	return _editor
 
 

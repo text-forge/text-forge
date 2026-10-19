@@ -31,6 +31,7 @@ driver/driver="Dummy"
 
 Signals="*res://core/autoload/signals.gd"
 Global="*res://core/autoload/global.gd"
+Documents="*res://core/autoload/documents.gd"
 Tests="*res://core/autoload/tests.gd"
 Settings="*res://core/autoload/settings.gd"
 Notif="*res://core/autoload/notification_manager.gd"

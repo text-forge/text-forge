@@ -57,6 +57,7 @@ var _is_reloading_settings := false
 
 # This is start point of Text Forge
 func _ready() -> void:
+	Documents.ensure_bootstrap(editor)
 	Notif.register_notification(
 		"create_themes_folder_failed",
 		Notif.Type.ERR,
