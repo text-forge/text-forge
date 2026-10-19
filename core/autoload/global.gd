@@ -105,8 +105,9 @@ func has_file() -> bool:
 	return get_file_path().is_absolute_path()
 
 
-## Returns [Editor] node of active document, it's accessable with [member Core.editor] too.
-## Returns [code]null[/code] when there is no document or the one that was active got closed.
+## Returns [Editor] node of active document, or the editor of the main scene while no document is
+## active. Returns [code]null[/code] when there is no editor at all, so every caller has to check
+## it. The scene editor is the editor of the first document and is freed with that document.
 func get_editor() -> Editor:
 	if Documents.active and is_instance_valid(Documents.active.editor):
 		return Documents.active.editor
@@ -148,7 +149,10 @@ func set_editor_text(text: String, keep_carets: bool = true) -> void:
 
 ## Will disable the editor if [param disabled] is [code]true[/code].
 func set_editor_disabled(disabled: bool) -> void:
-	get_editor().editable = not disabled
+	var editor := get_editor()
+	if not editor:
+		return
+	editor.editable = not disabled
 
 
 ## Returns [code]true[/code] if editor is disabled, no document at all counts as disabled.

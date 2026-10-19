@@ -17,7 +17,10 @@ func _on_document_changed(_doc: EditorDocument) -> void:
 
 func _update_label() -> void:
 	var _is_enable: bool = Settings.get_setting("edit", "normalize_line_endings")
-	var _char: String = Settings.get_setting("edit", "line_endings")
+	var _char: String = str(Settings.get_setting("edit", "line_endings"))
+	if not _char in S.LINE_ENDINGS:
+		# An old build could store a value that is not a real line ending, it shows the default.
+		_char = S.LINE_ENDINGS[0]
 	if _is_enable:
 		text = _char
 	else:

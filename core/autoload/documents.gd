@@ -276,6 +276,16 @@ func find_by_path(path: String) -> EditorDocument:
 	return null
 
 
+## Activates the document of [param path] when that file is already open, so opening it again shows
+## its tab instead of a second one. Returns [code]true[/code] when the file was already open.
+func activate_by_path(path: String) -> bool:
+	var doc := find_by_path(path)
+	if not doc:
+		return false
+	activate(doc)
+	return true
+
+
 ## Closes every document one by one, asking about the unsaved ones, so the tabs that are left show
 ## what is still open. Closing from the last tab keeps the remaining ones in place and handles the
 ## active document first. Returns [code]false[/code] while a save prompt is open: the action script

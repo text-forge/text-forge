@@ -6,6 +6,16 @@ func _setup() -> void:
 	default = true
 	Global.get_editor_api().connect_to_hook(EditorAPI.Hooks.BEFORE_SAVE, _normalizer)
 	Settings.define_preset("edit", "line_endings", "LF")
+	_repair_line_endings()
+
+
+## An old build could store a line endings value that is not a real one, the normalizer would then
+## write the files with the wrong endings, so the preset default takes its place.
+func _repair_line_endings() -> void:
+	var stored := str(Settings.get_setting("edit", "line_endings"))
+	if stored in S.LINE_ENDINGS:
+		return
+	Settings.set_setting("edit", "line_endings", Settings.get_default("edit", "line_endings"), true)
 
 
 func _get_value() -> bool:

@@ -33,6 +33,8 @@ const FOLDER_THEMES = "user://themes/"
 const FOLDER_INTERNAL_THEMES = "res://data/themes/"
 ## Editor scene used for each document.
 const EDITOR_SCENE = "res://core/scripts/editor.tscn"
+## Line endings the editor can write, the first one is the default.
+const LINE_ENDINGS := ["LF", "CRLF", "CR"]
 ## Template file path for action script files.
 const TEMPLATE_ACTION_SCRIPT = "res://action_scripts/{0}.gd"
 ## Template file path for panel main scene.

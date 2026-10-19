@@ -31,7 +31,9 @@ const MENU_TRANSLATION_PREFIX = "menu."
 ## - Setters: [method GlobalAccess.set_file_name], [method GlobalAccess.set_file_path][br]
 ## - Getters: [method GlobalAccess.get_file_name], [method GlobalAccess.get_file_path]
 @export var file_label: Label
-## Editor node, you can find more options in [Editor] class.
+## Editor node of the main scene, you can find more options in [Editor] class. It is the editor of
+## the first document and is freed with that document, so use [method GlobalAccess.get_editor] to
+## get the editor of the active document.
 @export var editor: Editor
 @export var editor_tabs: TabContainer
 ## Scripts Node, will keep action scripts separated from other nodes.

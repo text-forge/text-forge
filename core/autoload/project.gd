@@ -92,9 +92,10 @@ func close_project() -> void:
 			await get_tree().process_frame
 	if has_project():
 		current_project.set_value("files", "open", Global.get_file_path() if Global.has_file() else "")
-		if Global.has_file():
-			current_project.set_value("files", "caret_line", Global.get_editor().get_caret_line())
-			current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
+		var editor := Global.get_editor()
+		if Global.has_file() and editor:
+			current_project.set_value("files", "caret_line", editor.get_caret_line())
+			current_project.set_value("files", "caret_column", editor.get_caret_column())
 		var err := current_project.save(get_current_project_path())
 		if err:
 			Notif.notif(

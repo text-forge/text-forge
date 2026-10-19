@@ -141,6 +141,16 @@ func test_find_by_path_returns_the_open_document() -> void:
 	assert_object(Documents.find_by_path("user://a.gd")).is_equal(doc)
 	assert_object(Documents.find_by_path("user://missing.gd")).is_null()
 
+func test_activate_by_path_focuses_the_open_document() -> void:
+	var doc := new_doc("user://a.gd")
+	var count := Documents.docs.size()
+	assert_bool(Documents.activate_by_path("user://a.gd")).is_true()
+	assert_object(Documents.active).is_equal(doc)
+	assert_int(Documents.docs.size()).is_equal(count)
+
+func test_activate_by_path_ignores_a_file_that_is_not_open() -> void:
+	assert_bool(Documents.activate_by_path("user://missing.gd")).is_false()
+
 func test_reuse_or_create_adds_a_document_when_there_is_no_free_one() -> void:
 	var doc := Documents.reuse_or_create()
 	assert_object(doc).is_not_null()

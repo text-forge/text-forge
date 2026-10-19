@@ -25,6 +25,8 @@ func _open_file(path: String = "") -> void:
 	if path.ends_with(".tfproj"):
 		Project.load_project(path)
 		return
+	if Documents.activate_by_path(path):
+		return
 	if Project.has_project() and not path in Project.all_files:
 		Project.close_project()
 	if not Documents.reuse_or_create():

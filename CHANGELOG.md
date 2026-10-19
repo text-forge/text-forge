@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ## [unreleased]
 
+### Fixed
+- **Line endings:** a stored line ending that is not `LF`, `CRLF` or `CR` is replaced by the default, it could rewrite the files with the wrong endings
+- **Tabs:** opening a file that is already open shows its tab instead of opening a second one for the same file
+- **Editor:** the editor accessors check that there is an editor, a closed document can no longer break them
+
 ## [v0.4-stable] - 2026-10-19
 
 ### Added
