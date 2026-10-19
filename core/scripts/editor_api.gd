@@ -424,6 +424,8 @@ func _load_mode_features() -> void:
 
 ## Updates file outline. Result will send to [signal SignalBus.outline_updated].
 func _update_outline() -> void:
+	if not is_inside_tree():
+		return
 	await get_tree().process_frame
 	if not Global.get_editor():
 		return
@@ -436,6 +438,8 @@ func _update_outline() -> void:
 
 ## Updates problem list. Result will send to [signal SignalBus.problems_updated].
 func _lint_content() -> void:
+	if not is_inside_tree():
+		return
 	await get_tree().process_frame
 	if not Global.get_editor():
 		return
@@ -448,6 +452,8 @@ func _lint_content() -> void:
 
 ## Updates preview. Result will send to [signal SignalBus.preview_updated].
 func _update_preview() -> void:
+	if not is_inside_tree():
+		return
 	await get_tree().process_frame
 	if not Global.get_editor():
 		return

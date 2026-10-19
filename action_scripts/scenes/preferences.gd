@@ -11,6 +11,10 @@ extends Window
 
 func _ready() -> void:
 	var config := Settings.presets
+	# Loaded once, this loop runs it for every single setting.
+	var option_scene := U.load_resource("res://action_scripts/scenes/setting_option.tscn")
+	if not option_scene:
+		return
 	tree.create_item()
 	var sections := config.get_sections()
 	sections.sort()
@@ -21,9 +25,6 @@ func _ready() -> void:
 		var keys := config.get_section_keys(section)
 		keys.sort()
 		for item in keys:
-			var option_scene := U.load_resource("res://action_scripts/scenes/setting_option.tscn")
-			if not option_scene:
-				return
 			var option = option_scene.instantiate()
 			option.section = section
 			option.key = item

@@ -127,7 +127,8 @@ func test_pr_reference_format_consistency() -> void:
 		if pr_reference_regex.search(line):
 			# If line contains PR reference, it should be properly formatted
 			var full_format_regex = RegEx.new()
-			full_format_regex.compile("\\[#\\d+\\]\\(https://github\\.com/text-forge/text-forge/pull/\\d+\\)")
+			# A reference is a pull request or an issue, both are links to the repository.
+			full_format_regex.compile("\\[#\\d+\\]\\(https://github\\.com/text-forge/text-forge/(pull|issues)/\\d+\\)")
 			var matches = full_format_regex.search_all(line)
 			assert_int(matches.size()).is_greater_equal(1) \
 				.append_failure_message("Improperly formatted PR reference at line " + str(i + 1))

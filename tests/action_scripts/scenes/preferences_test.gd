@@ -12,8 +12,11 @@ var preferences_window: PreferencesWindow
 var test_preferences_window_no_manual_signal_emission__signal_count := 0
 
 func before_test() -> void:
-	preferences_window = auto_free(load(__source.replace(".gd", ".tscn")).instantiate())
-	add_child(preferences_window)
+	# The window builds a row for every setting, that is slow, so it is built once and reused. The
+	# test that closes it frees it, then the next test builds a new one.
+	if preferences_window == null or not is_instance_valid(preferences_window):
+		preferences_window = auto_free(load(__source.replace(".gd", ".tscn")).instantiate())
+		add_child(preferences_window)
 
 func test_preferences_window_initializes() -> void:
 	assert_object(preferences_window).is_not_null()
@@ -53,14 +56,12 @@ func test_preferences_window_no_manual_signal_emission() -> void:
 
 func test_preferences_loads_settings_from_presets() -> void:
 	# Verify preferences window loads from presets file
-	preferences_window._ready()
 	await get_tree().process_frame
 
 	# Should have created tabs based on presets
 	assert_int(preferences_window.container.get_child_count()).is_greater(0)
 
 func test_setting_sections_created() -> void:
-	preferences_window._ready()
 	await get_tree().process_frame
 
 	# Verify sections are created
@@ -69,7 +70,6 @@ func test_setting_sections_created() -> void:
 	assert_int(tree_root.get_child_count()).is_greater(0)
 
 func test_empty_sections_removed() -> void:
-	preferences_window._ready()
 	await get_tree().process_frame
 
 	# Empty sections should be removed (no items)
@@ -82,7 +82,6 @@ func test_empty_sections_removed() -> void:
 			assert_int(vbox.get_child_count()).is_greater_equal(0)
 
 func test_section_names_capitalized() -> void:
-	preferences_window._ready()
 	await get_tree().process_frame
 
 	# Check that section names are properly capitalized

@@ -20,11 +20,11 @@ Measured from `reports/report_1/results.xml` (run 2026-10-19, GDUnit4 6.2.2):
 
 | Metric | Value |
 |---|---|
-| Suites | 29 |
-| Test cases | 428 |
+| Suites | 30 |
+| Test cases | 442 |
 | Failures | 0 |
 | Errors | 0 |
-| Execution time | 24s |
+| Execution time | 29s |
 
 Per directory:
 
@@ -32,7 +32,7 @@ Per directory:
 |---|---|---|
 | `tests/action_scripts/` (incl. `scenes/`) | 112 | 10 |
 | `tests/core/` (root) | 91 | 6 |
-| `tests/core/autoload/` | 107 | 7 |
+| `tests/core/autoload/` | 121 | 8 |
 | `tests/core/classes/` (incl. `action_script_extension/`) | 43 | 2 |
 | `tests/core/panels/bookmarks/` | 34 | 2 |
 | `tests/core/scripts/` | 14 | 1 |

@@ -44,7 +44,7 @@ func refresh_tabs() -> void:
 			break
 		tabs.set_tab_title(index, _title(docs[index]))
 	var index := docs.find(active)
-	if index != -1 and tabs.current_tab != index:
+	if index != -1 and index < tabs.get_tab_count() and tabs.current_tab != index:
 		tabs.current_tab = index
 
 
@@ -87,7 +87,7 @@ func _on_tab_changed(index: int) -> void:
 		return
 	activate(docs[index])
 	var editor := docs[index].editor
-	if editor:
+	if editor and editor.is_inside_tree():
 		editor.grab_focus()
 
 
@@ -333,7 +333,7 @@ func restore_session() -> bool:
 		return false
 	activate(opened[clampi(active_index, 0, opened.size() - 1)])
 	var editor := Global.get_editor()
-	if editor:
+	if editor and editor.is_inside_tree():
 		editor.grab_focus()
 	return true
 

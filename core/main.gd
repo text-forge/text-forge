@@ -534,7 +534,7 @@ func _load_last_file(is_automatic := true) -> void:
 		Notif.notif("automatic_load_last_file_at_start")
 	# Not [member editor], that one is the first scene editor and gets closed with its document.
 	var active_editor := Global.get_editor()
-	if active_editor:
+	if active_editor and active_editor.is_inside_tree():
 		active_editor.grab_focus()
 
 

@@ -37,7 +37,8 @@ func test_setup_defines_default_value() -> void:
 
 func test_setup_defines_line_endings_preset() -> void:
 	assert_bool(Settings.presets.has_section_key("edit", "line_endings")).is_true()
-	assert_str(Settings.get_setting("edit", "line_endings")).is_equal("LF")
+	# The preset default, the live value is the one the user picked and can be any of them.
+	assert_str(Settings.get_default("edit", "line_endings")).is_equal("LF")
 
 func test_setup_connects_to_before_save_hook() -> void:
 	var api := Global.get_editor_api()
