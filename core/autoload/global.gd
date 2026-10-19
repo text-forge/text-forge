@@ -44,7 +44,10 @@ func _ready() -> void:
 		_file_label = _core.file_label
 	else:
 		print_rich("[color=webgray]--- Global is in test mode ---[/color]")
-		_core = load("res://core/main.tscn").instantiate()
+		var main_scene := U.load_resource("res://core/main.tscn")
+		if not main_scene:
+			return
+		_core = main_scene.instantiate()
 		_editor = _core.editor
 		_file_label = _core.file_label
 

@@ -78,7 +78,7 @@ func _import_mode(path: String) -> void:
 
 func _on_data_changed(_new_text: String) -> void:
 	var config = ConfigFile.new()
-	var err := config.load(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg")))
+	var err := config.load(S.globalize_path(S.TEMPLATE_MODE_INFO.format([mode_informations[current_mode_index]["id"]])))
 	if err:
 		add_child(Factory.accept_dialog(
 			"Failed to load mode information: Error " + str(err),
@@ -96,7 +96,7 @@ func _on_data_changed(_new_text: String) -> void:
 		.filter(func(item: String): return not item.is_empty())
 	)
 	config.set_value("mode", "description", about.get_child(4).text.strip_edges())
-	err = config.save(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg")))
+	err = config.save(S.globalize_path(S.TEMPLATE_MODE_INFO.format([mode_informations[current_mode_index]["id"]])))
 	if err:
 		add_child(Factory.accept_dialog(
 			"Failed to update mode information: Error " + str(err),
@@ -106,7 +106,7 @@ func _on_data_changed(_new_text: String) -> void:
 
 func _on_edit_script_pressed() -> void:
 	Signals.open_file.emit(
-		S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.gd"))
+		S.globalize_path(S.TEMPLATE_MODE_SCRIPT.format([mode_informations[current_mode_index]["id"]]))
 		)
 	queue_free()
 
@@ -131,7 +131,7 @@ func _export_mode(path: String) -> void:
 			{"text_append": error_string(err)}
 		)
 		return
-	_add_folder_to_zip(writer, "user://modes/".path_join(mode_informations[current_mode_index]["id"]))
+	_add_folder_to_zip(writer, S.FOLDER_MODES.path_join(mode_informations[current_mode_index]["id"]))
 	writer.close()
 	Notif.notif(
 		"export_mode_completed",
@@ -165,7 +165,7 @@ func _on_remove_pressed() -> void:
 
 
 func _remove_mode() -> void:
-	var err := OS.move_to_trash(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"])))
+	var err := OS.move_to_trash(S.globalize_path(S.FOLDER_MODES.path_join(mode_informations[current_mode_index]["id"])))
 	if err:
 		Notif.notif(
 			"remove_mode_failed",
