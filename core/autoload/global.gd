@@ -31,6 +31,7 @@ var commands: Dictionary[String, Array] = {}:
 var temprory_children: Dictionary[String, Node] = {}
 var _core: Core
 var _editor: Editor
+var _editor_api: EditorAPI
 var _file_label: Label
 
 # Initializing function
@@ -147,10 +148,13 @@ func get_scripts_node() -> Node:
 	return _core.scripts
 
 
-## Returns [EditorAPI] node, this is first child of [Editor] node after internal childs. See
-## [EditorAPI] for more information.
+## Returns [EditorAPI] node, this is shared by all documents. See [EditorAPI] for more information.
 func get_editor_api() -> EditorAPI:
-	return _editor.get_child(0) as EditorAPI
+	if is_instance_valid(_editor_api):
+		return _editor_api
+	if _core:
+		_editor_api = _core.get_node_or_null("API") as EditorAPI
+	return _editor_api
 
 
 ## Return [PanelManager] node, this is a container with all panels, tabs, and [Editor]. See

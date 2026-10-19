@@ -28,10 +28,16 @@ func ensure_bootstrap(original: Editor) -> void:
 
 ## Connects cross-node editor signals. Self connections live in [method Editor._ready].
 func _wire(editor: Editor) -> void:
-	var core := Global.get_core()
-	if core and not editor.text_changed.is_connected(core._on_editor_text_changed):
+	var core: Core
+	var node := editor.get_parent()
+	while node and not core:
+		core = node as Core
+		node = node.get_parent()
+	if not core:
+		return
+	if not editor.text_changed.is_connected(core._on_editor_text_changed):
 		editor.text_changed.connect(core._on_editor_text_changed)
-	if core and not editor.gutter_clicked.is_connected(_on_gutter_clicked_dirty):
+	if not editor.gutter_clicked.is_connected(_on_gutter_clicked_dirty):
 		editor.gutter_clicked.connect(_on_gutter_clicked_dirty)
 	var api := Global.get_editor_api()
 	if api and not editor.code_completion_requested.is_connected(api._on_editor_code_completion_requested):

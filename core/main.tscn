@@ -219,11 +219,6 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("7_tipki")
 
-[node name="API" type="Control" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor"]
-layout_mode = 1
-anchors_preset = 0
-script = ExtResource("6_tefeu")
-
 [node name="BottomPanel" type="TabContainer" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -453,6 +448,9 @@ autostart = true
 [node name="ModulateTimer" type="Timer" parent="Margin/Sections/BottomBar/ModuleProfiler"]
 wait_time = 0.2
 one_shot = true
+
+[node name="API" type="Control" parent="."]
+script = ExtResource("6_tefeu")
 
 [node name="Scripts" type="Node" parent="."]
 
