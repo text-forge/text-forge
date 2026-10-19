@@ -33,6 +33,7 @@ const MENU_TRANSLATION_PREFIX = "menu."
 @export var file_label: Label
 ## Editor node, you can find more options in [Editor] class.
 @export var editor: Editor
+@export var editor_tabs: TabContainer
 ## Scripts Node, will keep action scripts separated from other nodes.
 @export var scripts: Node
 ## [PanelManager] node, see class for more information.
@@ -58,6 +59,7 @@ var _is_reloading_settings := false
 # This is start point of Text Forge
 func _ready() -> void:
 	Documents.ensure_bootstrap(editor)
+	Documents.attach_tabs(editor_tabs)
 	Notif.register_notification(
 		"create_themes_folder_failed",
 		Notif.Type.ERR,

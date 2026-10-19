@@ -82,6 +82,10 @@ func set_file_path(path: String) -> void:
 ## [b]Note:[/b] There is no connection between this function and [method set_file_path].
 func set_file_name(file_name: String) -> void:
 	_file_label.text = file_name
+	if Documents.active:
+		Documents.active.dirty = file_name.ends_with("*")
+		Documents.active.display_name = file_name.trim_suffix("*")
+		Documents.refresh_tabs()
 
 
 ## Returns [code]true[/code] when there is an opened file.
@@ -219,6 +223,8 @@ func load_resource(path: String) -> Resource:
 func mark_file_as_unsaved() -> void:
 	if not (Global.has_unsaved_change() or Global.is_editor_disabled()):
 		_file_label.text += "*"
+		Documents.active.dirty = true
+		Documents.refresh_tabs()
 
 
 ## Emits [signal SignalBus.save_request] when there is any unsaved change and returns [code]true[/code],

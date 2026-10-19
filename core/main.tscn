@@ -31,7 +31,7 @@ shader_parameter/brightness = 1.0
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
 
-[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about", "module_profiler", "replace_popup", "overlay_shader")]
+[node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "editor_tabs", "scripts", "panel_manager", "about", "module_profiler", "replace_popup", "overlay_shader")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +41,8 @@ grow_vertical = 2
 script = ExtResource("1_o5qli")
 menu_container = NodePath("Margin/Sections/MenuBar")
 file_label = NodePath("Margin/Sections/FileLabel")
-editor = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor")
+editor_tabs = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs")
+editor = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs/Editor")
 scripts = NodePath("Scripts")
 panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
@@ -198,7 +199,11 @@ split_offset = 20000
 layout_mode = 2
 split_offset = 1000
 
-[node name="Editor" type="CodeEdit" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
+[node name="EditorTabs" type="TabContainer" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Editor" type="CodeEdit" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs"]
 layout_mode = 2
 editable = false
 deselect_on_focus_loss_enabled = false
