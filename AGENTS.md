@@ -71,7 +71,7 @@ tag-driven and produces a **draft** GitHub release using Godot 4.5-stable.
 
 ## Gotchas
 
-- **Pre-1.0** (`config/version = "0.3"`): releases may break compatibility; after upgrades the app
+- **Pre-1.0** (`config/version = "0.4"`): releases may break compatibility; after upgrades the app
   data folder (`user://`) may need deleting. Read release notes for breaking changes.
 - Only `en`, `fa`, `pl` are registered translations in `project.godot` (`cs`, `lo` exist but are
   inactive). Translation is managed on Hosted Weblate, with no in-repo sync script.

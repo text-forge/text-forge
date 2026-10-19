@@ -321,7 +321,8 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - Data-driven UI.
 - Docs in 4 languages (en, fa, es, zh)
 
-[unreleased]: https://github.com/text-forge/text-forge/compare/v0.3.0-stable...HEAD
+[unreleased]: https://github.com/text-forge/text-forge/compare/v0.4.0-stable...HEAD
+[v0.4-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.4.0-stable
 [v0.3-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.3.0-stable
 [v0.2-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.2.0-stable
 [v0.2-rc2]: https://github.com/text-forge/text-forge/releases/tag/v0.2.0-rc2

@@ -24,7 +24,7 @@ Measured from `reports/report_1/results.xml` (run 2026-10-19, GDUnit4 6.2.2):
 | Test cases | 442 |
 | Failures | 0 |
 | Errors | 0 |
-| Execution time | 29s |
+| Execution time | 23s |
 
 Per directory:
 
