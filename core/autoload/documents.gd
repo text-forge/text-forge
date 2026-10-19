@@ -47,9 +47,25 @@ func refresh_tabs() -> void:
 
 
 func _title(doc: EditorDocument) -> String:
-	if doc.dirty:
-		return doc.display_name + "*"
-	return doc.display_name
+	var title := doc.display_name + ("*" if doc.dirty else "")
+	# Two tabs with the same name are told apart by the folder they live in.
+	if docs.any(func(other: EditorDocument) -> bool: return other != doc and other.display_name == doc.display_name):
+		title = doc.path.get_base_dir().get_file() + "/" + title
+	return title
+
+
+## Cycles tabs with [b]Ctrl+Tab[/b] and [b]Ctrl+Shift+Tab[/b]. CodeEdit uses plain [b]Tab[/b] for
+## indentation, so only the modified variants move between documents.
+func _shortcut_input(event: InputEvent) -> void:
+	if not (event is InputEventKey) or not event.pressed or event.echo:
+		return
+	if not event.ctrl_pressed or event.keycode != KEY_TAB or not tabs:
+		return
+	var count := tabs.get_tab_count()
+	if count < 2:
+		return
+	tabs.current_tab = (tabs.current_tab + (-1 if event.shift_pressed else 1) + count) % count
+	get_viewport().set_input_as_handled()
 
 
 func _on_tab_changed(index: int) -> void:
@@ -107,20 +123,29 @@ func create(path := "Unsaved", display_name := "New file", text := "", editable 
 	return doc
 
 
-## Returns the active document when it is still an untouched new file, otherwise creates and
-## activates a new document. Keeps opening files from filling the tab bar with empty documents.
+## Returns a document that is still the empty placeholder ([member EditorDocument.path] is
+## [code]""[/code], no unsaved change and no text) to load into, preferring the active one, and
+## activates it. Otherwise creates a new document. Keeps opening files from filling the tab bar
+## with empty documents.
 func reuse_or_create() -> EditorDocument:
-	if (active
-		and not active.dirty
-		and active.editor
-		and active.editor.text.is_empty()
-		and not active.path.is_absolute_path()):
-		return active
-	var doc := create()
+	var doc: EditorDocument
+	for candidate in docs:
+		if _is_placeholder(candidate):
+			doc = candidate
+			if candidate == active:
+				break
 	if not doc:
-		return null
+		doc = create()
+		if not doc:
+			return null
 	activate(doc)
 	return doc
+
+
+## [code]true[/code] while this document is the "nothing is opened" one and stays safe to overwrite.
+func _is_placeholder(doc: EditorDocument) -> bool:
+	return bool(doc) and doc.path == "" and not doc.dirty and doc.editor \
+			and doc.editor.text.is_empty()
 
 
 ## Makes [param doc] the active document and re-applies shared editor state to it.
