@@ -7,11 +7,6 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source = 'res://core/autoload/global.gd'
 
-func test_notification_enum_values() -> void:
-	assert_int(Global.Notification.INFO).is_equal(0)
-	assert_int(Global.Notification.WARNING).is_equal(1)
-	assert_int(Global.Notification.ERROR).is_equal(2)
-
 func test_window_manager_exists() -> void:
 	assert_object(Global.window_manager).is_not_null()
 	assert_object(Global.window_manager).is_instanceof(Global.WindowManager)

@@ -4,15 +4,6 @@ extends Node
 ##
 ## You can access to this class using [code]Global[/code] autoload.
 
-## @deprecated: Please use [enum NotificationManager.Type] instead.
-## Type of [b]Editor Notification[/b]s, see also [method send_notification] and
-## [signal SignalBus.editor_notification].
-enum Notification {
-	INFO, ## Regular notification with "Information" type.
-	WARNING, ## Warning notification, for exceptions without silent handling (but with handling).
-	ERROR, ## Error notification, for unhandled exceptions.
-}
-
 ## Main window manager with restore window state. See [WindowManager] for more information.
 var window_manager := WindowManager.new()
 ## Keeps list of damaged mode IDs and reasons.
@@ -170,18 +161,6 @@ func get_panel_manager() -> PanelManager:
 	return _core.panel_manager
 
 
-## @deprecated: Please use [method NotificationManager.notif] instead.
-## Sends an [b]Editor Notification[/b] using emit [signal SignalBus.editor_notification].
-func send_notification(type: Notification, title: String, text: String = "") -> void:
-	U.deprecated()
-	const map = {
-		Notification.INFO: Notif.Type.INFO,
-		Notification.WARNING: Notif.Type.WARN,
-		Notification.ERROR: Notif.Type.ERR,
-	}
-	Signals.editor_notification.emit(map[type], title, text)
-
-
 ## Defines new command and updates [member _commands]. Commands shoud have a unique
 ## [param command_name] (otherwise this would be an overwrite of this command), you can generate
 ## [param key_string] with [method InputEventKey.as_text_keycode]. Command managers (like command
@@ -214,12 +193,6 @@ func get_last_file_path() -> String:
 		return recent_files_list[0]
 
 	return ""
-
-
-## @deprecated: Use [method Utils.load_resource] instead.
-func load_resource(path: String) -> Resource:
-	U.deprecated()
-	return U.load_resource(path)
 
 
 ## Appends [code]*[/code] to file name to show it's changed.
