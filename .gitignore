@@ -30,3 +30,7 @@ addons/gdUnit4/GdUnitRunner.cfg
 
 # Agent/planning artifacts
 .omo/
+
+# Local editor / code-index artifacts
+.vscode/
+.codegraph/
