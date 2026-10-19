@@ -110,7 +110,9 @@ git push origin v0.4.0-stable
 ```
 
 The workflow exports both presets, builds the two archives and attaches them to a **draft** GitHub
-release. The draft is not published, review the notes and publish it when it looks right.
+release. The draft is not published, review the notes and publish it when it looks right. Keep the
+tag when you publish it: a draft published without its tag gets an `untagged-<sha>` tag, that tag
+fires the workflow again and it puts the release back in draft.
 
 Tags follow `v<major>.<minor>.<patch>-<suffix>`, for example `v0.3.0-stable` or `v0.2.0-rc1`. The
 version in `project.godot`, the one in `core/classes/static.gd` (`S.EDITOR_VERSION`) and the
