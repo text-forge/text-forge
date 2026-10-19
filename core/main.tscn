@@ -40,9 +40,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5qli")
 menu_container = NodePath("Margin/Sections/MenuBar")
-file_label = NodePath("Margin/Sections/FileLabel")
-editor_tabs = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs")
+file_label = NodePath("Margin/Sections/BottomBar/FileLabel")
 editor = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs/Editor")
+editor_tabs = NodePath("Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs")
 scripts = NodePath("Scripts")
 panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
@@ -145,13 +145,6 @@ layout_mode = 2
 layout_mode = 2
 flat = true
 
-[node name="FileLabel" type="Label" parent="Margin/Sections"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-text = "There is no opened file"
-text_overrun_behavior = 4
-
 [node name="PanelManager" type="HBoxContainer" parent="Margin/Sections" node_paths=PackedStringArray("tabs", "spliters", "containers")]
 layout_mode = 2
 size_flags_vertical = 3
@@ -202,9 +195,11 @@ split_offset = 1000
 [node name="EditorTabs" type="TabContainer" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 
 [node name="Editor" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs" instance=ExtResource("7_edtsc")]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="BottomPanel" type="TabContainer" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
 layout_mode = 2
@@ -241,9 +236,18 @@ layout_mode = 2
 theme = SubResource("Theme_csopv")
 alignment = 2
 
+[node name="FileLabel" type="Label" parent="Margin/Sections/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Path of the active document"
+mouse_filter = 1
+theme_type_variation = &"BottomBarLabel"
+text = "There is no opened file"
+text_overrun_behavior = 4
+
 [node name="ProblemCounter" type="HBoxContainer" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("error_panel", "error_count", "warning_panel", "warning_count")]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 8
 tooltip_text = "Problem counter
 Number of detected error and warnings."
 script = ExtResource("5_xhu5d")
@@ -372,8 +376,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 198.0
-offset_bottom = 80.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -437,6 +441,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="API" type="Control" parent="."]
+anchors_preset = 0
 script = ExtResource("6_tefeu")
 
 [node name="Scripts" type="Node" parent="."]

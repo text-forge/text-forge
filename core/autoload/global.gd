@@ -52,33 +52,52 @@ func get_window_mode_before_fullscreen() -> Window.Mode:
 	return window_manager.last_mode_except_fullscreen
 
 
-## Returns currently opened file path, this is tooltip of [member Core.file_label] that user can see
-## it with hover on file name in editor.
+## Returns currently opened file path, see also [method Documents.active]. Before the first document
+## exists it returns the file label tooltip.
 func get_file_path() -> String:
+	if Documents.active:
+		return Documents.active.path
 	return _file_label.tooltip_text
 
 
-## Returns currently opened file name, this is text of [member Core.file_label].
+## Returns name of the active document with a star ([code]*[/code]) while it has unsaved changes,
+## see also [method Documents.active].
 func get_file_name() -> String:
+	if Documents.active:
+		var doc := Documents.active
+		return doc.display_name + ("*" if doc.dirty else "")
 	return _file_label.text
 
 
-## Sets [param path] as path of opened file with set it as tooltip of [member Core.file_label].[br][br]
+## Sets [param path] as path of opened file, the file label shows it and the tab title follows the
+## folder it lives in. [br][br]
 ## [b]Note:[/b] This action isn't loading!
 func set_file_path(path: String) -> void:
 	_file_label.tooltip_text = path
 	if Documents.active:
 		Documents.active.path = path
+		Documents.refresh_tabs()
+	_refresh_file_label()
 
 
-## Sets [param file_name] as name of opened file with set it as text of [member Core.file_label].[br][br]
-## [b]Note:[/b] There is no connection between this function and [method set_file_path].
+## Sets [param file_name] as name of opened file, a trailing star marks it as unsaved. See also
+## [method Documents.active].
 func set_file_name(file_name: String) -> void:
-	_file_label.text = file_name
 	if Documents.active:
 		Documents.active.dirty = file_name.ends_with("*")
 		Documents.active.display_name = file_name.trim_suffix("*")
 		Documents.refresh_tabs()
+	_refresh_file_label()
+
+
+## Shows the active document in the file label: its full path once it has one, its name while it is
+## still unsaved. The tab bar already carries the name, so the label is where the path belongs.
+func _refresh_file_label() -> void:
+	if not _file_label or not Documents.active:
+		return
+	var doc := Documents.active
+	_file_label.text = doc.path if doc.path.is_absolute_path() \
+			else doc.display_name + ("*" if doc.dirty else "")
 
 
 ## Returns [code]true[/code] when there is an opened file.

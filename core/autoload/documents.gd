@@ -48,10 +48,20 @@ func refresh_tabs() -> void:
 
 func _title(doc: EditorDocument) -> String:
 	var title := doc.display_name + ("*" if doc.dirty else "")
-	# Two tabs with the same name are told apart by the folder they live in.
-	if docs.any(func(other: EditorDocument) -> bool: return other != doc and other.display_name == doc.display_name):
-		title = doc.path.get_base_dir().get_file() + "/" + title
-	return title
+	var same := 0
+	var index := 0
+	for other in docs:
+		if other.display_name != doc.display_name:
+			continue
+		same += 1
+		if other == doc:
+			index = same
+	if same < 2:
+		return title
+	# Tabs sharing a name are told apart by their folder, or by a counter when they have none.
+	if doc.path.is_absolute_path():
+		return doc.path.get_base_dir().get_file() + "/" + title
+	return title + " (%d)" % index
 
 
 ## Cycles tabs with [b]Ctrl+Tab[/b] and [b]Ctrl+Shift+Tab[/b]. CodeEdit uses plain [b]Tab[/b] for
@@ -120,37 +130,52 @@ func create(path := "Unsaved", display_name := "New file", text := "", editable 
 	docs.append(doc)
 	_wire(doc.editor)
 	refresh_tabs()
+	_drop_placeholders(doc)
 	return doc
 
 
+## Closes leftover "There is no opened file" documents once [param keep] holds a real file, so the
+## placeholder never lingers beside real tabs.
+func _drop_placeholders(keep: EditorDocument) -> void:
+	for doc in docs.duplicate():
+		if doc != keep and doc.path == "" and not doc.dirty:
+			close(doc)
+
+
 ## Returns a document that is still the empty placeholder ([member EditorDocument.path] is
-## [code]""[/code], no unsaved change and no text) to load into, preferring the active one, and
-## activates it. Otherwise creates a new document. Keeps opening files from filling the tab bar
-## with empty documents.
+## [code]""[/code], no unsaved change and no text), preferring the active one.
+func _placeholder() -> EditorDocument:
+	var found: EditorDocument = null
+	for doc in docs:
+		if doc.path != "" or doc.dirty or not doc.editor or not doc.editor.text.is_empty():
+			continue
+		if doc == active:
+			return doc
+		if not found:
+			found = doc
+	return found
+
+
+## Gives a document to load a file into, taking over the empty placeholder so opening a file never
+## leaves "There is no opened file" behind, and creating a tab only when there is none free.
 func reuse_or_create() -> EditorDocument:
-	var doc: EditorDocument
-	for candidate in docs:
-		if _is_placeholder(candidate):
-			doc = candidate
-			if candidate == active:
-				break
+	var doc := _placeholder()
 	if not doc:
 		doc = create()
 		if not doc:
 			return null
 	activate(doc)
+	_drop_placeholders(doc)
 	return doc
-
-
-## [code]true[/code] while this document is the "nothing is opened" one and stays safe to overwrite.
-func _is_placeholder(doc: EditorDocument) -> bool:
-	return doc != null and doc.path == "" and not doc.dirty and doc.editor \
-			and doc.editor.text.is_empty()
 
 
 ## Makes [param doc] the active document and re-applies shared editor state to it.
 func activate(doc: EditorDocument) -> void:
-	if not doc or doc == active or not docs.has(doc):
+	if not doc or not docs.has(doc):
+		return
+	if doc == active:
+		# A filled placeholder keeps its tab, but its name, text and caret changed.
+		_sync_forward()
 		return
 	_sync_back()
 	active = doc
