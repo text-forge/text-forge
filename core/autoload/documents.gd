@@ -239,6 +239,14 @@ func close(doc: EditorDocument, keep_one := true) -> void:
 	refresh_tabs()
 
 
+## Returns the open document of [param path], or [code]null[/code] when that file is not open.
+func find_by_path(path: String) -> EditorDocument:
+	for doc in docs:
+		if doc.path == path:
+			return doc
+	return null
+
+
 ## Closes every document one by one, asking about the unsaved ones, so the tabs that are left show
 ## what is still open. Closing from the last tab keeps the remaining ones in place and handles the
 ## active document first. Returns [code]false[/code] while a save prompt is open: the action script

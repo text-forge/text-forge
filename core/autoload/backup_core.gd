@@ -68,47 +68,71 @@ func get_backups_list() -> Dictionary[String, Dictionary]:
 	return list
 
 
-## Restores current backup to given [param path] from given [param code] backup.
+## Restores given [param code] backup to given [param path]. It opens the document of that path, or
+## adds a tab for it, so the backup lands in its own file and not in whatever is active.
 func restore_backup(code: String, path: String) -> Error:
-	if not FileAccess.file_exists(S.TEMPLATE_BACKUP_FILE.format([code])):
+	var backup_path := S.TEMPLATE_BACKUP_FILE.format([code])
+	if not FileAccess.file_exists(backup_path):
 		Notif.notif(
 			"file_not_found",
-			{"text": S.TEMPLATE_BACKUP_FILE.format([code])}
+			{"text": backup_path}
 		)
 		return ERR_DOES_NOT_EXIST
-	var content := FileAccess.get_file_as_string(S.TEMPLATE_BACKUP_FILE.format([code]))
+	var content := FileAccess.get_file_as_string(backup_path)
+	var doc := Documents.find_by_path(path)
+	if not doc:
+		doc = Documents.create(path, path.get_file(), content, true)
+	if not doc:
+		return ERR_CANT_CREATE
+	Documents.activate(doc)
+	Global.set_editor_disabled(false)
+	if doc.editor.text != content:
+		Global.set_editor_text(content)
 	Global.set_file_path(path)
 	Global.set_file_name(path.get_file())
-	Global.set_editor_disabled(false)
-	Global.set_editor_text(content)
 	Signals.check_options.emit()
 	Global.mark_file_as_unsaved()
 	Notif.notif("backup_restore_completed")
 	return OK
 
 
-## Makes a backup from current file.
+## Makes a backup of every open file, a tab that is not active is backed up as well, otherwise a
+## crash would lose it while the auto backup timer only watches the active document.
 func backup_file(as_auto: bool) -> void:
-	if not Global.has_file():
-		return
 	var config := _load_backup_database()
-	var file_backups: Dictionary = config.get_value("backups", Global.get_file_path(), {})
-	var backup_id := _generate_new_backup_id()
-	var file := FileAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
-	if not file:
-		if not as_auto:
-			Notif.notif(
-				"save_file_failed",
-				{"format_title": ["backup"], "text_append": error_string(FileAccess.get_open_error())}
-			)
-		backup_failed.emit(as_auto)
+	var saved := 0
+	var failed := 0
+	var failure := OK
+	for doc in Documents.docs:
+		if not doc.path.is_absolute_path() or not is_instance_valid(doc.editor):
+			continue
+		var file_backups: Dictionary = config.get_value("backups", doc.path, {})
+		var backup_id := _generate_new_backup_id()
+		var file := FileAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
+		if not file:
+			failed += 1
+			failure = FileAccess.get_open_error()
+			continue
+		file.store_string(doc.editor.text)
+		file.close()
+		file_backups[Time.get_datetime_string_from_system(false, true)] = backup_id
+		config.set_value("backups", doc.path, file_backups)
+		saved += 1
+	if not saved:
 		return
-	file.store_string(Global.get_editor_text())
-	file.close()
-	file_backups[Time.get_datetime_string_from_system(false, true)] = backup_id
-	config.set_value("backups", Global.get_file_path(), file_backups)
-	config.save(S.globalize_path(S.BACKUP_DATABASE))
-	backup_saved.emit(as_auto)
+	var err := config.save(S.globalize_path(S.BACKUP_DATABASE))
+	if err:
+		failed += 1
+		failure = err
+	if failed and not as_auto:
+		Notif.notif(
+			"save_file_failed",
+			{"format_title": ["backup"], "text_append": error_string(failure)}
+		)
+	if failed:
+		backup_failed.emit(as_auto)
+	else:
+		backup_saved.emit(as_auto)
 
 
 # Returns a probabilistically unique backup id based on unix time and random suffix.
