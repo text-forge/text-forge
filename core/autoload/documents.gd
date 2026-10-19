@@ -144,7 +144,7 @@ func reuse_or_create() -> EditorDocument:
 
 ## [code]true[/code] while this document is the "nothing is opened" one and stays safe to overwrite.
 func _is_placeholder(doc: EditorDocument) -> bool:
-	return bool(doc) and doc.path == "" and not doc.dirty and doc.editor \
+	return doc != null and doc.path == "" and not doc.dirty and doc.editor \
 			and doc.editor.text.is_empty()
 
 
