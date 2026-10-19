@@ -7,11 +7,6 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ## [unreleased]
 
-### Fixed
-- **Line endings:** a stored line ending that is not `LF`, `CRLF` or `CR` is replaced by the default, it could rewrite the files with the wrong endings
-- **Tabs:** opening a file that is already open shows its tab instead of opening a second one for the same file
-- **Editor:** the editor accessors check that there is an editor, a closed document can no longer break them
-
 ## [v0.4-stable] - 2026-10-19
 
 ### Added
@@ -39,6 +34,9 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - A document that was closed could be handed out as the active editor after it was freed
 - Opening a file asked to save the current file, even though nothing was overwritten
 - The preferences window loaded its option scene once per setting instead of once
+- A stored line ending that is not `LF`, `CRLF` or `CR` was replaced by the default, it could rewrite the files with the wrong endings
+- Opening a file that was already open opened a second tab for the same file
+- The editor accessors did not check that there is an editor, a closed document could break them
 
 ### Removed
 - The deprecated `Global.Notification` enum, `Global.send_notification()` and `Global.load_resource()`, use `Notif.notif()`, `NotificationManager.Type` and `U.load_resource()` instead
