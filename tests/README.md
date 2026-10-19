@@ -1,71 +1,77 @@
 # Text Forge Unit Tests
 
-This directory contains comprehensive unit tests for the Text Forge text editor.
+Tests use [b]gdUnit4[/b] (`addons/gdUnit4`). Suites live in `tests/`, mirroring the `core/` and
+`action_scripts/` layout of the code they cover.
 
-## Maintenance Notes
-- Run tests before commits
-- Update tests when changing functionality
-- Review coverage monthly
+## Running
 
-## Performance Benchmarks
-Current test suite execution time (estimated):
-- **All tests**: ~33 seconds
-- **Individual file**: ~1 second
-
-## Test Generation Notes
-- Use **GDUnit4** as test framework
-- Place all tests in `tests/` directory
-- Have coverage example in mind:
-  - Initialization and setup
-  - Simple behavior
-  - Complex behavior
-  - Edge-cases
-  - Invalid input handling
-  - Empty input handling
-  - Complex states like multi-caret edit
-  - Parse error handling
-  - Execute error handling
-- Update `tests/README.md`, `tests/INDEX.md`, `tests/TEST_SUMMARY.md` files
-- Don't use local variables in lambda functions, use like this (`test_neme__var_name`):
+```bash
+export GODOT_BIN=/path/to/godot
+./addons/gdUnit4/runtest.sh -a res://tests/                              # all suites (~25s)
+./addons/gdUnit4/runtest.sh -a res://tests/core/autoload/utils_test.gd   # one suite
 ```
-# GdUnit generated TestSuite
-class_name UIFilterIntegrationTestSuite
-extends GdUnitTestSuite
-@warning_ignore('unused_parameter')
-@warning_ignore('return_value_discarded')
 
-...
+Headless runs need `--ignoreHeadlessMode`. UI/interaction suites only pass in the editor, so run
+those from the gdUnit4 panel. There is no per-test-case flag — select a single case in the panel.
 
+## Current numbers
+
+Measured from `reports/report_1/results.xml` (run 2026-10-19, GDUnit4 6.2.2):
+
+| Metric | Value |
+|---|---|
+| Suites | 29 |
+| Test cases | 428 |
+| Failures | 0 |
+| Errors | 0 |
+| Execution time | 24s |
+
+Per directory:
+
+| Directory | Tests | Suites |
+|---|---|---|
+| `tests/action_scripts/` (incl. `scenes/`) | 112 | 10 |
+| `tests/core/` (root) | 91 | 6 |
+| `tests/core/autoload/` | 107 | 7 |
+| `tests/core/classes/` (incl. `action_script_extension/`) | 43 | 2 |
+| `tests/core/panels/bookmarks/` | 34 | 2 |
+| `tests/core/scripts/` | 14 | 1 |
+| `tests/docs/` | 27 | 1 |
+
+**Do not hand-maintain these numbers.** They come from the runner; re-read `results.xml` after a
+run instead of editing the table. This file is the only tests overview — there is no separate
+index or summary file to keep in sync.
+
+**Known gap:** `tests/core/autoload/factory_test.gd` (2 cases) did not run in the 2026-10-19
+report. It declares `class_name NodeFactoryTest`; check why the runner skips it before trusting
+the totals above as complete.
+
+## Writing tests
+
+- One test per behaviour, descriptive names, Arrange–Act–Assert, no cross-test dependencies.
+- Use `auto_free()` for nodes created in a test, and specific assertion types for clear messages.
+- Don't use local variables inside lambdas — store on the suite as `test_<name>__<var>`:
+
+```gdscript
 var test_complete_ui_filter_workflow__signal_emitted := false
 
-...
-
 func test_complete_ui_filter_workflow() -> void:
-	# Test complete workflow: setting -> signal -> reload
 	var connection := func(): test_complete_ui_filter_workflow__signal_emitted = true
 	Signals.settings_changed.connect(connection)
 
-	# Change hue shift
 	Settings.set_setting(test_section, "filter_hue_shift", 0.5)
 	await get_tree().process_frame
 	assert_bool(test_complete_ui_filter_workflow__signal_emitted).is_true()
-	assert_float(Settings.get_setting(test_section, "filter_hue_shift")).is_equal(0.5)
 
 	Signals.settings_changed.disconnect(connection)
-
-...
-
 ```
 
-### Best Practices
-1. **One Test Per Behavior**: Each test should verify one specific behavior
-2. **Descriptive Names**: Use clear, descriptive test names
-3. **Arrange-Act-Assert**: Structure tests with setup, action, verification
-4. **Independent Tests**: Tests should not depend on each other
-5. **Use auto_free**: Prevent memory leaks with auto_free()
-6. **Meaningful Assertions**: Use specific assertion types for better error messages
+- Cover the obvious axes: initialization, simple and complex behaviour, edge cases, invalid and
+  empty input, multi-caret edits, parse and execution errors.
 
-## Internal Documentation
-- `tests/README.md` - Getting started
-- `tests/TEST_SUMMARY.md` - Detailed coverage
-- `tests/INDEX.md` - Complete index
+## Notes
+
+- The `Tests` autoload (`core/autoload/tests.gd`) is a runtime **performance harness**, not this
+  runner. `tests/runtime/performance.gd` is not part of the unit suite.
+- `tests/action_scripts/remove_trailing_whitespaces.gd` has no `_test` suffix but is still
+  discovered by the runner.
