@@ -532,7 +532,10 @@ func _load_last_file(is_automatic := true) -> void:
 	Signals.open_file.emit(Global.get_last_file_path())
 	if is_automatic:
 		Notif.notif("automatic_load_last_file_at_start")
-	editor.grab_focus()
+	# Not [member editor], that one is the first scene editor and gets closed with its document.
+	var active_editor := Global.get_editor()
+	if active_editor:
+		active_editor.grab_focus()
 
 
 ## Helper to generate script path for a menu option.

@@ -313,6 +313,10 @@ func load_mode_for(doc: EditorDocument) -> void:
 	if not doc or not doc.editor:
 		return
 	if doc.mode.is_empty() or doc.mode == current_mode:
+		# The mode script is already loaded and changing it would be skipped, but this is another
+		# editor node, so the parts of the mode that live on the editor still have to be applied.
+		_load_syntax_highlighter()
+		_load_delimiters()
 		_refresh_mode_features()
 		return
 	_change_mode_to(doc.mode)
@@ -493,10 +497,12 @@ func _load_delimiters() -> void:
 ## Loads syntax highlighter to editor, will NOT duplicate it.
 func _load_syntax_highlighter() -> void:
 	var mode_script := _get_mode_script()
-	if not mode_script:
+	if not mode_script or not mode_script.syntax_highlighter:
 		Global.get_editor().syntax_highlighter = null
 		return
-	Global.get_editor().syntax_highlighter = mode_script.syntax_highlighter
+	# Every document gets its own copy, a shared highlighter caches per line highlight data and
+	# two editors would fight over it, leaving one of them without colors.
+	Global.get_editor().syntax_highlighter = mode_script.syntax_highlighter.duplicate()
 
 
 ## Unloads current mode script, panel, highlighter, linting, preview, outline, and delimiters.

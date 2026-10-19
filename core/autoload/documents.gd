@@ -80,9 +80,15 @@ func _shortcut_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
+## Switching tabs, by mouse or [b]Ctrl+Tab[/b], also moves the focus to the editor, so typing goes
+## to the document that was just selected.
 func _on_tab_changed(index: int) -> void:
-	if index >= 0 and index < docs.size():
-		activate(docs[index])
+	if index < 0 or index >= docs.size():
+		return
+	activate(docs[index])
+	var editor := docs[index].editor
+	if editor:
+		editor.grab_focus()
 
 
 func _on_tab_close_pressed(index: int) -> void:
@@ -203,14 +209,15 @@ func _sync_forward() -> void:
 	var editor := active.editor
 	Global.set_file_name(active.display_name + ("*" if active.dirty else ""))
 	Global.set_file_path(active.path)
-	editor.set_caret_line(active.caret.x)
-	editor.set_caret_column(active.caret.y)
-	editor.scroll_horizontal = active.scroll.x
-	editor.scroll_vertical = active.scroll.y
 	var api := Global.get_editor_api()
 	if api:
 		api.apply_view_settings()
 		api.load_mode_for(active)
+	# Loading a mode can move the caret and the view, so the stored state goes on top of it.
+	editor.set_caret_line(active.caret.x)
+	editor.set_caret_column(active.caret.y)
+	editor.scroll_horizontal = active.scroll.x
+	editor.scroll_vertical = active.scroll.y
 	refresh_tabs()
 
 
@@ -313,6 +320,10 @@ func restore_session() -> bool:
 			Global.get_editor_api().load_file(path)
 		else:
 			Global.set_editor_disabled(false)
+		# Loading a file also loads its mode, which can move the caret, so the stored position goes
+		# on top of it here, where it costs two assignments instead of another activation.
+		doc.editor.set_caret_line(caret.x)
+		doc.editor.set_caret_column(caret.y)
 		# Loading moves the view, so put the stored scroll back on top of it, see [method
 		# _restore_view].
 		_restore_view.call_deferred(doc, scroll)
@@ -321,6 +332,9 @@ func restore_session() -> bool:
 	if opened.is_empty():
 		return false
 	activate(opened[clampi(active_index, 0, opened.size() - 1)])
+	var editor := Global.get_editor()
+	if editor:
+		editor.grab_focus()
 	return true
 
 
