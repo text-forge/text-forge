@@ -5,6 +5,7 @@ extends MenuButton
 func _ready() -> void:
 	Documents.watch(&"type_timer_timeout", _update_label)
 	Signals.settings_changed.connect(_update_label)
+	Signals.active_document_changed.connect(_update_label)
 	get_popup().id_pressed.connect(_on_id_pressed)
 	_update_label()
 

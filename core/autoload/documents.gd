@@ -14,6 +14,10 @@ var tabs: TabContainer
 ## Registered [code]{signal: StringName, callback: Callable}[/code] pairs, see [method watch].
 var _watchers: Array[Dictionary] = []
 
+## Title of the document that represents "nothing is opened", it matches the initial file label of
+## [Core] and the state [method close] leaves behind.
+const NO_FILE_TITLE := "There is no opened file"
+
 
 ## Makes [param container] the home of document editors and binds its tab bar.
 func attach_tabs(container: TabContainer) -> void:
@@ -49,8 +53,8 @@ func _title(doc: EditorDocument) -> String:
 
 
 func _on_tab_changed(index: int) -> void:
-	if index >= 0 and index < docs.size() and docs[index] != active:
-		active = docs[index]
+	if index >= 0 and index < docs.size():
+		activate(docs[index])
 
 
 func _on_tab_close_pressed(index: int) -> void:
@@ -80,6 +84,107 @@ func _connect_watch(editor: Editor, signal_name: StringName, callback: Callable)
 		editor.connect(signal_name, callback)
 
 
+## Creates a document with its own [Editor] and appends it as a new tab.
+func create(path := "Unsaved", display_name := "New file", text := "", editable := false) -> EditorDocument:
+	if not tabs:
+		return null
+	var editor_scene := U.load_resource(S.EDITOR_SCENE) as PackedScene
+	if not editor_scene:
+		return null
+	var doc := EditorDocument.new()
+	doc.editor = editor_scene.instantiate() as Editor
+	doc.path = path
+	doc.display_name = display_name
+	doc.dirty = false
+	# Content and editable are set before wiring, so filling the editor does not mark the new
+	# document as unsaved through the text_changed chain.
+	doc.editor.text = text
+	doc.editor.editable = editable
+	tabs.add_child(doc.editor)
+	docs.append(doc)
+	_wire(doc.editor)
+	refresh_tabs()
+	return doc
+
+
+## Returns the active document when it is still an untouched new file, otherwise creates and
+## activates a new document. Keeps opening files from filling the tab bar with empty documents.
+func reuse_or_create() -> EditorDocument:
+	if (active
+		and not active.dirty
+		and active.editor
+		and active.editor.text.is_empty()
+		and not active.path.is_absolute_path()):
+		return active
+	var doc := create()
+	if not doc:
+		return null
+	activate(doc)
+	return doc
+
+
+## Makes [param doc] the active document and re-applies shared editor state to it.
+func activate(doc: EditorDocument) -> void:
+	if not doc or doc == active or not docs.has(doc):
+		return
+	_sync_back()
+	active = doc
+	_sync_forward()
+	Signals.active_document_changed.emit(doc)
+
+
+## Stores caret, scroll, and mode of the outgoing document so switching tabs keeps its state.
+func _sync_back() -> void:
+	if not active or not active.editor:
+		return
+	active.caret = Vector2i(active.editor.get_caret_line(), active.editor.get_caret_column())
+	active.scroll = Vector2i(active.editor.scroll_horizontal, active.editor.scroll_vertical)
+	var api := Global.get_editor_api()
+	if api:
+		active.mode = api.current_mode
+
+
+## Applies file label, view settings and mode to the incoming document.
+func _sync_forward() -> void:
+	if not active or not active.editor:
+		return
+	var editor := active.editor
+	Global.set_file_name(active.display_name + ("*" if active.dirty else ""))
+	Global.set_file_path(active.path)
+	editor.set_caret_line(active.caret.x)
+	editor.set_caret_column(active.caret.y)
+	editor.scroll_horizontal = active.scroll.x
+	editor.scroll_vertical = active.scroll.y
+	var api := Global.get_editor_api()
+	if api:
+		api.apply_view_settings()
+		api.load_mode_for(active)
+	refresh_tabs()
+
+
+## Removes [param doc] and its tab. When it was the active document the next one (or a
+## [constant NO_FILE_TITLE] document) takes over, so at least one document always stays open.
+func close(doc: EditorDocument) -> void:
+	if not doc or not docs.has(doc):
+		return
+	var index := docs.find(doc)
+	var was_active := doc == active
+	docs.erase(doc)
+	if was_active:
+		if docs.is_empty():
+			var replacement := create("", NO_FILE_TITLE)
+			if replacement:
+				active = replacement
+		else:
+			active = docs[index] if index < docs.size() else docs[docs.size() - 1]
+	if doc.editor:
+		if doc.editor.get_parent():
+			doc.editor.get_parent().remove_child(doc.editor)
+		doc.editor.queue_free()
+	_sync_forward()
+	refresh_tabs()
+
+
 ## Adopts [param original] as the first document. Idempotent for the same editor, so both
 ## [method GlobalAccess._ready] and [method Core._ready] can call it. When the first call could
 ## only get a detached editor (main scene was not in tree yet), the second call replaces it.
@@ -87,7 +192,10 @@ func ensure_bootstrap(original: Editor) -> void:
 	if not original:
 		return
 	if docs.is_empty():
-		docs.append(EditorDocument.new())
+		var none_doc := EditorDocument.new()
+		none_doc.path = ""
+		none_doc.display_name = NO_FILE_TITLE
+		docs.append(none_doc)
 	elif docs[0].editor and docs[0].editor.is_inside_tree():
 		return
 	docs[0].editor = original

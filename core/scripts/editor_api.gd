@@ -2,7 +2,7 @@ class_name EditorAPI
 extends Control
 ## Editor API and Mode Manager.
 ##
-## This node is first child of [Editor] and designed to manage modes. Access way: [code]Global.get_editor_api()[/code][br][br]
+## This node is shared by every document and designed to manage modes. Access way: [code]Global.get_editor_api()[/code][br][br]
 ## This module manages a lot of important features and functionalities, including:[br][br]
 ## - Modes validating, loading, management, handling internal modes[br]
 ## - File saving and loading[br]
@@ -298,6 +298,31 @@ func load_file(file_path: String) -> void:
 			"mode_initialize_failed",
 			{"format_title": [mode["name"], "load"]}
 		)
+
+
+## Re-applies every setting-backed action script to the active editor. Call it after a document
+## switch, so view settings (minimap, line numbers, font size, ...) match the new editor too.
+func apply_view_settings() -> void:
+	for script: Node in Global.get_scripts_node().get_children():
+		if script.has_method("_load_config"):
+			script.call("_load_config")
+
+
+## Loads mode of [param doc] into the active editor and refreshes mode features for its text.
+func load_mode_for(doc: EditorDocument) -> void:
+	if not doc or not doc.editor:
+		return
+	if doc.mode.is_empty() or doc.mode == current_mode:
+		_refresh_mode_features()
+		return
+	_change_mode_to(doc.mode)
+
+
+## Re-runs preview, lint, and outline for the active editor without reloading its mode.
+func _refresh_mode_features() -> void:
+	_update_preview()
+	_lint_content()
+	_update_outline()
 
 
 ## Handle auto format request to mode and then back result to editor.

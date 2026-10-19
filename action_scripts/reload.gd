@@ -7,4 +7,5 @@ func _initialize() -> void:
 
 func _run_action() -> void:
 	if Global.emit_save_request(id): return
-	Signals.open_file.emit(Global.get_file_path())
+	# Reloads in place, going through Signals.open_file would open a second tab for the same file.
+	Global.get_editor_api().load_file(Global.get_file_path())

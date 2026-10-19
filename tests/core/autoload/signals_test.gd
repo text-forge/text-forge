@@ -35,6 +35,7 @@ const REQUIRED_SIGNALS: Array[String] = [
 	"preview_updated",
 	"problems_updated",
 	"outline_updated",
+	"active_document_changed",
 ]
 
 ## Argument counts are part of the contract too: emitters and connected callables must match.
@@ -52,6 +53,7 @@ const EXPECTED_ARG_COUNTS := {
 	"preview_updated": 1,
 	"problems_updated": 1,
 	"outline_updated": 1,
+	"active_document_changed": 1,
 	"check_options": 0,
 	"close_file": 0,
 	"new_file": 0,

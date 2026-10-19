@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://ba7m20ap277l8" path="res://core/panels/problems/error.png" id="6_rayt5"]
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dvndxigy5lpnw" path="res://core/panels/problems/warning.png" id="7_510js"]
-[ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
+[ext_resource type="PackedScene" uid="uid://bqj3ylf6n7m0x" path="res://core/scripts/editor.tscn" id="7_edtsc"]
 [ext_resource type="Texture2D" uid="uid://cd6f2n7byh01c" path="res://assets/backup.png" id="8_510js"]
 [ext_resource type="Script" uid="uid://cti2u1j1m720x" path="res://core/scripts/backup_status.gd" id="9_7ua4h"]
 [ext_resource type="Script" uid="uid://812j1a3e2eym" path="res://core/scripts/caret_pos.gd" id="10_7ua4h"]
@@ -203,26 +203,8 @@ split_offset = 1000
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Editor" type="CodeEdit" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs"]
+[node name="Editor" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/EditorTabs" instance=ExtResource("7_edtsc")]
 layout_mode = 2
-editable = false
-deselect_on_focus_loss_enabled = false
-scroll_smooth = true
-minimap_draw = true
-caret_draw_when_editable_disabled = true
-highlight_all_occurrences = true
-highlight_current_line = true
-text_direction = 0
-symbol_lookup_on_click = true
-symbol_tooltip_on_hover = true
-line_folding = true
-line_length_guidelines = Array[int]([100, 80])
-gutters_draw_bookmarks = true
-gutters_draw_line_numbers = true
-gutters_draw_fold_gutter = true
-auto_brace_completion_enabled = true
-auto_brace_completion_highlight_matching = true
-script = ExtResource("7_tipki")
 
 [node name="BottomPanel" type="TabContainer" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
 layout_mode = 2

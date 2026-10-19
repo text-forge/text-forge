@@ -29,6 +29,8 @@ const FOLDER_EXTENSIONS = "user://extensions/"
 const FOLDER_THEMES = "user://themes/"
 ## Root folder for internal themes.
 const FOLDER_INTERNAL_THEMES = "res://data/themes/"
+## Editor scene used for each document.
+const EDITOR_SCENE = "res://core/scripts/editor.tscn"
 ## Template file path for action script files.
 const TEMPLATE_ACTION_SCRIPT = "res://action_scripts/{0}.gd"
 ## Template file path for panel main scene.

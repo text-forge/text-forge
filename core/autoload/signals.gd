@@ -58,6 +58,9 @@ signal preview_updated(new)
 signal problems_updated(problems: Array[Dictionary])
 ## Shares file outline.
 signal outline_updated(outline: Array)
+## Emits when user switched to another document, [param doc] is the new [EditorDocument] and its
+## editor is what [method GlobalAccess.get_editor] returns now.
+signal active_document_changed(doc: EditorDocument)
 @warning_ignore_restore("unused_signal")
 
 func _ready() -> void:

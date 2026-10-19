@@ -76,6 +76,8 @@ func get_file_name() -> String:
 ## [b]Note:[/b] This action isn't loading!
 func set_file_path(path: String) -> void:
 	_file_label.tooltip_text = path
+	if Documents.active:
+		Documents.active.path = path
 
 
 ## Sets [param file_name] as name of opened file with set it as text of [member Core.file_label].[br][br]
@@ -102,7 +104,7 @@ func get_editor() -> Editor:
 
 ## Returns current text in editor with get [method TextEdit.get_text].
 func get_editor_text() -> String:
-	return _editor.get_text()
+	return get_editor().get_text()
 
 
 ## Sets [param text] as text of [Editor] [CodeEdit]. If [param keep_carets] is [code]false[/code],
@@ -111,34 +113,35 @@ func get_editor_text() -> String:
 ## containes line/column changing (for example line merging) you can set it to [code]false[/code]
 ## and do caret restoring yourself.
 func set_editor_text(text: String, keep_carets: bool = true) -> void:
+	var editor := get_editor()
 	var carets: Array[Rect2i] = []
 	var scroll: Vector2
 	if keep_carets:
-		for index in _editor.get_caret_count():
+		for index in editor.get_caret_count():
 			var selection := Rect2i()
-			selection.position = Vector2i(_editor.get_selection_origin_line(index), _editor.get_selection_origin_column(index))
-			selection.size = Vector2i(_editor.get_caret_line(index), _editor.get_caret_column(index))
+			selection.position = Vector2i(editor.get_selection_origin_line(index), editor.get_selection_origin_column(index))
+			selection.size = Vector2i(editor.get_caret_line(index), editor.get_caret_column(index))
 			carets.append(selection)
-		scroll = Vector2(_editor.scroll_horizontal, _editor.scroll_vertical)
-	_editor.text = text
+		scroll = Vector2(editor.scroll_horizontal, editor.scroll_vertical)
+	editor.text = text
 	if keep_carets:
 		for idx: int in carets.size():
 			var selection := carets[idx] as Rect2i
-			if idx >= _editor.get_caret_count():
-				_editor.add_caret(0, 0)
-			_editor.select(selection.position.x, selection.position.y, selection.size.x, selection.size.y, idx)
-		_editor.scroll_horizontal = scroll.x
-		_editor.scroll_vertical = scroll.y
+			if idx >= editor.get_caret_count():
+				editor.add_caret(0, 0)
+			editor.select(selection.position.x, selection.position.y, selection.size.x, selection.size.y, idx)
+		editor.scroll_horizontal = scroll.x
+		editor.scroll_vertical = scroll.y
 
 
 ## Will disable the editor if [param disabled] is [code]true[/code].
 func set_editor_disabled(disabled: bool) -> void:
-	_editor.editable = not disabled
+	get_editor().editable = not disabled
 
 
 ## Returns [code]true[/code] if editor is disabled.
 func is_editor_disabled() -> bool:
-	return not _editor.editable
+	return not get_editor().editable
 
 
 ## Returns [Core] node, this is root of main scene in main window. See [Core] for more information.

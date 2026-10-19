@@ -7,7 +7,8 @@ extends RefCounted
 
 ## [Editor] node of this document, it is the page of this document in tab container.
 var editor: Editor
-## Absolute file path, or [code]"Unsaved"[/code] while this document has no file on disk.
+## Absolute file path, [code]"Unsaved"[/code] or [code]""[/code] while this document has no file on
+## disk.
 var path := "Unsaved"
 ## Base of this document tab title. See [method DocumentManager.ensure_bootstrap].
 var display_name := "New file"

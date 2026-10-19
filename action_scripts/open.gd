@@ -36,6 +36,8 @@ func _open_file(path: String = "") -> void:
 		return
 	if Project.has_project() and not path in Project.all_files:
 		Project.close_project()
+	if not Documents.reuse_or_create():
+		return
 	Global.set_file_name(path.get_file())
 	Global.set_file_path(path)
 	Global.get_editor_api().load_file(path)
