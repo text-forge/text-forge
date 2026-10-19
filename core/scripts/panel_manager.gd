@@ -184,7 +184,9 @@ func _complete_loading() -> void:
 			continue
 		if icon == null:
 			push_warning("Missing icon for panel: " + p)
-			icon = load("res://assets/deactive.png")
+			icon = U.load_resource("res://assets/deactive.png")
+			if icon == null:
+				push_error("Failed to load fallback icon: res://assets/deactive.png")
 
 		add_panel(
 			scene.instantiate(),

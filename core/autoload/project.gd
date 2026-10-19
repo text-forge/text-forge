@@ -205,7 +205,11 @@ func append_to_recent_projects(file_path: String) -> void:
 
 ## Converts given project file with provided script to another version.
 func convert_project(script_path: String, project_file: String) -> void:
-	var script: Object = U.load_resource(script_path).new()
+	var script_res := U.load_resource(script_path)
+	if not script_res:
+		Notif.notif("invalid_project_converter")
+		return
+	var script: Object = script_res.new()
 	if not (script.has_method("convert_project") and script.has_signal("convert_completed")):
 		Notif.notif("invalid_project_converter")
 		script.free()

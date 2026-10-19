@@ -4,8 +4,6 @@ extends Object
 
 ## Path to UI configurations.
 const MAIN_UI_DATA = "res://data/main_ui.ini"
-## Path to main translation source.
-const TRANSLATION_FILE = "res://data/translation.csv"
 ## Saved recent files list.
 const RECENT_FILES_DATA = "user://recent_files.txt"
 ## Saved recent projects list.
@@ -31,8 +29,6 @@ const FOLDER_EXTENSIONS = "user://extensions/"
 const FOLDER_THEMES = "user://themes/"
 ## Root folder for internal themes.
 const FOLDER_INTERNAL_THEMES = "res://data/themes/"
-## Template file path for action script shotcut files.
-const TEMPLATE_ACTION_SCRIPT_SHORTCUT = "res://shortcuts/{0}.tres"
 ## Template file path for action script files.
 const TEMPLATE_ACTION_SCRIPT = "res://action_scripts/{0}.gd"
 ## Template file path for panel main scene.

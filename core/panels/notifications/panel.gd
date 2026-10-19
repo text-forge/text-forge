@@ -15,7 +15,10 @@ func _ready() -> void:
 
 
 func _editor_notification(type: Notif.Type, title: String, text: String) -> void:
-	var notification_panel: NotificationPanel = U.load_resource("res://core/panels/notifications/notification.tscn").instantiate()
+	var panel_scene := U.load_resource("res://core/panels/notifications/notification.tscn")
+	if not panel_scene:
+		return
+	var notification_panel: NotificationPanel = panel_scene.instantiate()
 	notifications.add_child(notification_panel)
 	notifications.move_child(notification_panel, 0)
 	match type:

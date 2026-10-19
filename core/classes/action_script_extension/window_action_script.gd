@@ -10,4 +10,7 @@ extends ActionScript
 var window_scene: String
 
 func _run_action() -> void:
-	add_child(U.load_resource(window_scene).instantiate())
+	var window_packed := U.load_resource(window_scene)
+	if not window_packed:
+		return
+	add_child(window_packed.instantiate())

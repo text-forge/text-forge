@@ -119,8 +119,12 @@ func wait(time: float = 0) -> Signal:
 ## Loads a resource with globalizing [param path].
 func load_resource(path: String) -> Resource:
 	if path.is_empty() or not FileAccess.file_exists(S.globalize_path(path)):
+		push_error("Resource load failed, file not found: \"{0}\"".format([path]))
 		return null
-	return ResourceLoader.load(S.globalize_path(path))
+	var resource := ResourceLoader.load(S.globalize_path(path))
+	if resource == null:
+		push_error("Resource load failed: \"{0}\"".format([path]))
+	return resource
 
 
 ## Creates a new [GlobalAccess.ThreadedLoader] node and pass arguments to it. Calls [method GlobalAccess.ThreadedLoader.initialize]
@@ -189,6 +193,8 @@ class ThreadedLoader extends Object:
 					ResourceLoader.THREAD_LOAD_LOADED:
 						var res := ResourceLoader.load_threaded_get(path)
 						_pending[path] = true
+						if res == null:
+							push_error("Threaded load returned null for {0}".format([path]))
 						if _for_each:
 							_for_each.call(path, res)
 					ResourceLoader.THREAD_LOAD_IN_PROGRESS:

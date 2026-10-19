@@ -14,7 +14,10 @@ func get_container() -> MarginContainer:
 ## [member Control.custom_minimum_size].
 func load_scene_as_child(scene: String) -> void:
 	S.free_all_children(get_container())
-	var instance: Control = U.load_resource(scene).instantiate()
+	var packed_scene := U.load_resource(scene)
+	if not packed_scene:
+		return
+	var instance: Control = packed_scene.instantiate()
 	get_container().add_child(instance)
 	instance.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	instance.size_flags_vertical = Control.SIZE_EXPAND_FILL

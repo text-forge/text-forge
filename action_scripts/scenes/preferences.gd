@@ -21,7 +21,10 @@ func _ready() -> void:
 		var keys := config.get_section_keys(section)
 		keys.sort()
 		for item in keys:
-			var option = U.load_resource("res://action_scripts/scenes/setting_option.tscn").instantiate()
+			var option_scene := U.load_resource("res://action_scripts/scenes/setting_option.tscn")
+			if not option_scene:
+				return
+			var option = option_scene.instantiate()
 			option.section = section
 			option.key = item
 			tab.add_child(option)

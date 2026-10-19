@@ -424,6 +424,8 @@ func _connect_script(path: String, res: Resource) -> void:
 			{"format_title": [path.get_file().get_basename()]}
 		)
 		return
+	if not res:
+		return
 	var script = res.new()
 	# For MultiActionScripts (submenu roots)
 	if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:

@@ -164,8 +164,8 @@ func import_mode(path: String) -> void:
 			{"format_title": [path], "text_append": error_string(err)}
 		)
 		return
-	if not DirAccess.dir_exists_absolute(S.globalize_path("user://modes")):
-		DirAccess.make_dir_absolute(S.globalize_path("user://modes"))
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_MODES)):
+		DirAccess.make_dir_absolute(S.globalize_path(S.FOLDER_MODES))
 	var root_dir = DirAccess.open("user://")
 	# Extract file
 	var files = reader.get_files()
@@ -492,7 +492,10 @@ func _unload_current_mode() -> void:
 func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
-	var new_mode_script := U.load_resource(S.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
+	var mode_script := U.load_resource(S.TEMPLATE_MODE_SCRIPT.format([mode["id"]]))
+	if not mode_script:
+		return ERR_INVALID_DATA
+	var new_mode_script := mode_script.new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 	# Cache current mode script for fallback
