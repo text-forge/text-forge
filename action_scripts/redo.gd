@@ -2,7 +2,7 @@ extends ActionScript
 
 func _initialize() -> void:
 	requires_file = true
-	Global.get_editor().type_timer_timeout.connect(_check_redo)
+	Documents.watch(&"type_timer_timeout", _check_redo)
 
 
 func _run_action() -> void:

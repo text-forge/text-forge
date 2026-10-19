@@ -85,9 +85,9 @@ func _ready() -> void:
 	)
 	child_order_changed.connect(Signals.refresh_module_profiler)
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
-	Global.get_editor().type_timer_timeout.connect(_update_preview)
-	Global.get_editor().type_timer_timeout.connect(_update_outline)
-	Global.get_editor().type_timer_timeout.connect(_lint_content)
+	Documents.watch(&"type_timer_timeout", _update_preview)
+	Documents.watch(&"type_timer_timeout", _update_outline)
+	Documents.watch(&"type_timer_timeout", _lint_content)
 	# Install internal modes
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_MODES.path_join("plain_text"))):
 		import_mode(S.globalize_path(S.DEFAULT_MODES))

@@ -3,7 +3,7 @@ extends MenuButton
 ## Shows line endings settings to user and provides settings changing.
 
 func _ready() -> void:
-	Global.get_editor().type_timer_timeout.connect(_update_label)
+	Documents.watch(&"type_timer_timeout", _update_label)
 	Signals.settings_changed.connect(_update_label)
 	get_popup().id_pressed.connect(_on_id_pressed)
 	_update_label()

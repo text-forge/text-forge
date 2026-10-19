@@ -8,7 +8,7 @@ extends Button
 @export var column: LineEdit
 
 func _ready() -> void:
-	Global.get_editor().caret_changed.connect(_update_caret_pos)
+	Documents.watch(&"caret_changed", _update_caret_pos)
 
 
 func _update_caret_pos() -> void:
