@@ -51,6 +51,7 @@ These files are stored in the project's source repository (except for `reports/`
 - `recent_files.txt` - Keeps a list of recent files (up to 15 items)
 - `recent_projects.txt` - Keeps a list of recent projects (up to 15 items)
 - `settings.cfg` - Stores the value of settings made by the user
+- `session.cfg` - Stores the documents of the last session, with their caret and scroll position
 
 ## Editor Structure
 
@@ -60,6 +61,7 @@ Text Forge utilizes the power of Godot's nodes, therefore it has a tree-structur
 root/ <- Root of main window node
     Signals <- SignalBus API
     Global <- Global access point
+    Documents <- Open documents manager
     Tests <- Runtime tests handler
     Settings <- Settings and data API
     Notif <- Notification manager
@@ -79,7 +81,6 @@ root/ <- Root of main window node
         Margin <- Main layout container
             Sections <- Main sections container
                 MenuBar <- Main menus
-                FileLabel <- Current file name and path
                 PanelManager/ <- Panels management
                     LeftTab <- Left tab buttons
                     LeftSpliter/ <- Left tab splitter

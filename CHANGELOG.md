@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ## [unreleased]
 
+## [v0.4-stable] - 2026-10-19
+
+### Added
+- **Documents:** every open file is a document with its own editor, tab, undo stack, caret, scroll and mode state ([#194](https://github.com/text-forge/text-forge/issues/194))
+- **Tabs:** the editor slot is a tab bar, with tab titles, a dirty marker, close buttons and drag to rearrange ([#195](https://github.com/text-forge/text-forge/issues/195))
+- **Tabs:** `Ctrl+Tab` and `Ctrl+Shift+Tab` switch between documents, and switching keeps the caret and the view of the document you left
+- **Tabs:** `Ctrl+1` to `Ctrl+9` jump straight to a document, and every tab has a close button
+- **Session:** the documents you had open, the active one and their caret and scroll are restored on the next start
+- **Backups:** every open file is backed up, not only the active one, and a backup is restored into its own tab ([#197](https://github.com/text-forge/text-forge/issues/197))
+- **Status bar:** the path of the active document is shown in the bottom bar
+
+### Changed
+- Opening a file or creating a new one opens a tab, it never replaces the document you are editing
+- Quitting or restarting closes the documents one by one and asks about each unsaved one, so no unsaved change is lost
+- The file label is no longer the state of the open file, the document is, and the label only shows the path
+- A document keeps its syntax highlighter and its comment and string delimiters when another document of the same mode is active
+- Switching a document moves the focus to the editor
+- **Startup:** the session is restored after the action scripts are loaded, which cut the total setup time in half
+
+### Fixed
+- A second document of the same mode had no syntax highlighting and no comment or string delimiters
+- The caret was not restored to its position when a session came back
+- A document that was closed could be handed out as the active editor after it was freed
+- Opening a file asked to save the current file, even though nothing was overwritten
+- The preferences window loaded its option scene once per setting instead of once
+
+### Removed
+- The deprecated `Global.Notification` enum, `Global.send_notification()` and `Global.load_resource()`, use `Notif.notif()`, `NotificationManager.Type` and `U.load_resource()` instead
+
 ## [v0.3-stable] - 2026-10-17
 
 ### Added

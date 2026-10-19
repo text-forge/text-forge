@@ -25,19 +25,19 @@ An item can also declare a `type` integer (`Core.OptionTypes` in `core/main.gd`)
 This menu includes regular actions with working with files and the editor window. 
 
 ### New
-Opens a new file. It doesn't activate any mode, so it's recommended to save it after creating a new file and then continue editing. 
+Opens a new file in its own tab. It doesn't activate any mode, so it's recommended to save it after creating a new file and then continue editing. 
 
 ### New Window
-Opens another window of the editor. Due to the lack of support for multi-file editing (currently), this is a good way to work with multiple files. 
+Opens another window of the editor. Each window has its own documents, so this is a good way to work with more files than fit in one tab bar. 
 
 ### New With Template
 It lists all templates, clicking on any template will create new file with that template.
 
 ### Open
-Creates a pop-up to select and open an existing file. 
+Creates a pop-up to select and open an existing file. It opens in a tab, the file you were editing stays open next to it. 
 
 ### Recent Files
-It lists recently opened files, clicking on any file will open that file. 
+It lists recently opened files, clicking on any file will open that file in a tab. 
 
 ### Save
 Saves the open file, overwriting it at its current location. If the file doesn't have a specific location yet (e.g. created with the New option), Save behaves like Save As and prompts for a location.

@@ -16,19 +16,28 @@ export GODOT_BIN=/path/to/godot
 
 - Headless requires `--ignoreHeadlessMode`; UI/interaction tests only work in the editor.
 - `-a <dir>` adds a whole tree; there is no per-test-case flag — select one case in the editor.
+- **Never commit without the maintainer's manual verification.** The agent cannot run Godot, so
+  write the change, hand it over, and wait for the result of the editor run and the suite.
 
 Exports: two presets, **`Windows Desktop`** and **`Linux`** (`export_presets.cfg`). Release is
 tag-driven and produces a **draft** GitHub release using Godot 4.5-stable.
 
 ## Architecture (not obvious from filenames)
 
-- **12 autoloads** are declared in `project.godot`. The **autoload name differs from the
+- **13 autoloads** are declared in `project.godot`. The **autoload name differs from the
   `class_name`** (e.g. `Signals`→`SignalBus`, `U`→`Utils`, `Notif`→`NotificationManager`,
-  `Factory`→`NodeFactory`). Use the autoload name to call a singleton, the `class_name` for type hints.
+  `Factory`→`NodeFactory`, `Documents`→`DocumentManager`). Use the autoload name to call a
+  singleton, the `class_name` for type hints.
 - **SignalBus** (`core/autoload/signals.gd`): every cross-module signal is declared here.
   Emit via `Signals.<name>.emit(...)`, connect in `_ready()`. Key pattern: `run_script.emit(id)`
   broadcasts to *all* ActionScripts and each self-filters by its own id. Extensions must **not**
   touch `Signals` — they use `ExtensionHub` ports/docks.
+- **Documents** (`core/autoload/documents.gd`): the open documents and the active one. Every open
+  file is an `EditorDocument` (`core/classes/editor_document.gd`) with its own editor node, so
+  text, undo, caret, scroll and mode state belong to the document, not to the window. The tab bar
+  lives in `Core.editor_tabs`; `Documents.attach_tabs()` binds it. Use `Global.get_editor()` for the
+  active editor, never `Core.editor` — that one is the first scene editor and gets closed with its
+  document.
 - **`S`** (`core/classes/static.gd`, `class_name S`, not an autoload) holds every path template
   (`S.TEMPLATE_PANEL_SCENE`, `S.FOLDER_MODES`, …). Never hardcode a project path — `.format()` these.
 - **Data-driven registration** — add files, not code:
