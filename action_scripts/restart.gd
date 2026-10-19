@@ -10,6 +10,7 @@ func _initialize() -> void:
 
 
 func _run_action() -> void:
+	Documents.save_session()
 	if not Documents.close_all(id): return
 	var pid := OS.create_process(OS.get_executable_path(), [])
 	if pid != -1:

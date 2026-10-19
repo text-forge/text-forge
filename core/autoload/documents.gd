@@ -13,6 +13,8 @@ var active: EditorDocument
 var tabs: TabContainer
 ## Registered [code]{signal: StringName, callback: Callable}[/code] pairs, see [method watch].
 var _watchers: Array[Dictionary] = []
+## Keeps [method save_session] from storing the same quit twice, closing documents empties the list.
+var _session_stored := false
 
 ## Title of the document that represents "nothing is opened", it matches the initial file label of
 ## [Core] and the state [method close] leaves behind.
@@ -229,8 +231,8 @@ func close(doc: EditorDocument, keep_one := true) -> void:
 	if was_active:
 		if docs.is_empty():
 			var replacement := create("", NO_FILE_TITLE) if keep_one else null
-			if replacement:
-				active = replacement
+			# Nothing is left, so nothing may stay active, a freed editor must not be handed out.
+			active = replacement
 		else:
 			active = docs[index] if index < docs.size() else docs[docs.size() - 1]
 	_sync_forward()
@@ -250,6 +252,62 @@ func close_all(from_id: int) -> bool:
 			if Global.emit_save_request(from_id):
 				return false
 		close(doc, false)
+	return true
+
+
+## Stores the open files, the active one and their caret and scroll in [constant S.SESSION_DATA], so
+## the next start brings the same tabs back. Only files on disk are stored and it runs once per quit,
+## because the documents that are already closed must not shorten the list.
+func save_session() -> void:
+	if _session_stored:
+		return
+	_session_stored = true
+	_sync_back()
+	var entries: Array[Dictionary] = []
+	for doc in docs:
+		if not doc.path.is_absolute_path():
+			continue
+		entries.append({"path": doc.path, "caret": doc.caret, "scroll": doc.scroll})
+	var config := ConfigFile.new()
+	config.set_value("session", "documents", entries)
+	config.set_value("session", "active", maxi(docs.find(active), 0))
+	var err := config.save(S.SESSION_DATA)
+	if err:
+		push_error("Cannot store session in %s, error %d" % [S.SESSION_DATA, err])
+
+
+## Opens the documents stored by [method save_session] and returns [code]true[/code] when there was
+## something to open. A stored file that is gone comes back as an empty document instead of being
+## dropped, so a session never loses a tab without telling.
+func restore_session() -> bool:
+	var config := ConfigFile.new()
+	if config.load(S.SESSION_DATA) != OK:
+		return false
+	var entries: Array = config.get_value("session", "documents", [])
+	var active_index: int = config.get_value("session", "active", 0)
+	var opened: Array[EditorDocument] = []
+	for entry: Dictionary in entries:
+		var path: String = entry.get("path", "")
+		if not path.is_absolute_path():
+			continue
+		var doc := create(path, path.get_file(), "", false)
+		if not doc:
+			continue
+		activate(doc)
+		if FileAccess.file_exists(path):
+			Global.get_editor_api().load_file(path)
+		else:
+			Global.set_editor_disabled(false)
+		doc.dirty = false
+		var caret: Vector2i = entry.get("caret", Vector2i.ZERO)
+		var scroll: Vector2i = entry.get("scroll", Vector2i.ZERO)
+		doc.caret = caret
+		doc.scroll = scroll
+		activate(doc)
+		opened.append(doc)
+	if opened.is_empty():
+		return false
+	activate(opened[clampi(active_index, 0, opened.size() - 1)])
 	return true
 
 

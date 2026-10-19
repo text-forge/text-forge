@@ -106,15 +106,17 @@ func has_file() -> bool:
 
 
 ## Returns [Editor] node of active document, it's accessable with [member Core.editor] too.
+## Returns [code]null[/code] when there is no document or the one that was active got closed.
 func get_editor() -> Editor:
-	if Documents.active:
+	if Documents.active and is_instance_valid(Documents.active.editor):
 		return Documents.active.editor
-	return _editor
+	return _editor if is_instance_valid(_editor) else null
 
 
-## Returns current text in editor with get [method TextEdit.get_text].
+## Returns current text in editor, empty when no document is open.
 func get_editor_text() -> String:
-	return get_editor().get_text()
+	var editor := get_editor()
+	return editor.get_text() if editor else ""
 
 
 ## Sets [param text] as text of [Editor] [CodeEdit]. If [param keep_carets] is [code]false[/code],
@@ -149,9 +151,10 @@ func set_editor_disabled(disabled: bool) -> void:
 	get_editor().editable = not disabled
 
 
-## Returns [code]true[/code] if editor is disabled.
+## Returns [code]true[/code] if editor is disabled, no document at all counts as disabled.
 func is_editor_disabled() -> bool:
-	return not get_editor().editable
+	var editor := get_editor()
+	return true if not editor else not editor.editable
 
 
 ## Returns [Core] node, this is root of main scene in main window. See [Core] for more information.

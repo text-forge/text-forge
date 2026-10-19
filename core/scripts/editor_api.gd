@@ -421,6 +421,8 @@ func _load_mode_features() -> void:
 ## Updates file outline. Result will send to [signal SignalBus.outline_updated].
 func _update_outline() -> void:
 	await get_tree().process_frame
+	if not Global.get_editor():
+		return
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.outline_updated.emit(Array())
@@ -431,6 +433,8 @@ func _update_outline() -> void:
 ## Updates problem list. Result will send to [signal SignalBus.problems_updated].
 func _lint_content() -> void:
 	await get_tree().process_frame
+	if not Global.get_editor():
+		return
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.problems_updated.emit(Array([], TYPE_DICTIONARY, "", null))
@@ -441,6 +445,8 @@ func _lint_content() -> void:
 ## Updates preview. Result will send to [signal SignalBus.preview_updated].
 func _update_preview() -> void:
 	await get_tree().process_frame
+	if not Global.get_editor():
+		return
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Signals.preview_updated.emit("")

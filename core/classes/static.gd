@@ -10,6 +10,8 @@ const RECENT_FILES_DATA = "user://recent_files.txt"
 const RECENT_PROJECTS_DATA = "user://recent_projects.txt"
 ## Path to backup database.
 const BACKUP_DATABASE = "user://backups.ini"
+## Path to the last session, open documents with their caret and scroll.
+const SESSION_DATA = "user://session.cfg"
 const DEFAULT_MODES = "res://data/default_modes.tfmode"
 ## Root folder for saved templates.
 const FOLDER_TEMPLATES = "user://templates/"
