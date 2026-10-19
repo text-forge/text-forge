@@ -116,10 +116,10 @@ func wait(time: float = 0) -> Signal:
 		return get_tree().process_frame
 
 
-## Loads a resource with globalizing [param path].
+## Loads a resource with globalizing [param path]. Returns [code]null[/code] when [param path] is
+## empty or missing, so callers must check the result before using it.
 func load_resource(path: String) -> Resource:
 	if path.is_empty() or not FileAccess.file_exists(S.globalize_path(path)):
-		push_error("Resource load failed, file not found: \"{0}\"".format([path]))
 		return null
 	var resource := ResourceLoader.load(S.globalize_path(path))
 	if resource == null:
