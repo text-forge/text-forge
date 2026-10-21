@@ -64,7 +64,7 @@ const TEMPLATE_SNIPPETS = "user://snippets/{0}.txt"
 ## Valid image extensions for runtime loading.
 const IMAGE_EXTS = ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]
 ## Editor version.
-const EDITOR_VERSION = "0.4.0"
+const EDITOR_VERSION = "0.5.0"
 ## [RegEx] pattern for template placeholders.
 const PATTERN_PLACEHOLDER = r"\{\{\{(.*?)\}\}\}"
 

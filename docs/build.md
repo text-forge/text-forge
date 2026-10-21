@@ -105,8 +105,8 @@ The release workflow (`.github/workflows/release.yml`) does all of that for you.
 pushing a tag:
 
 ```bash
-git tag v0.4.0-stable
-git push origin v0.4.0-stable
+git tag v0.5.0-stable
+git push origin v0.5.0-stable
 ```
 
 The workflow exports both presets, builds the two archives and attaches them to a **draft** GitHub

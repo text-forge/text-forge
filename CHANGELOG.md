@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ## [unreleased]
 
+## [v0.5-stable] - 2026-10-21
+
+### Added
+- **Find & Replace:** a RegEx mode in the find panel, the replacement can use the capture groups with `$1` and `$name` ([#175](https://github.com/text-forge/text-forge/issues/175))
+- **Find & Replace:** an Interactive Replace walks the matches in the replace popup, one by one, the view follows the match and the arrow keys move between them ([#175](https://github.com/text-forge/text-forge/issues/175))
+- **Snippets:** save a piece of text as a snippet and insert it at the cursor with `Ctrl+Shift+J`, the placeholders of the templates work in a snippet too ([#56](https://github.com/text-forge/text-forge/issues/56))
+
+### Fixed
+- The replace popup selected the first match with the same text instead of the match it was on
+
 ## [v0.4-stable] - 2026-10-19
 
 ### Added
@@ -327,6 +337,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - Docs in 4 languages (en, fa, es, zh)
 
 [unreleased]: https://github.com/text-forge/text-forge/compare/v0.4.0-stable...HEAD
+[v0.5-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.5.0-stable
 [v0.4-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.4.0-stable
 [v0.3-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.3.0-stable
 [v0.2-stable]: https://github.com/text-forge/text-forge/releases/tag/v0.2.0-stable

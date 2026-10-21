@@ -16,25 +16,26 @@ those from the gdUnit4 panel. There is no per-test-case flag — select a single
 
 ## Current numbers
 
-Measured from `reports/report_1/results.xml` (run 2026-10-19, GDUnit4 6.2.2):
+Measured from `reports/report_1/results.xml` (run 2026-10-21, GDUnit4 6.2.2):
 
 | Metric | Value |
 |---|---|
-| Suites | 30 |
-| Test cases | 442 |
+| Suites | 35 |
+| Test cases | 469 |
 | Failures | 0 |
 | Errors | 0 |
-| Execution time | 23s |
+| Execution time | 25s |
 
 Per directory:
 
 | Directory | Tests | Suites |
 |---|---|---|
-| `tests/action_scripts/` (incl. `scenes/`) | 112 | 10 |
+| `tests/action_scripts/` (incl. `scenes/`) | 121 | 13 |
 | `tests/core/` (root) | 91 | 6 |
-| `tests/core/autoload/` | 121 | 8 |
-| `tests/core/classes/` (incl. `action_script_extension/`) | 43 | 2 |
+| `tests/core/autoload/` | 123 | 8 |
+| `tests/core/classes/` (incl. `action_script_extension/`) | 52 | 3 |
 | `tests/core/panels/bookmarks/` | 34 | 2 |
+| `tests/core/panels/find/` | 7 | 1 |
 | `tests/core/scripts/` | 14 | 1 |
 | `tests/docs/` | 27 | 1 |
 
@@ -42,7 +43,7 @@ Per directory:
 run instead of editing the table. This file is the only tests overview — there is no separate
 index or summary file to keep in sync.
 
-**Known gap:** `tests/core/autoload/factory_test.gd` (2 cases) did not run in the 2026-10-19
+**Known gap:** `tests/core/autoload/factory_test.gd` (2 cases) did not run in the 2026-10-21
 report. It declares `class_name NodeFactoryTest`; check why the runner skips it before trusting
 the totals above as complete.
 
