@@ -29,4 +29,8 @@ func _save_config() -> void:
 
 
 func _load_config() -> void:
-	Global.get_editor().line_length_guidelines = S.map_array_to_int(Settings.get_setting("editor_ui","line_length_guides"))
+	# There is no editor while no document is open, the guides apply to the next one.
+	var editor := Global.get_editor()
+	if not editor:
+		return
+	editor.line_length_guidelines = S.map_array_to_int(Settings.get_setting("editor_ui","line_length_guides"))

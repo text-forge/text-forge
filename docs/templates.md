@@ -67,3 +67,15 @@ You can continue completing and then save the file, but you can postpone complet
 ## Editing and Deleting Templates
 
 So far, we have examined the methods of creating and using templates. Another feature is the Template  Manager, which allows you to easily edit or delete templates. To open it, you can use the **Format > Templates...** option. In the window that opens, you can select templates, preview them, and edit or delete them.
+
+## Snippets
+
+A snippet is a piece of text you insert into the file you are working on, instead of a template that opens a new file. A snippet is the right choice for the parts you write over and over: a class header, a license block, a database query.
+
+To save one, select **Format > Save As Snippet...**, confirm the pop-up, and enter a name. The name is the trigger of the snippet, so keep it short and easy to type.
+
+To insert one, use **Edit > Insert Snippet** and pick it from the list, the snippet replaces the selection or lands at the cursor. `Ctrl+Shift+J` opens the same list, and the command palette opens it too.
+
+Snippets use the same placeholders as templates, so `{{{!date}}}` and the other predefined placeholders work in a snippet too. When the snippet has placeholders, the placeholder completion opens after the insert and you fill them one by one, the same way it works for a template. A snippet without placeholders goes in as it is.
+
+Snippets live in the `snippets` folder of the app data folder, one text file per snippet, the file name is the trigger. That makes a snippet easy to share: copy the file to another machine, or rename it there.

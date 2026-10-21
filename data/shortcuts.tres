@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ShortcutMap" load_steps=66 format=3 uid="uid://w0udffwchaya"]
+[gd_resource type="Resource" script_class="ShortcutMap" load_steps=67 format=3 uid="uid://w0udffwchaya"]
 
 [ext_resource type="Script" uid="uid://3d7lbaegdhfi" path="res://core/classes/shortcut_map.gd" id="1_ceuua"]
 
@@ -352,6 +352,13 @@ device = -1
 shift_pressed = true
 keycode = 4194306
 
+[sub_resource type="InputEventKey" id="InputEventKey_snp01"]
+device = -1
+shift_pressed = true
+ctrl_pressed = true
+keycode = 74
+unicode = 106
+
 [resource]
 script = ExtResource("1_ceuua")
 map = Dictionary[String, InputEventKey]({
@@ -384,6 +391,7 @@ map = Dictionary[String, InputEventKey]({
 "go_to_line": SubResource("InputEventKey_66qun"),
 "increase_font_size": SubResource("InputEventKey_ol2ba"),
 "indent": SubResource("InputEventKey_22qkb"),
+"insert_snippet": SubResource("InputEventKey_snp01"),
 "join_lines": SubResource("InputEventKey_o2ntf"),
 "marketplace": SubResource("InputEventKey_ceuua"),
 "mode_library": SubResource("InputEventKey_6dv2x"),

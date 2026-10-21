@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh6amhejvq6nw" path="res://core/panels/find/panel.gd" id="1_0rt6l"]
 
-[node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "search", "replace", "list")]
+[node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "regex", "search", "replace", "list")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +15,7 @@ counter = NodePath("Margin/VBox/MatchCount")
 match_case = NodePath("Margin/VBox/MatchCase")
 whole_words = NodePath("Margin/VBox/WholeWords")
 backwards = NodePath("Margin/VBox/Backwards")
+regex = NodePath("Margin/VBox/RegEx")
 search = NodePath("Margin/VBox/Find")
 replace = NodePath("Margin/VBox/Replace/ReplaceText")
 list = NodePath("Margin/VBox/MatchList")
@@ -46,6 +47,10 @@ placeholder_text = "Replace"
 layout_mode = 2
 text = "Replace"
 
+[node name="InteractiveReplace" type="Button" parent="Margin/VBox"]
+layout_mode = 2
+text = "Interactive Replace"
+
 [node name="MatchCount" type="Label" parent="Margin/VBox"]
 layout_mode = 2
 text = "0 match"
@@ -63,6 +68,11 @@ flat = true
 [node name="Backwards" type="CheckBox" parent="Margin/VBox"]
 layout_mode = 2
 text = "Backwards"
+flat = true
+
+[node name="RegEx" type="CheckBox" parent="Margin/VBox"]
+layout_mode = 2
+text = "RegEx"
 flat = true
 
 [node name="MatchList" type="ItemList" parent="Margin/VBox"]
@@ -101,6 +111,8 @@ text = "Select All"
 [connection signal="pressed" from="Margin/VBox/MatchCase" to="." method="_on_option_pressed"]
 [connection signal="pressed" from="Margin/VBox/WholeWords" to="." method="_on_option_pressed"]
 [connection signal="pressed" from="Margin/VBox/Backwards" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="Margin/VBox/RegEx" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="Margin/VBox/InteractiveReplace" to="." method="_on_interactive_replace_pressed"]
 [connection signal="item_selected" from="Margin/VBox/MatchList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="Margin/VBox/NavigationActions/Prev" to="." method="_on_prev_pressed"]
 [connection signal="pressed" from="Margin/VBox/NavigationActions/Next" to="." method="_on_next_pressed"]

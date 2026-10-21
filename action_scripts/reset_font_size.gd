@@ -12,4 +12,8 @@ func _run_action() -> void:
 
 
 func _load_config() -> void:
-	Global.get_editor().add_theme_font_size_override("font_size", Settings.get_setting("editor_ui", "font_size"))
+	# There is no editor while no document is open, the size applies to the next one.
+	var editor := Global.get_editor()
+	if not editor:
+		return
+	editor.add_theme_font_size_override("font_size", Settings.get_setting("editor_ui", "font_size"))

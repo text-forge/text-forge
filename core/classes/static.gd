@@ -15,6 +15,8 @@ const SESSION_DATA = "user://session.cfg"
 const DEFAULT_MODES = "res://data/default_modes.tfmode"
 ## Root folder for saved templates.
 const FOLDER_TEMPLATES = "user://templates/"
+## Root folder for saved snippets, the file name of a snippet is its trigger.
+const FOLDER_SNIPPETS = "user://snippets/"
 ## Root folder for cached project icons.
 const FOLDER_CACHED_PROJECT_ICONS = "user://project_icons/"
 ## Root folder for action scripts.
@@ -57,6 +59,8 @@ const TEMPLATE_BACKUP_FILE = "user://backups/{0}"
 const TEMPLATE_THEME = "user://themes/{0}.tres"
 ## Template file path for templates.
 const TEMPLATE_TEMPLATES = "user://templates/{0}.txt"
+## Template file path for snippets.
+const TEMPLATE_SNIPPETS = "user://snippets/{0}.txt"
 ## Valid image extensions for runtime loading.
 const IMAGE_EXTS = ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]
 ## Editor version.

@@ -28,20 +28,52 @@ var regex: RegEx
 var result: Array[RegExMatch] = []
 ## Index of current match.
 var i: int = 0
+## Positions of the searched text, to turn the offset of a match into a line and a column.
+var _positions: TextPositions
 
-## Continiues a search recursivly.
+## Continutes a search recursivly.
 func start(pattern: String, reset := true) -> void:
 	regex = RegEx.new()
 	if regex.compile(pattern):
 		hide()
 		return
-	result = regex.search_all(Global.get_editor_text())
+	var text := Global.get_editor_text()
+	result = regex.search_all(text)
+	_positions = TextPositions.new(text)
 	if reset:
 		i = -1
 	if result.is_empty():
 		_on_close_pressed()
 		return
 	_on_next_pressed()
+
+
+## Selects the match at [param index] in the editor. The match is placed by its offset, a literal
+## search for its text would land on an earlier match with the same text.
+func _select_match(index: int) -> void:
+	var found := result[index]
+	var spot := _positions.position(found.get_start())
+	var length := found.get_end() - found.get_start()
+	var editor := Global.get_editor()
+	editor.select(spot.x, spot.y, spot.x, spot.y + length)
+	# The view follows the match, so the popup lands on it and the user sees what it replaces.
+	editor.center_viewport_to_caret()
+
+
+## Moves between the matches with the arrow keys, the replace field has no use for them.
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	var key := event as InputEventKey
+	if not key or not key.pressed:
+		return
+	if key.keycode == KEY_UP:
+		_on_previous_pressed()
+	elif key.keycode == KEY_DOWN:
+		_on_next_pressed()
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 
 ## Replace current match and keep here (because matches will shift to behind).
@@ -54,8 +86,7 @@ func _on_replace_text_submitted(new_text: String) -> void:
 ## Select next match and show popup.
 func _on_next_pressed() -> void:
 	i = clampi(i + 1, 0, result.size() - 1)
-	var _start := Global.get_editor().search(result[i].get_string(), CodeEdit.SearchFlags.SEARCH_MATCH_CASE, 0, 0)
-	Global.get_editor().select(_start.y, _start.x, _start.y, _start.x + result[i].get_string().length())
+	_select_match(i)
 	await U.wait()
 	_show_popup()
 
@@ -63,8 +94,7 @@ func _on_next_pressed() -> void:
 ## Select previous match and show popup.
 func _on_previous_pressed() -> void:
 	i = clampi(i - 1, 0, result.size() - 1)
-	var _start := Global.get_editor().search(result[i].get_string(), CodeEdit.SearchFlags.SEARCH_MATCH_CASE, 0, 0)
-	Global.get_editor().select(_start.y, _start.x, _start.y, _start.x + result[i].get_string().length())
+	_select_match(i)
 	await U.wait()
 	_show_popup()
 

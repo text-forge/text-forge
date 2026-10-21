@@ -53,6 +53,8 @@ const MENU_TRANSLATION_PREFIX = "menu."
 var recent_files_submenu: PopupMenu
 ## Templates [PopupMenu], see also [method reload_templates].
 var templates_submenu: PopupMenu
+## Snippets [PopupMenu], see also [method reload_snippets].
+var snippets_submenu: PopupMenu
 ## Configurations loaded from [constant S.MAIN_UI_DATA].
 var main_menu_data: Dictionary
 ## Protects [method _handle_settings] from multiple runs at same time.
@@ -85,6 +87,12 @@ func _ready() -> void:
 		Notif.Type.ERR,
 		"Template not found",
 		"Template '{0}' could not be loaded."
+	)
+	Notif.register_notification(
+		"snippet_not_found",
+		Notif.Type.ERR,
+		"Snippet not found",
+		"Snippet '{0}' could not be loaded."
 	)
 	Notif.register_notification(
 		"menu_item_for_script_not_found",
@@ -285,6 +293,10 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary) -> void:
 			templates_submenu = submenu
 			reload_templates()
 		# Needs special action
+		"Insert Snippet":
+			snippets_submenu = submenu
+			reload_snippets()
+		# Needs special action
 		"By Extensions":
 			Extensions.menu = submenu
 			submenu.id_pressed.connect(Extensions._menu_id_pressed)
@@ -335,9 +347,22 @@ func _restore_startup_documents() -> void:
 func reload_templates() -> void:
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_TEMPLATES)):
 		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_TEMPLATES))
+	if not templates_submenu:
+		return
 	templates_submenu.clear()
 	for template: String in DirAccess.get_files_at(S.FOLDER_TEMPLATES):
 		templates_submenu.add_item(template.get_file().get_basename())
+
+
+## Reloads snippets list.
+func reload_snippets() -> void:
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_SNIPPETS)):
+		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_SNIPPETS))
+	if not snippets_submenu:
+		return
+	snippets_submenu.clear()
+	for snippet: String in DirAccess.get_files_at(S.FOLDER_SNIPPETS):
+		snippets_submenu.add_item(snippet.get_file().get_basename())
 
 
 ## Loads template with given [param name].
@@ -357,6 +382,39 @@ func load_template(_name: String) -> void:
 	Global.set_editor_disabled(false)
 	Signals.check_options.emit()
 	start_replace_action(S.PATTERN_PLACEHOLDER)
+
+
+## Inserts the snippet with given [param name] at the caret of the active document. The selection is
+## replaced by the snippet, and the placeholders of the snippet are completed afterwards.
+func insert_snippet(_name: String) -> void:
+	var path := S.TEMPLATE_SNIPPETS.format([_name])
+	if not FileAccess.file_exists(path):
+		Notif.notif("snippet_not_found", {"format_text": [_name]})
+		return
+	var active_editor := Global.get_editor()
+	if not active_editor:
+		return
+	active_editor.begin_complex_operation()
+	if active_editor.has_selection():
+		active_editor.remove_text(
+			active_editor.get_selection_from_line(),
+			active_editor.get_selection_from_column(),
+			active_editor.get_selection_to_line(),
+			active_editor.get_selection_to_column()
+		)
+	active_editor.insert_text_at_caret(FileAccess.get_file_as_string(path))
+	active_editor.end_complex_operation()
+	# The completion is only needed when there is a placeholder to fill.
+	if _has_placeholder(Global.get_editor_text()):
+		start_replace_action(S.PATTERN_PLACEHOLDER)
+
+
+## Returns [code]true[/code] when [param text] holds a placeholder to complete.
+func _has_placeholder(text: String) -> bool:
+	var pattern := RegEx.new()
+	if pattern.compile(S.PATTERN_PLACEHOLDER) != OK:
+		return false
+	return not pattern.search_all(text).is_empty()
 
 
 ## Starts replace action, see [function ReplacePopup.start].

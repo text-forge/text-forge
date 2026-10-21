@@ -43,6 +43,8 @@ signal open_bookmarks_panel
 signal shift_find_result(next: bool)
 ## Requests replace all find results.
 signal replace_all
+## Requests the interactive replace of the find results.
+signal interactive_replace
 ## Emits when one or more setting option changed with centalized preferences editor. Connect your
 ## modules to this to reload related settings after change and apply them.
 signal settings_changed

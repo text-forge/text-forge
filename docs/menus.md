@@ -198,6 +198,9 @@ Sends a completion query (request), editor will send request when you stop typin
 ### Convert Case (Submenu)
 Provides options to convert selected text case, these options are simple, so we will not explain them here.
 
+### Insert Snippet (Submenu)
+Inserts a snippet at the cursor, the submenu lists the snippets you saved.
+
 ## Search
 This menu includes commands and actions related to sreaching in file content and replace actions.
 
@@ -212,6 +215,9 @@ Selects previous match, or last match when current match is first one.
 
 ### Replace All
 Replaces all matches, it's same as Replace All button in Find panel.
+
+### Interactive Replace
+Walks the matches one by one in the replace panel, so you can look at each match before you replace it. The pattern of the **Find** field is used, and the replacement can use the capture groups with `$1` and `$name`.
 
 ## Go To
 This menu includes commands and actions related to fast navigation in file content and sections.
@@ -300,6 +306,9 @@ Returns you to Placeholder completion mode (when current file has any placeholde
 
 ### Save As Template
 Saves current file as a template with given name.
+
+### Save As Snippet
+Saves current file as a snippet with given name, a snippet is inserted into the current file instead of opening a new one.
 
 ### Templates
 Shows *Template Manager* window to view, edit, and remove templates.

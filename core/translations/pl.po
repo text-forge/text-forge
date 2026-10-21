@@ -178,6 +178,9 @@ msgstr "PascalCase"
 msgid "menu.edit.convert_case.snake"
 msgstr "snake_case"
 
+msgid "menu.edit.insert_snippet"
+msgstr "Wstaw fragment"
+
 msgid "menu.search"
 msgstr "Szukaj"
 
@@ -192,6 +195,9 @@ msgstr "Znajdź poprzedni"
 
 msgid "menu.search.replace_all"
 msgstr "Zamień wszystko"
+
+msgid "menu.search.interactive_replace"
+msgstr "Zamień interaktywnie"
 
 msgid "menu.go_to"
 msgstr "Przejdź do"
@@ -276,6 +282,9 @@ msgstr "Kontynuuj uzupełnianie placeholderów"
 
 msgid "menu.format.save_as_template"
 msgstr "Zapisz jako szablon..."
+
+msgid "menu.format.save_as_snippet"
+msgstr "Zapisz jako fragment..."
 
 msgid "menu.format.templates"
 msgstr "Szablony..."

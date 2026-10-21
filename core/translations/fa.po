@@ -177,6 +177,9 @@ msgstr "PascalCase"
 msgid "menu.edit.convert_case.snake"
 msgstr "snake_case"
 
+msgid "menu.edit.insert_snippet"
+msgstr "درج قطعه"
+
 msgid "menu.search"
 msgstr "جستجو"
 
@@ -191,6 +194,9 @@ msgstr "یافتن قبلی"
 
 msgid "menu.search.replace_all"
 msgstr "جایگزینی همه"
+
+msgid "menu.search.interactive_replace"
+msgstr "جایگزینی تعاملی"
 
 msgid "menu.go_to"
 msgstr "رفتن"
@@ -275,6 +281,9 @@ msgstr "ادامه تکمیل جای‌نگهدار"
 
 msgid "menu.format.save_as_template"
 msgstr "ذخیره به عنوان قالب..."
+
+msgid "menu.format.save_as_snippet"
+msgstr "ذخیره به عنوان قطعه..."
 
 msgid "menu.format.templates"
 msgstr "قالب‌ها..."
