@@ -13,9 +13,11 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 - **Find & Replace:** a RegEx mode in the find panel, the replacement can use the capture groups with `$1` and `$name` ([#175](https://github.com/text-forge/text-forge/issues/175))
 - **Find & Replace:** an Interactive Replace walks the matches in the replace popup, one by one, the view follows the match and the arrow keys move between them ([#175](https://github.com/text-forge/text-forge/issues/175))
 - **Snippets:** save a piece of text as a snippet and insert it at the cursor with `Ctrl+Shift+J`, the placeholders of the templates work in a snippet too ([#56](https://github.com/text-forge/text-forge/issues/56))
+- **Snippets:** every snippet is a command of the palette too, `Ctrl+P` and the name of the snippet is enough to insert it
 
 ### Fixed
 - The replace popup selected the first match with the same text instead of the match it was on
+- The command palette did nothing for the commands that open a submenu, the recent files and the snippets
 
 ## [v0.4-stable] - 2026-10-19
 

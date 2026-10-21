@@ -29,6 +29,7 @@ func after_test() -> void:
 	var path := S.TEMPLATE_SNIPPETS.format([SNIPPET_NAME])
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(S.globalize_path(path))
+	Global.get_core().reload_snippets()
 
 
 func test_insert_snippet_is_a_multi_action_script() -> void:
@@ -46,3 +47,14 @@ func test_insert_replaces_the_selection() -> void:
 	Global.get_editor().select(0, 0, 0, 1)
 	Global.get_core().insert_snippet(SNIPPET_NAME)
 	assert_str(Global.get_editor_text()).is_equal("hellob")
+
+
+func test_snippet_is_in_the_command_list() -> void:
+	Global.get_core().reload_snippets()
+	var commands := Global.get_command_list()
+	var command_name := "Insert > " + SNIPPET_NAME
+	assert_bool(commands.has(command_name)).is_true()
+	Global.get_editor().set_caret_line(0)
+	Global.get_editor().set_caret_column(1)
+	commands[command_name][1].call()
+	assert_str(Global.get_editor_text()).is_equal("ahellob")

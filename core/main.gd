@@ -55,6 +55,8 @@ var recent_files_submenu: PopupMenu
 var templates_submenu: PopupMenu
 ## Snippets [PopupMenu], see also [method reload_snippets].
 var snippets_submenu: PopupMenu
+## Names of the snippet commands in the command palette, they are replaced on every snippet reload.
+var _snippet_commands: Array[String] = []
 ## Configurations loaded from [constant S.MAIN_UI_DATA].
 var main_menu_data: Dictionary
 ## Protects [method _handle_settings] from multiple runs at same time.
@@ -358,11 +360,18 @@ func reload_templates() -> void:
 func reload_snippets() -> void:
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_SNIPPETS)):
 		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_SNIPPETS))
-	if not snippets_submenu:
-		return
-	snippets_submenu.clear()
+	for command: String in _snippet_commands:
+		Global.remove_command(command)
+	_snippet_commands.clear()
+	if snippets_submenu:
+		snippets_submenu.clear()
 	for snippet: String in DirAccess.get_files_at(S.FOLDER_SNIPPETS):
-		snippets_submenu.add_item(snippet.get_file().get_basename())
+		var trigger := snippet.get_file().get_basename()
+		if snippets_submenu:
+			snippets_submenu.add_item(trigger)
+		var command := "Insert > " + trigger
+		Global.define_command(command, "", self.insert_snippet.bind(trigger))
+		_snippet_commands.append(command)
 
 
 ## Loads template with given [param name].

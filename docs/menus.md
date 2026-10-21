@@ -240,6 +240,8 @@ This menu includes commands and actions related to commands that you can run.
 ### Command Palette
 Shows command palette. You can run all commands here by clicking on them and there is a search box. When you type, command items order updates based on similarity of they name with your search, and matching segments will be highlighted. If exists, you can see command shortcut in right side of command name.
 
+Every snippet is a command of its own too, they are listed as `Insert > <snippet name>`, so you can insert one by typing its name in the palette.
+
 ## Format
 This menu includes commands and actions related to formatting file content.
 

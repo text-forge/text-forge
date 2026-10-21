@@ -196,6 +196,11 @@ func define_command(command_name: String, key_string: String, callable: Callable
 	commands[command_name] = [key_string, callable]
 
 
+## Removes the command with given [param command_name] from [member commands], if it exists.
+func remove_command(command_name: String) -> void:
+	commands.erase(command_name)
+
+
 ## Returns all commands saved in [member _commands].
 func get_command_list() -> Dictionary:
 	return commands

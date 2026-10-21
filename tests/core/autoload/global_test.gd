@@ -107,6 +107,11 @@ func test_define_command_stores_shortcut() -> void:
 	var cmds = Global.get_command_list()
 	assert_str(cmds["TestCmd"][0]).is_equal("Ctrl+Shift+X")
 
+func test_remove_command_removes_the_command() -> void:
+	Global.define_command("TestGone", "Ctrl+G", func(): pass)
+	Global.remove_command("TestGone")
+	assert_bool(Global.get_command_list().has("TestGone")).is_false()
+
 func test_has_unsaved_change_checks_star() -> void:
 	var original_name = Global.get_file_name()
 	Global.set_file_name("file.txt")
