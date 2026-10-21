@@ -118,6 +118,18 @@ Tags follow `v<major>.<minor>.<patch>-<suffix>`, for example `v0.3.0-stable` or 
 version in `project.godot`, the one in `core/classes/static.gd` (`S.EDITOR_VERSION`) and the
 `CHANGELOG.md` entry belong to the same release.
 
+Every change to a release needs the tag, not only the publish. A `PATCH` that sets the name or the
+body without `tag_name` puts the tag of the draft back to `untagged-<sha>`:
+
+```bash
+gh api -X PATCH repos/text-forge/text-forge/releases/<id> -F tag_name=v0.5.0-stable -F name="0.5 - Stable" -F body=@notes.md
+gh api -X PATCH repos/text-forge/text-forge/releases/<id> -F draft=false -F tag_name=v0.5.0-stable
+```
+
+The body of a file goes in with `body=@file`, a field with another name is ignored. The id of the
+release comes from `gh api "repos/text-forge/text-forge/releases?per_page=10" --jq '.[] | "\(.id)
+draft=\(.draft) tag=\(.tag_name)"'`, `gh release edit <tag>` does not find a draft.
+
 ## Run the Tests
 
 The unit tests use [gdUnit4](https://github.com/MikeSchulze/gdUnit4), which is enabled as an addon
