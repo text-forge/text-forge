@@ -67,8 +67,18 @@ func _resume_last_run(action_id: int) -> void:
 ## and [method Shortcut.metches_event])
 func _shortcut_input(event: InputEvent) -> void:
 	if action_shortcut.matches_event(event):
-		menu.popup()
-		menu.get_item_submenu_node(index).popup_centered()
+		show_submenu()
+
+
+## Shows the linked submenu: pops up the parent [member menu] then pops its submenu in center.
+## The parent menu must be visible before the submenu opens, so the command palette has to hide
+## itself before calling this.
+func show_submenu() -> void:
+	var submenu := menu.get_item_submenu_node(index)
+	if submenu == null:
+		return
+	menu.popup()
+	submenu.popup_centered()
 
 
 ## [b][color=lightblue]Virtual[/color][/b][br]
@@ -103,9 +113,9 @@ func _load_shortcut() -> void:
 
 
 ## Defines this action as a command for command palettes, this command will be connected to
-## [method _shortcut_input].
+## [method show_submenu].
 func _define_action() -> void:
-	Global.define_command(name.capitalize(), action_shortcut.events[0].as_text_keycode(), self._shortcut_input.bind(action_shortcut.events[0]))
+	Global.define_command(name.capitalize(), action_shortcut.events[0].as_text_keycode(), show_submenu)
 
 
 ## Call this function with [param script_id] and [param popup] from [method _run_action] to perform

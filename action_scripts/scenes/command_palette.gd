@@ -39,8 +39,8 @@ func _on_search_box_text_changed(new_text: String) -> void:
 		option.get_child(1).text = commands[item][0]
 		if option.get_child(1).text == "(Unset)":
 			option.get_child(1).hide()
-		option.pressed.connect(commands[item][1])
 		option.pressed.connect(self.hide)
+		option.pressed.connect(commands[item][1])
 		options.add_child(option)
 		option.show()
 	options.set_deferred("scroll_horizontal", 0)
