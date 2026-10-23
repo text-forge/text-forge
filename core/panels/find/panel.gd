@@ -26,6 +26,9 @@ func _ready() -> void:
 	if Signals.open_find_panel.is_connected(show_panel):
 		Signals.open_find_panel.disconnect(show_panel)
 	Signals.open_find_panel.connect(show_panel)
+	if Signals.open_find_panel.is_connected(_on_open_find_panel):
+		Signals.open_find_panel.disconnect(_on_open_find_panel)
+	Signals.open_find_panel.connect(_on_open_find_panel)
 	Signals.shift_find_result.connect(func(next):
 		if next:
 			_on_next_pressed()
@@ -50,8 +53,16 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	counter.text = str(matches.size()) + " match" + ("es" if matches.size() > 1 else "")
 	list.clear()
 	if matches.size() == 0: return
+	var idx := 0
 	for item in matches:
-		list.add_item("Line {0}, Column {1}".format([item.y + 1, item.x + 1]))
+		var line := Global.get_editor_text().split("\n")[item.y]
+		list.add_item(
+			"({0}:{1}) ".format([item.y + 1, item.x + 1])
+			+ ("..." if item.x - 3 > 0 else "")
+			+ (line.substr(max(0, item.x - 3), min(line.length(), item.x + match_lengths[idx] + 3)))
+			+ ("..." if item.x + match_lengths[idx] > line.length() else "")
+		)
+		idx += 1
 	list.select(0)
 	_on_item_list_item_selected(0)
 
@@ -157,3 +168,7 @@ func _on_interactive_replace_pressed() -> void:
 	if search.text.is_empty():
 		return
 	Global.get_core().start_replace_action(search.text)
+
+
+func _on_open_find_panel() -> void:
+	search.grab_focus()

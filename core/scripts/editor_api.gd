@@ -555,7 +555,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 		new_mode_script.queue_free()
 	if Global.temprory_children.has("current_mode_script"):
 		# Remove catched mode script
-		if initialize_error == OK:
+		if initialize_error == OK and is_instance_valid(Global.temprory_children["current_mode_script"]):
 			Global.temprory_children["current_mode_script"].queue_free()
 		# Restore catched mode script
 		else:

@@ -31,8 +31,8 @@ func test_regex_search_finds_the_matches_of_the_pattern() -> void:
 func test_regex_search_reports_the_line_and_the_column() -> void:
 	panel.regex.button_pressed = true
 	panel._on_line_edit_text_changed("ba.")
-	assert_str(panel.list.get_item_text(0)).is_equal("Line 1, Column 5")
-	assert_str(panel.list.get_item_text(1)).is_equal("Line 2, Column 5")
+	assert_str(panel.list.get_item_text(0)).is_equal("(1:5) ...oo bar")
+	assert_str(panel.list.get_item_text(1)).is_equal("(2:5) ...oo baz")
 
 
 func test_literal_search_does_not_find_the_pattern() -> void:

@@ -21,9 +21,11 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Buttons" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Import" type="Button" parent="Margin/VBox/Buttons"]
 layout_mode = 2
@@ -39,7 +41,7 @@ text = "Create Mode Kit..."
 [node name="Modes" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_type_variation = &"ModeEditorSeparator"
+theme_type_variation = &"SeparatedHBox"
 
 [node name="ModesList" type="ItemList" parent="Margin/VBox/Modes"]
 layout_mode = 2
@@ -85,6 +87,7 @@ wrap_mode = 1
 
 [node name="Actions" type="HBoxContainer" parent="Margin/VBox/Modes/Mode Editor"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="EditScript" type="Button" parent="Margin/VBox/Modes/Mode Editor/Actions"]
 layout_mode = 2

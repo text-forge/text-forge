@@ -40,12 +40,18 @@ func _ready() -> void:
 			)
 			queue_free()
 
+
+func pass_focus_to_option() -> void:
+	options.get_child(options.current_tab).grab_focus()
+
+
 func _on_check_box_pressed() -> void:
 	value = options.get_child(0).button_pressed
 	if value:
 		options.get_child(0).text = "On"
 	else:
 		options.get_child(0).text = "Off"
+	options.get_child(0).grab_focus()
 	Settings.set_setting(section, key, value)
 
 

@@ -6,36 +6,45 @@
 oversampling_override = 1.0
 title = "Line Length Guides Configuration"
 initial_position = 2
-size = Vector2i(400, 131)
+size = Vector2i(400, 83)
 unresizable = true
 popup_window = true
+popup_wm_hint = true
+minimize_disabled = true
+maximize_disabled = true
 keep_title_visible = true
 script = ExtResource("1_2to8j")
-input = NodePath("Margin/VBox/Values")
-submit = NodePath("Margin/VBox/Save")
+input = NodePath("Margin/VBox/HBoxContainer/Values")
+submit = NodePath("Margin/VBox/HBoxContainer/Save")
 
 [node name="Margin" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 10.0
-offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 alignment = 1
 
-[node name="Guide" type="Label" parent="Margin/VBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
-text = "Enter a comma separated list of line positions, first line will be main and hard guide line."
-autowrap_mode = 3
+theme_type_variation = &"SeparatedHBox"
 
-[node name="Values" type="LineEdit" parent="Margin/VBox"]
+[node name="Values" type="LineEdit" parent="Margin/VBox/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Save" type="Button" parent="Margin/VBox"]
+[node name="Save" type="Button" parent="Margin/VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Save"
+
+[node name="Guide" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_type_variation = &"HintLabel"
+text = "Enter a comma separated list of line positions, first line will be main and hard guide line."
+horizontal_alignment = 1
+autowrap_mode = 3

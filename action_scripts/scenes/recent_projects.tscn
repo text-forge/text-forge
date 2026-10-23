@@ -15,7 +15,7 @@ unresizable = true
 popup_window = true
 script = ExtResource("1_tery7")
 project_item = NodePath("Project")
-project_list = NodePath("Margin/VBox")
+project_list = NodePath("Margin/Scroll/VBox")
 
 [node name="Margin" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -24,8 +24,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Margin"]
+[node name="Scroll" type="ScrollContainer" parent="Margin"]
 layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Project" type="Button" parent="."]
 visible = false
@@ -47,7 +53,7 @@ layout_mode = 2
 theme_type_variation = &"ProjectItemSeparator"
 
 [node name="Icon" type="TextureRect" parent="Project/Panel/HBox"]
-custom_minimum_size = Vector2(30, 40)
+custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -61,6 +67,7 @@ layout_mode = 2
 
 [node name="Modified" type="Label" parent="Project/Panel/HBox/Labels"]
 layout_mode = 2
+size_flags_vertical = 10
 label_settings = SubResource("LabelSettings_dw6y8")
 
 [connection signal="close_requested" from="." to="." method="queue_free"]

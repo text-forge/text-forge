@@ -6,9 +6,10 @@
 oversampling_override = 1.0
 title = "Preferences"
 initial_position = 2
-size = Vector2i(700, 400)
+size = Vector2i(900, 600)
 popup_window = true
-min_size = Vector2i(400, 300)
+popup_wm_hint = true
+min_size = Vector2i(900, 600)
 script = ExtResource("1_huy1r")
 container = NodePath("Margin/HSplit/TabContainer")
 tree = NodePath("Margin/HSplit/Tree")
@@ -22,7 +23,7 @@ grow_vertical = 2
 
 [node name="HSplit" type="HSplitContainer" parent="Margin"]
 layout_mode = 2
-split_offset = 150
+split_offset = 200
 
 [node name="Tree" type="Tree" parent="Margin/HSplit"]
 layout_mode = 2
@@ -38,4 +39,5 @@ theme_type_variation = &"PreferencesSectionTab"
 tabs_visible = false
 
 [connection signal="close_requested" from="." to="." method="queue_free"]
+[connection signal="item_activated" from="Margin/HSplit/Tree" to="." method="_on_tree_item_activated"]
 [connection signal="item_selected" from="Margin/HSplit/Tree" to="." method="_on_tree_item_selected"]

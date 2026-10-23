@@ -31,6 +31,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Scroll" type="ScrollContainer" parent="Margin/VBox"]
 layout_mode = 2
@@ -44,16 +45,17 @@ columns = 2
 
 [node name="MainS" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Main"
 label_settings = SubResource("LabelSettings_1kp10")
 
 [node name="Placeholder" type="Control" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="PathL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Project File"
 
 [node name="Path" type="Button" parent="Margin/VBox/Scroll/Grid"]
@@ -62,7 +64,7 @@ text = "Select File..."
 
 [node name="NameL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Name"
 
 [node name="Name" type="LineEdit" parent="Margin/VBox/Scroll/Grid"]
@@ -71,7 +73,7 @@ size_flags_horizontal = 3
 
 [node name="DetailsL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Details"
 
@@ -82,7 +84,7 @@ placeholder_text = "Optional"
 
 [node name="IconL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Icon"
 
 [node name="Icon" type="Button" parent="Margin/VBox/Scroll/Grid"]
@@ -92,7 +94,7 @@ text = "Select Image..."
 
 [node name="TagsL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Tags"
 
 [node name="Tags" type="LineEdit" parent="Margin/VBox/Scroll/Grid"]
@@ -104,7 +106,7 @@ clear_button_enabled = true
 
 [node name="FilesS" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Files"
 label_settings = SubResource("LabelSettings_1kp10")
 
@@ -113,7 +115,7 @@ layout_mode = 2
 
 [node name="IncludeL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Include"
 
 [node name="Include" type="HBoxContainer" parent="Margin/VBox/Scroll/Grid"]
@@ -133,13 +135,14 @@ text = "Add Files..."
 
 [node name="Placeholder3" type="Control" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="IncludeFiles" type="VBoxContainer" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
 
 [node name="ExcludeL" type="Label" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "Exclude"
 
 [node name="Exclude" type="HBoxContainer" parent="Margin/VBox/Scroll/Grid"]
@@ -159,6 +162,7 @@ text = "Add Files..."
 
 [node name="Placeholder4" type="Control" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="ExcludeFiles" type="VBoxContainer" parent="Margin/VBox/Scroll/Grid"]
 layout_mode = 2

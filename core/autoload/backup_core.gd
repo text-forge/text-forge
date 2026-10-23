@@ -146,6 +146,8 @@ func _generate_new_backup_id() -> String:
 # Searches backup database for each backup file and removes backups without reference
 func _remove_backups_without_reference() -> void:
 	var config := _load_backup_database()
+	if not config.has_section("backups"):
+		return
 	if not DirAccess.dir_exists_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir())):
 		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))
 	var dir := DirAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))

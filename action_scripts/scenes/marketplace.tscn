@@ -1,15 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4o4ojx870a1m"]
+[gd_scene load_steps=3 format=3 uid="uid://c4o4ojx870a1m"]
 
 [ext_resource type="Script" uid="uid://d1ghentsabnc7" path="res://action_scripts/scenes/marketplace.gd" id="1_872ex"]
 [ext_resource type="Texture2D" uid="uid://x8ceredrblyd" path="res://assets/reload.png" id="2_uexq8"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqdyf"]
 
 [node name="Marketplace" type="Window" node_paths=PackedStringArray("packages", "version_edit", "i_name", "i_author", "i_category", "i_version", "i_min_editor_version", "i_dates", "i_tags", "i_description", "i_images", "information_popup", "install_button", "search", "filter")]
 oversampling_override = 1.0
 title = "Marketplace"
 initial_position = 2
 size = Vector2i(800, 600)
+popup_wm_hint = true
 min_size = Vector2i(700, 500)
 script = ExtResource("1_872ex")
 packages = NodePath("Margin/VBox/Scroll/Packages")
@@ -17,9 +16,9 @@ version_edit = NodePath("Margin/VBox/Header/Version/Value")
 i_name = NodePath("Info/Margin/VBox/Header/Name")
 i_author = NodePath("Info/Margin/VBox/Header/Author")
 i_category = NodePath("Info/Margin/VBox/Header/Category")
-i_version = NodePath("Info/Margin/VBox/Footer/Version")
-i_min_editor_version = NodePath("Info/Margin/VBox/Footer/MinEditorVersion")
-i_dates = NodePath("Info/Margin/VBox/Footer/Dates")
+i_version = NodePath("Info/Margin/VBox/SecondaryHeader/Version")
+i_min_editor_version = NodePath("Info/Margin/VBox/SecondaryHeader/MinEditorVersion")
+i_dates = NodePath("Info/Margin/VBox/SecondaryHeader/Dates")
 i_tags = NodePath("Info/Margin/VBox/Tags")
 i_description = NodePath("Info/Margin/VBox/Description")
 i_images = NodePath("Info/Margin/VBox/Scroll/Images")
@@ -37,12 +36,15 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Header" type="VBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Version" type="HBoxContainer" parent="Margin/VBox/Header"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Value" type="LineEdit" parent="Margin/VBox/Header/Version"]
 layout_mode = 2
@@ -62,6 +64,7 @@ expand_icon = true
 
 [node name="Find" type="HBoxContainer" parent="Margin/VBox/Header"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Search" type="LineEdit" parent="Margin/VBox/Header/Find"]
 layout_mode = 2
@@ -89,11 +92,13 @@ popup/item_4/id = 4
 [node name="Scroll" type="ScrollContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+vertical_scroll_mode = 4
 
 [node name="Packages" type="VBoxContainer" parent="Margin/VBox/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Info" type="Window" parent="."]
 oversampling_override = 1.0
@@ -103,6 +108,7 @@ size = Vector2i(600, 500)
 visible = false
 unresizable = true
 popup_window = true
+popup_wm_hint = true
 
 [node name="Margin" type="MarginContainer" parent="Info"]
 anchors_preset = 15
@@ -113,20 +119,19 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Info/Margin"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Header" type="HBoxContainer" parent="Info/Margin/VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Name" type="Label" parent="Info/Margin/VBox/Header"]
 layout_mode = 2
-size_flags_vertical = 0
 text = "Dark"
 
 [node name="Author" type="Label" parent="Info/Margin/VBox/Header"]
 layout_mode = 2
-size_flags_vertical = 8
-theme_type_variation = &"PackageBadgeLabel"
-theme_override_styles/normal = SubResource("StyleBoxEmpty_sqdyf")
+theme_type_variation = &"HintLabel"
 text = "by text-forge"
 
 [node name="Category" type="Label" parent="Info/Margin/VBox/Header"]
@@ -135,32 +140,41 @@ size_flags_horizontal = 10
 theme_type_variation = &"PackageBadgeLabel"
 text = "theme"
 
-[node name="Footer" type="HBoxContainer" parent="Info/Margin/VBox"]
+[node name="Placeholder" type="Control" parent="Info/Margin/VBox"]
 layout_mode = 2
 
-[node name="Version" type="Label" parent="Info/Margin/VBox/Footer"]
+[node name="SecondaryHeader" type="HBoxContainer" parent="Info/Margin/VBox"]
+layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
+
+[node name="Version" type="Label" parent="Info/Margin/VBox/SecondaryHeader"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_type_variation = &"PackageBadgeLabel"
 text = "1.0.0"
 
-[node name="MinEditorVersion" type="Label" parent="Info/Margin/VBox/Footer"]
+[node name="MinEditorVersion" type="Label" parent="Info/Margin/VBox/SecondaryHeader"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_type_variation = &"PackageBadgeLabel"
 text = "Text Forge 0.2.0+"
 
-[node name="Dates" type="Label" parent="Info/Margin/VBox/Footer"]
+[node name="Dates" type="Label" parent="Info/Margin/VBox/SecondaryHeader"]
 layout_mode = 2
+size_flags_horizontal = 10
 theme_type_variation = &"PackageDatesLabel"
 text = "2025-9-16 | 2025-9-16"
+
+[node name="Placeholder2" type="Control" parent="Info/Margin/VBox"]
+layout_mode = 2
 
 [node name="Tags" type="HFlowContainer" parent="Info/Margin/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Info/Margin/VBox"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_type_variation = &"PackageDescriptionLabel"
 autowrap_mode = 3
@@ -179,7 +193,9 @@ layout_mode = 2
 alignment = 1
 
 [node name="Install" type="Button" parent="Info/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 disabled = true
 text = "Install"
 

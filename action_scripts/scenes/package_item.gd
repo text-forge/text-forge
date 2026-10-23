@@ -28,7 +28,7 @@ func setup(
 	n_name.text = package_name
 	n_version.text = version
 	n_category.text = category
-	n_author.text = "by " + author
+	n_author.text = author
 	S.free_all_children(n_tags)
 	for t in tags:
 		var tag := Label.new()

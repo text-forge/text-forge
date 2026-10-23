@@ -25,6 +25,7 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Actions" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
@@ -78,6 +79,7 @@ uninstall = NodePath("VBox/Actions/Uninstall")
 
 [node name="VBox" type="VBoxContainer" parent="ExtensionInstance"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Name" type="Label" parent="ExtensionInstance/VBox"]
 layout_mode = 2
@@ -86,6 +88,7 @@ horizontal_alignment = 1
 
 [node name="Actions" type="HBoxContainer" parent="ExtensionInstance/VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 alignment = 1
 
 [node name="Status" type="CheckBox" parent="ExtensionInstance/VBox/Actions"]

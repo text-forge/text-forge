@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bx6gmc44onll" path="res://core/panels/problems/panel.gd" id="1_dsd4v"]
 
-[node name="Panel" type="Control" node_paths=PackedStringArray("instance", "problem_list", "message")]
-custom_minimum_size = Vector2(0, 100)
+[node name="Problems" type="Control" node_paths=PackedStringArray("instance", "problem_list", "message")]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,10 +12,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dsd4v")
 instance = NodePath("Instance")
-problem_list = NodePath("Margin/Scroll/ProblemList")
-message = NodePath("Margin/Message")
+problem_list = NodePath("MarginContainer/Scroll/ProblemList")
+message = NodePath("Message")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Message" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1150.0
+offset_bottom = 646.0
+size_flags_vertical = 1
+text = "There is no problem"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,32 +34,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Scroll" type="ScrollContainer" parent="Margin"]
+[node name="Scroll" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="ProblemList" type="VBoxContainer" parent="Margin/Scroll"]
+[node name="ProblemList" type="VBoxContainer" parent="MarginContainer/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Message" type="Label" parent="Margin"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "There is no problem"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Instance" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 1147.0
-offset_bottom = 65.0
+layout_mode = 1
+offset_right = 41.0
+offset_bottom = 50.0
+theme_type_variation = &"NotificationPanel"
 
 [node name="VBox" type="VBoxContainer" parent="Instance"]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="HBox" type="HBoxContainer" parent="Instance/VBox"]
 layout_mode = 2
@@ -68,6 +72,9 @@ autowrap_mode = 3
 layout_mode = 2
 theme_type_variation = &"ProblemDetails"
 autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Instance/VBox"]
+layout_mode = 2
 
 [node name="MoveButton" type="Button" parent="Instance"]
 layout_mode = 2

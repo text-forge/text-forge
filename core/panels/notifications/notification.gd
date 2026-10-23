@@ -1,9 +1,10 @@
 extends PanelContainer
 class_name NotificationPanel
 
-@onready var icon: Label = get_child(0).get_child(0)
-@onready var title: Label = get_child(0).get_child(1).get_child(0)
-@onready var text: Label = get_child(0).get_child(1).get_child(1)
+@export var icon: Label
+@export var title: Label
+@export var text: Label
+@export var timestamp: Label
 
 func _ready() -> void:
-	get_child(0).get_child(1).get_child(2).text = Time.get_time_string_from_system()
+	timestamp.text = Time.get_time_string_from_system()

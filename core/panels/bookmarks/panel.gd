@@ -7,6 +7,8 @@ const ITEM = preload("res://core/panels/bookmarks/item_panel.tscn")
 
 ## [VBoxContainer] to keep bookmark items.
 @export var items: VBoxContainer
+## Placeholder [Label].
+@export var placeholder: Label
 
 func _init() -> void:
 	place = PanelManager.Panels.LEFT
@@ -32,4 +34,5 @@ func _update_bookmarks() -> void:
 		while i >= items.get_child_count():
 			items.add_child(ITEM.instantiate())
 		var c: PanelContainer = items.get_child(i)
-		c.update(Global.get_editor().get_line(bookmarks[i]), bookmarks[i])
+		c.update(Global.get_editor().get_line(bookmarks[i]).strip_edges(), bookmarks[i])
+	placeholder.visible = not bookmarks.size()

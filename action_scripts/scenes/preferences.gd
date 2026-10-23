@@ -20,8 +20,10 @@ func _ready() -> void:
 	sections.sort()
 	for section in sections:
 		var scroll := ScrollContainer.new()
+		scroll.follow_focus = true
 		var tab := VBoxContainer.new()
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		tab.theme_type_variation = "SeparatedVBox"
 		var keys := config.get_section_keys(section)
 		keys.sort()
 		for item in keys:
@@ -39,7 +41,13 @@ func _ready() -> void:
 			page.free()
 	if tree.get_root().get_child_count():
 		tree.set_selected(tree.get_root().get_first_child(), 0)
+	tree.grab_focus()
 
 
 func _on_tree_item_selected() -> void:
 	container.current_tab = tree.get_selected().get_index()
+
+
+func _on_tree_item_activated() -> void:
+	container.current_tab = tree.get_selected().get_index()
+	container.get_child(container.current_tab).get_child(0).get_child(0).pass_focus_to_option()

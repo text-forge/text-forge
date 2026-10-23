@@ -1,17 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cax6s6go175ef"]
+[gd_scene load_steps=2 format=3 uid="uid://cax6s6go175ef"]
 
 [ext_resource type="Script" uid="uid://dq00olfswl0q2" path="res://action_scripts/scenes/package_item.gd" id="1_5e4n4"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jitmc"]
-
 [node name="Package" type="PanelContainer" node_paths=PackedStringArray("n_name", "n_version", "n_category", "n_author", "n_tags", "n_description", "n_dates", "n_min_editor_version", "n_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"PackagePanel"
 script = ExtResource("1_5e4n4")
 n_name = NodePath("VBox/Header/Name")
 n_version = NodePath("VBox/Header/Version")
 n_category = NodePath("VBox/Header/Category")
 n_author = NodePath("VBox/Header/Author")
-n_tags = NodePath("VBox/Header/Tags")
+n_tags = NodePath("VBox/Tags")
 n_description = NodePath("VBox/Description")
 n_dates = NodePath("VBox/Footer/Dates")
 n_min_editor_version = NodePath("VBox/Footer/MinEditorVersion")
@@ -19,16 +22,23 @@ n_button = NodePath("Action")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Name" type="Label" parent="VBox/Header"]
 layout_mode = 2
-size_flags_vertical = 0
+
+[node name="Author" type="Label" parent="VBox/Header"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_type_variation = &"HintLabel"
 
 [node name="Version" type="Label" parent="VBox/Header"]
 layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 0
 theme_type_variation = &"PackageBadgeLabel"
 
@@ -37,27 +47,23 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_type_variation = &"PackageBadgeLabel"
 
-[node name="Author" type="Label" parent="VBox/Header"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_type_variation = &"PackageBadgeLabel"
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jitmc")
-
-[node name="Tags" type="HFlowContainer" parent="VBox/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-
 [node name="Description" type="Label" parent="VBox"]
 layout_mode = 2
 theme_type_variation = &"PackageDescriptionLabel"
 text_overrun_behavior = 3
 
+[node name="Tags" type="HFlowContainer" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
 [node name="Footer" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
 
 [node name="Dates" type="Label" parent="VBox/Footer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_type_variation = &"PackageDatesLabel"
 
 [node name="MinEditorVersion" type="Label" parent="VBox/Footer"]

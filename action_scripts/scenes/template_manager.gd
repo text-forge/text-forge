@@ -9,7 +9,7 @@ extends Window
 ## Template name in preview.
 @export var template_name: Label
 ## Template content in preview.
-@export var preview: RichTextLabel
+@export var preview: TextEdit
 
 func _ready() -> void:
 	templates.clear()

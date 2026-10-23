@@ -83,6 +83,7 @@ report/godot/push_error=true
 [gui]
 
 theme/custom="uid://biemqm07w26kl"
+theme/custom_font="uid://bxf2mgs4r3cen"
 
 [internationalization]
 

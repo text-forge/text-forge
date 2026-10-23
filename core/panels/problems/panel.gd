@@ -36,16 +36,20 @@ func _update_problems(problems: Array[Dictionary]) -> void:
 		var item: PanelContainer = instance.duplicate()
 
 		# red for errrors, yellow for warnings
-		var icon: Texture2D = U.load_resource("res://core/panels/problems/error.png" if p["error"] else "res://core/panels/problems/warning.png")
+		var icon: Texture2D = U.load_resource(
+			"res://core/panels/problems/error.png"
+			if p["error"]
+			else "res://core/panels/problems/warning.png"
+		)
 		# color for title, same color as icon
 		var color: Color = Color("e50000" if p["error"] else "e8bc03")
 		# line and column prefix
 		var line_column: String
 		# add column to prefix if column provided
 		if p["column"] == -1:
-			line_column = "Line {0}".format([p["line"] + 1])
+			line_column = "({0}) ".format([p["line"] + 1])
 		else:
-			line_column = "Line {0} (column {1})".format([p["line"] + 1, p["column"]])
+			line_column = "({0}:{1}) ".format([p["line"] + 1, p["column"]])
 
 		# Setup new problem item
 		_get_problem_child(ProblemChildren.ICON, item).texture = icon

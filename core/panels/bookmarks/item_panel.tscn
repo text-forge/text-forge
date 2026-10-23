@@ -18,8 +18,9 @@ remove_button = NodePath("HBox/Remove")
 layout_mode = 2
 
 [node name="LineNumber" type="Label" parent="HBox"]
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_type_variation = &"BottomBarLabel"
+theme_type_variation = &"BookmarkLineNumber"
 text = "1"
 
 [node name="Text" type="Label" parent="HBox"]
@@ -37,6 +38,7 @@ size_flags_vertical = 4
 tooltip_text = "Go to bookmark"
 theme_type_variation = &"FlatButton"
 icon = ExtResource("3_tm4ui")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
@@ -48,6 +50,7 @@ size_flags_vertical = 4
 tooltip_text = "Remove bookmark"
 theme_type_variation = &"FlatButton"
 icon = ExtResource("4_37y3w")
+flat = true
 icon_alignment = 1
 expand_icon = true
 

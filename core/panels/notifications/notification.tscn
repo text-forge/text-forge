@@ -15,40 +15,57 @@ font_color = Color(0.652344, 0.652344, 0.652344, 1)
 font_size = 12
 font_color = Color(0.480469, 0.480469, 0.480469, 1)
 
-[node name="Notification" type="PanelContainer"]
+[node name="Notification" type="PanelContainer" node_paths=PackedStringArray("icon", "title", "text", "timestamp")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 65.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+theme_type_variation = &"NotificationPanel"
 script = ExtResource("1_f20k5")
+icon = NodePath("VBoxContainer/HBox/Icon")
+title = NodePath("VBoxContainer/HBox/VBox/Title")
+text = NodePath("VBoxContainer/HBox/VBox/Text")
+timestamp = NodePath("VBoxContainer/HBox/VBox/Timestamp")
 
-[node name="HBox" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme_type_variation = &"SeparatedVBox"
 
-[node name="Icon" type="Label" parent="HBox"]
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"SeparatedHBox"
+
+[node name="Icon" type="Label" parent="VBoxContainer/HBox"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+size_flags_vertical = 0
 label_settings = SubResource("LabelSettings_r108h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBox" type="VBoxContainer" parent="HBox"]
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="HBox/VBox"]
+[node name="Title" type="Label" parent="VBoxContainer/HBox/VBox"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 6
 label_settings = SubResource("LabelSettings_uocqq")
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Text" type="Label" parent="HBox/VBox"]
+[node name="Text" type="Label" parent="VBoxContainer/HBox/VBox"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_f20k5")
 autowrap_mode = 3
 
-[node name="Timestamp" type="Label" parent="HBox/VBox"]
+[node name="Timestamp" type="Label" parent="VBoxContainer/HBox/VBox"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_a80sp")
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
