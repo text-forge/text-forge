@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 12:46+0200\n"
+"POT-Creation-Date: 2026-11-01 19:16+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: lo\n"
@@ -174,9 +174,6 @@ msgstr ""
 msgid "menu.edit.convert_case.snake"
 msgstr ""
 
-msgid "menu.edit.insert_snippet"
-msgstr ""
-
 msgid "menu.search"
 msgstr ""
 
@@ -190,9 +187,6 @@ msgid "menu.search.find_prev"
 msgstr ""
 
 msgid "menu.search.replace_all"
-msgstr ""
-
-msgid "menu.search.interactive_replace"
 msgstr ""
 
 msgid "menu.go_to"
@@ -277,9 +271,6 @@ msgid "menu.format.continue_placeholder_completion"
 msgstr ""
 
 msgid "menu.format.save_as_template"
-msgstr ""
-
-msgid "menu.format.save_as_snippet"
 msgstr ""
 
 msgid "menu.format.templates"

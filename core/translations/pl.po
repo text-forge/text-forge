@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 12:46+0200\n"
+"POT-Creation-Date: 2026-11-01 19:16+0100\n"
 "PO-Revision-Date: 2026-09-28 10:55+0000\n"
 "Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/text-forge/code-"
@@ -178,9 +178,6 @@ msgstr "PascalCase"
 msgid "menu.edit.convert_case.snake"
 msgstr "snake_case"
 
-msgid "menu.edit.insert_snippet"
-msgstr "Wstaw fragment"
-
 msgid "menu.search"
 msgstr "Szukaj"
 
@@ -195,9 +192,6 @@ msgstr "Znajdź poprzedni"
 
 msgid "menu.search.replace_all"
 msgstr "Zamień wszystko"
-
-msgid "menu.search.interactive_replace"
-msgstr "Zamień interaktywnie"
 
 msgid "menu.go_to"
 msgstr "Przejdź do"
@@ -282,9 +276,6 @@ msgstr "Kontynuuj uzupełnianie placeholderów"
 
 msgid "menu.format.save_as_template"
 msgstr "Zapisz jako szablon..."
-
-msgid "menu.format.save_as_snippet"
-msgstr "Zapisz jako fragment..."
 
 msgid "menu.format.templates"
 msgstr "Szablony..."
@@ -429,6 +420,15 @@ msgstr "Dokumentacja online"
 
 msgid "menu.help.about"
 msgstr "Informacje o programie"
+
+#~ msgid "menu.edit.insert_snippet"
+#~ msgstr "Wstaw fragment"
+
+#~ msgid "menu.search.interactive_replace"
+#~ msgstr "Zamień interaktywnie"
+
+#~ msgid "menu.format.save_as_snippet"
+#~ msgstr "Zapisz jako fragment..."
 
 #~ msgid "menu.format.indentation.auto_indentation"
 #~ msgstr "Automatyczne wcięcie"
