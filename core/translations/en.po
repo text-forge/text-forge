@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 12:46+0200\n"
+"POT-Creation-Date: 2026-11-01 19:16+0100\n"
 "PO-Revision-Date: 2026-09-28 10:55+0000\n"
 "Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/text-forge/code-"
@@ -177,9 +177,6 @@ msgstr "PascalCase"
 msgid "menu.edit.convert_case.snake"
 msgstr "snake_case"
 
-msgid "menu.edit.insert_snippet"
-msgstr "Insert Snippet"
-
 msgid "menu.search"
 msgstr "Search"
 
@@ -194,9 +191,6 @@ msgstr "Find Previous"
 
 msgid "menu.search.replace_all"
 msgstr "Replace All"
-
-msgid "menu.search.interactive_replace"
-msgstr "Interactive Replace"
 
 msgid "menu.go_to"
 msgstr "Go To"
@@ -281,9 +275,6 @@ msgstr "Continue Placeholder Completion"
 
 msgid "menu.format.save_as_template"
 msgstr "Save As Template..."
-
-msgid "menu.format.save_as_snippet"
-msgstr "Save As Snippet..."
 
 msgid "menu.format.templates"
 msgstr "Templates..."
@@ -428,6 +419,15 @@ msgstr "Online Docs"
 
 msgid "menu.help.about"
 msgstr "About"
+
+#~ msgid "menu.edit.insert_snippet"
+#~ msgstr "Insert Snippet"
+
+#~ msgid "menu.search.interactive_replace"
+#~ msgstr "Interactive Replace"
+
+#~ msgid "menu.format.save_as_snippet"
+#~ msgstr "Save As Snippet..."
 
 #~ msgid "menu.format.indentation.auto_indentation"
 #~ msgstr "Auto Indentation"
