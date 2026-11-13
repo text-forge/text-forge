@@ -2,63 +2,63 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-01 19:16+0100\n"
-"Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
+"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/text-forge/code-"
 "editor/cs/>\n"
 "Language: cs\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"PO-Revision-Date: 2026-11-13 09:51+0000\n"
+"PO-Revision-Date: 2026-11-13 10:12+0000\n"
 "X-Generator: Weblate 2026.12.dev0\n"
 
 msgid "menu.project"
 msgstr "Projekt"
 
 msgid "menu.project.new_project"
-msgstr ""
+msgstr "projekt.projekt.new project"
 
 msgid "menu.project.open_project"
-msgstr ""
+msgstr "projekt.projekt.open projekt"
 
 msgid "menu.project.recent_projects"
-msgstr ""
+msgstr "projekt.projekt.recent projekty"
 
 msgid "menu.project.close_project"
-msgstr ""
+msgstr "menu.projekt.close project"
 
 msgid "menu.project.project_settings"
-msgstr ""
+msgstr "menu.projekt.project settings"
 
 msgid "menu.file"
-msgstr ""
+msgstr "menu.file"
 
 msgid "menu.file.new"
-msgstr ""
+msgstr "menu.file.new"
 
 msgid "menu.file.new_window"
-msgstr ""
+msgstr "menu.file.new window"
 
 msgid "menu.file.new_with_template"
-msgstr ""
+msgstr "menu.file.new with template"
 
 msgid "menu.file.open"
-msgstr ""
+msgstr "menu.file.open"
 
 msgid "menu.file.recent_files"
-msgstr ""
+msgstr "menu.file.recent files"
 
 msgid "menu.file.save"
-msgstr ""
+msgstr "menu.file.save"
 
 msgid "menu.file.save_as"
-msgstr ""
+msgstr "menu.file.save as"
 
 msgid "menu.file.reload"
-msgstr ""
+msgstr "menu.file.reload"
 
 msgid "menu.file.close"
-msgstr ""
+msgstr "menu.file.close"
 
 msgid "menu.file.backup_create"
 msgstr "Vytvořit zálohu..."
@@ -70,61 +70,61 @@ msgid "menu.file.copy_path"
 msgstr ""
 
 msgid "menu.file.show_in_filesystem"
-msgstr ""
+msgstr "menu.file.show in filesystem"
 
 msgid "menu.file.secure_delete"
-msgstr ""
+msgstr "menu.file.secure delete"
 
 msgid "menu.file.restart"
-msgstr ""
+msgstr "menu.file.restartovat"
 
 msgid "menu.file.exit"
-msgstr ""
+msgstr "menu.file.exit"
 
 msgid "menu.edit"
-msgstr ""
+msgstr "menu.edit"
 
 msgid "menu.edit.undo"
-msgstr ""
+msgstr "menu.edit.undo"
 
 msgid "menu.edit.redo"
-msgstr ""
+msgstr "menu.edit.redo"
 
 msgid "menu.edit.cut"
-msgstr ""
+msgstr "menu.edit.cut"
 
 msgid "menu.edit.copy"
-msgstr ""
+msgstr "menu.edit.copy"
 
 msgid "menu.edit.paste"
-msgstr ""
+msgstr "menu.edit.paste"
 
 msgid "menu.edit.delete"
-msgstr ""
+msgstr "menu.edit.delete"
 
 msgid "menu.edit.select_all"
-msgstr ""
+msgstr "menu.edit.select all"
 
 msgid "menu.edit.select_next_occurence"
-msgstr ""
+msgstr "menu.edit.select next occurence"
 
 msgid "menu.edit.select_all_occurences"
-msgstr ""
+msgstr "menu.edit.select all occurences"
 
 msgid "menu.edit.duplicate_selection"
-msgstr ""
+msgstr "menu.edit.duplicate selection"
 
 msgid "menu.edit.evaluate_selection"
-msgstr ""
+msgstr "menu.edit.evaluate selection"
 
 msgid "menu.edit.line"
 msgstr ""
 
 msgid "menu.edit.line.move_up"
-msgstr ""
+msgstr "menu.edit.line.move up"
 
 msgid "menu.edit.line.move_down"
-msgstr ""
+msgstr "menu.edit.line.move down"
 
 msgid "menu.edit.line.indent"
 msgstr ""
@@ -136,70 +136,70 @@ msgid "menu.edit.line.delete"
 msgstr ""
 
 msgid "menu.edit.line.toggle_comment"
-msgstr ""
+msgstr "menu.edit.line.toggle comment"
 
 msgid "menu.edit.line.duplicate"
-msgstr ""
+msgstr "menu.edit.line.duplicate"
 
 msgid "menu.edit.line.select_whole"
-msgstr ""
+msgstr "menu.edit.line.select whole"
 
 msgid "menu.edit.line.select_paragraph"
-msgstr ""
+msgstr "menu.edit.line.select paragraph"
 
 msgid "menu.edit.line.join"
 msgstr ""
 
 msgid "menu.edit.line.move_to_new_file"
-msgstr ""
+msgstr "menu.edit.line.move to new file"
 
 msgid "menu.edit.completion_query"
-msgstr ""
+msgstr "menu.edit.completion query"
 
 msgid "menu.edit.convert_case"
-msgstr ""
+msgstr "menu.edit.convert case"
 
 msgid "menu.edit.convert_case.upper"
-msgstr ""
+msgstr "menu.edit.convert case.upper"
 
 msgid "menu.edit.convert_case.lower"
-msgstr ""
+msgstr "menu.edit.convert case.lower"
 
 msgid "menu.edit.convert_case.capitalize"
-msgstr ""
+msgstr "menu.edit.convert case.capitalize"
 
 msgid "menu.edit.convert_case.camel"
-msgstr ""
+msgstr "menu.edit.convert case.camel"
 
 msgid "menu.edit.convert_case.pascal"
-msgstr ""
+msgstr "menu.edit.convert case.pascal"
 
 msgid "menu.edit.convert_case.snake"
-msgstr ""
+msgstr "menu.edit.convert case.snake"
 
 msgid "menu.search"
-msgstr ""
+msgstr "menu.search"
 
 msgid "menu.search.find_and_replace"
-msgstr ""
+msgstr "menu.search.find and replace"
 
 msgid "menu.search.find_next"
-msgstr ""
+msgstr "menu.search.find next"
 
 msgid "menu.search.find_prev"
-msgstr ""
+msgstr "menu.search.find prev"
 
 msgid "menu.search.replace_all"
-msgstr ""
+msgstr "menu.search.replace all"
 
 msgid "menu.go_to"
-msgstr ""
+msgstr "menu.go to"
 
 msgid "menu.go_to.line"
-msgstr ""
+msgstr "menu.go to.line"
 
 msgid "menu.go_to.code_regions"
-msgstr ""
+msgstr "menu.go to.code regions"
 
 msgid "menu.go_to.insert_nav_mark"
 msgstr ""
@@ -208,7 +208,7 @@ msgid "menu.go_to.nav_marks"
 msgstr ""
 
 msgid "menu.go_to.table_of_contents"
-msgstr ""
+msgstr "menu.go to.table of contents"
 
 msgid "menu.go_to.bookmarks"
 msgstr ""
@@ -217,31 +217,31 @@ msgid "menu.go_to.toggle_bookmark"
 msgstr ""
 
 msgid "menu.go_to.remove_all_bookmarks"
-msgstr ""
+msgstr "menu.go to.remove all bookmarks"
 
 msgid "menu.command"
-msgstr ""
+msgstr "menu.command"
 
 msgid "menu.command.palette"
-msgstr ""
+msgstr "menu.command.palette"
 
 msgid "menu.format"
-msgstr ""
+msgstr "menu.formát"
 
 msgid "menu.format.auto_format"
-msgstr ""
+msgstr "menu.formát.auto formát"
 
 msgid "menu.format.indentation"
-msgstr ""
+msgstr "menu.formát.indentation"
 
 msgid "menu.format.indentation.remove_all_indents"
-msgstr ""
+msgstr "menu.formát.indentation.remove all indents"
 
 msgid "menu.format.indentation.auto_indent"
 msgstr ""
 
 msgid "menu.format.indentation.to_spaces"
-msgstr ""
+msgstr "menu.formát.indentation.to spaces"
 
 msgid "menu.format.indentation.to_tabs"
 msgstr ""
@@ -256,166 +256,166 @@ msgid "menu.format.indentation.reset_mode_indentation"
 msgstr ""
 
 msgid "menu.format.remove_trailing_whitespaces"
-msgstr ""
+msgstr "menu.formát.remove trailing bíláspaces"
 
 msgid "menu.format.normalize_line_endings"
-msgstr ""
+msgstr "menu.formát.normalize line endings"
 
 msgid "menu.format.use_lf"
-msgstr ""
+msgstr "menu.formát.use lf"
 
 msgid "menu.format.use_crlf"
-msgstr ""
+msgstr "menu.formát.use crlf"
 
 msgid "menu.format.use_cr"
-msgstr ""
+msgstr "menu.formát.use cr"
 
 msgid "menu.format.continue_placeholder_completion"
-msgstr ""
+msgstr "menu.formát.continue placeholder completion"
 
 msgid "menu.format.save_as_template"
-msgstr ""
+msgstr "menu.formát.save as template"
 
 msgid "menu.format.templates"
-msgstr ""
+msgstr "menu.formát.templates"
 
 msgid "menu.view"
-msgstr ""
+msgstr "menu.view"
 
 msgid "menu.view.increase_font"
-msgstr ""
+msgstr "menu.view.zvýšení font"
 
 msgid "menu.view.reduce_font"
-msgstr ""
+msgstr "menu.view.reduce font"
 
 msgid "menu.view.reset_font"
-msgstr ""
+msgstr "menu.view.reset font"
 
 msgid "menu.view.focus_editor"
-msgstr ""
+msgstr "menu.view.focus editor"
 
 msgid "menu.view.line_length_guides"
-msgstr ""
+msgstr "menu.view.line length guides"
 
 msgid "menu.view.show_bookmarks"
-msgstr ""
+msgstr "menu.view.show bookmarks"
 
 msgid "menu.view.show_line_numbers"
-msgstr ""
+msgstr "menu.view.show line čísls"
 
 msgid "menu.view.show_fold_gutter"
-msgstr ""
+msgstr "menu.view.show fold gutter"
 
 msgid "menu.view.show_minimap"
-msgstr ""
+msgstr "menu.view.show minimapa"
 
 msgid "menu.view.block_caret"
-msgstr ""
+msgstr "menu.view.block caret"
 
 msgid "menu.view.highlight_occurrences"
-msgstr ""
+msgstr "menu.view.highlight occurrences"
 
 msgid "menu.view.highlight_current_line"
-msgstr ""
+msgstr "menu.view.highlight current line"
 
 msgid "menu.view.show_control_chars"
-msgstr ""
+msgstr "menu.view.show control chars"
 
 msgid "menu.view.show_tabs"
-msgstr ""
+msgstr "menu.view.show tabs"
 
 msgid "menu.view.show_spaces"
-msgstr ""
+msgstr "menu.view.show spaces"
 
 msgid "menu.view.full_screen"
-msgstr ""
+msgstr "menu.view.full screen"
 
 msgid "menu.tools"
-msgstr ""
+msgstr "menu.tools"
 
 msgid "menu.tools.color_picker"
-msgstr ""
+msgstr "menu.tools.color picker"
 
 msgid "menu.tools.security"
-msgstr ""
+msgstr "menu.tools.bezpečnost"
 
 msgid "menu.tools.counter"
-msgstr ""
+msgstr "menu.tools.counter"
 
 msgid "menu.tools.translation"
-msgstr ""
+msgstr "menu.tools.translace"
 
 msgid "menu.tools.clipboard_history"
-msgstr ""
+msgstr "menu.tools.clipboard history"
 
 msgid "menu.tools.function_creator"
-msgstr ""
+msgstr "menu.tools.function creator"
 
 msgid "menu.tools.documentation"
-msgstr ""
+msgstr "menu.tools.dokumentace"
 
 msgid "menu.tools.auto_completion"
-msgstr ""
+msgstr "menu.tools.auto completion"
 
 msgid "menu.tools.time_management"
-msgstr ""
+msgstr "menu.tools.time management"
 
 msgid "menu.tools.calendar"
-msgstr ""
+msgstr "menu.tools.calendar"
 
 msgid "menu.tools.by_extensions"
-msgstr ""
+msgstr "menu.tools.by extensions"
 
 msgid "menu.tools.signature"
-msgstr ""
+msgstr "menu.tools.signature"
 
 msgid "menu.tools.date_time"
-msgstr ""
+msgstr "menu.tools.date time"
 
 msgid "menu.tools.macros"
-msgstr ""
+msgstr "menu.tools.macros"
 
 msgid "menu.tools.auto_backup"
-msgstr ""
+msgstr "menu.tools.auto backup"
 
 msgid "menu.settings"
-msgstr ""
+msgstr "menu.nastavení"
 
 msgid "menu.settings.preferences"
-msgstr ""
+msgstr "menu.settings.preferences"
 
 msgid "menu.settings.mode_manager"
-msgstr ""
+msgstr "menu.settings.mode manager"
 
 msgid "menu.settings.extensions"
-msgstr ""
+msgstr "menu.settings.extensions"
 
 msgid "menu.settings.marketplace"
-msgstr ""
+msgstr "menu.settings.marketplace"
 
 msgid "menu.settings.open_data_folder"
-msgstr ""
+msgstr "menu.settings.open data folder"
 
 msgid "menu.help"
-msgstr ""
+msgstr "menu.help"
 
 msgid "menu.help.github"
-msgstr ""
+msgstr "menu.help.github"
 
 msgid "menu.help.mode_library"
-msgstr ""
+msgstr "menu.help.mode library"
 
 msgid "menu.help.forum"
-msgstr ""
+msgstr "menu.help.forum"
 
 msgid "menu.help.feedback"
-msgstr ""
+msgstr "menu.help.feedback"
 
 msgid "menu.help.submit_issue"
-msgstr ""
+msgstr "menu.help.submit issue"
 
 msgid "menu.help.docs"
-msgstr ""
+msgstr "menu.help.docs"
 
 msgid "menu.help.about"
-msgstr ""
+msgstr "menu.help.about"
