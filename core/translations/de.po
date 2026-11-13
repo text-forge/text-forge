@@ -1,426 +1,432 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-01 19:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-13 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
 "Language: de\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 msgid "menu.project"
-msgstr ""
+msgstr "Projekt"
 
 msgid "menu.project.new_project"
-msgstr ""
+msgstr "Neues Projekt"
 
 msgid "menu.project.open_project"
-msgstr ""
+msgstr "Projekt öffnen"
 
 msgid "menu.project.recent_projects"
-msgstr ""
+msgstr "Zuletzt verwendete Projekte"
 
 msgid "menu.project.close_project"
-msgstr ""
+msgstr "Projekt schließen"
 
 msgid "menu.project.project_settings"
-msgstr ""
+msgstr "Projekteinstellungen"
 
 msgid "menu.file"
-msgstr ""
+msgstr "Datei"
 
 msgid "menu.file.new"
-msgstr ""
+msgstr "Neu"
 
 msgid "menu.file.new_window"
-msgstr ""
+msgstr "Neues Fenster"
 
 msgid "menu.file.new_with_template"
-msgstr ""
+msgstr "Neu aus Vorlage"
 
 msgid "menu.file.open"
-msgstr ""
+msgstr "Öffnen..."
 
 msgid "menu.file.recent_files"
-msgstr ""
+msgstr "Zuletzt verwendete Dateien"
 
 msgid "menu.file.save"
-msgstr ""
+msgstr "Speichern"
 
 msgid "menu.file.save_as"
-msgstr ""
+msgstr "Speichern unter..."
 
 msgid "menu.file.reload"
-msgstr ""
+msgstr "Neu laden"
 
 msgid "menu.file.close"
-msgstr ""
+msgstr "Schließen"
 
 msgid "menu.file.backup_create"
-msgstr ""
+msgstr "Sicherung erstellen..."
 
 msgid "menu.file.backup_load"
-msgstr ""
+msgstr "Aus Sicherung laden..."
 
 msgid "menu.file.copy_path"
-msgstr ""
+msgstr "Pfad kopieren"
 
 msgid "menu.file.show_in_filesystem"
-msgstr ""
+msgstr "Im Dateisystem anzeigen"
 
 msgid "menu.file.secure_delete"
-msgstr ""
+msgstr "Sicher löschen"
 
 msgid "menu.file.restart"
-msgstr ""
+msgstr "Neu starten"
 
 msgid "menu.file.exit"
-msgstr ""
+msgstr "Beenden"
 
 msgid "menu.edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 msgid "menu.edit.undo"
-msgstr ""
+msgstr "Rückgängig"
 
 msgid "menu.edit.redo"
-msgstr ""
+msgstr "Wiederholen"
 
 msgid "menu.edit.cut"
-msgstr ""
+msgstr "Ausschneiden"
 
 msgid "menu.edit.copy"
-msgstr ""
+msgstr "Kopieren"
 
 msgid "menu.edit.paste"
-msgstr ""
+msgstr "Einfügen"
 
 msgid "menu.edit.delete"
-msgstr ""
+msgstr "Löschen"
 
 msgid "menu.edit.select_all"
-msgstr ""
+msgstr "Alles auswählen"
 
 msgid "menu.edit.select_next_occurence"
-msgstr ""
+msgstr "Nächstes Vorkommen auswählen"
 
 msgid "menu.edit.select_all_occurences"
-msgstr ""
+msgstr "Alle Vorkommen auswählen"
 
 msgid "menu.edit.duplicate_selection"
-msgstr ""
+msgstr "Auswahl duplizieren"
 
 msgid "menu.edit.evaluate_selection"
-msgstr ""
+msgstr "Auswahl auswerten"
 
 msgid "menu.edit.line"
-msgstr ""
+msgstr "Zeile"
 
 msgid "menu.edit.line.move_up"
-msgstr ""
+msgstr "Zeilen nach oben verschieben"
 
 msgid "menu.edit.line.move_down"
-msgstr ""
+msgstr "Zeilen nach unten verschieben"
 
 msgid "menu.edit.line.indent"
-msgstr ""
+msgstr "Einrücken"
 
 msgid "menu.edit.line.unindent"
-msgstr ""
+msgstr "Ausrücken"
 
 msgid "menu.edit.line.delete"
-msgstr ""
+msgstr "Zeilen löschen"
 
 msgid "menu.edit.line.toggle_comment"
-msgstr ""
+msgstr "Kommentar umschalten"
 
 msgid "menu.edit.line.duplicate"
-msgstr ""
+msgstr "Zeilen duplizieren"
 
 msgid "menu.edit.line.select_whole"
-msgstr ""
+msgstr "Ganze Zeile auswählen"
 
 msgid "menu.edit.line.select_paragraph"
-msgstr ""
+msgstr "Absatz auswählen"
 
 msgid "menu.edit.line.join"
-msgstr ""
+msgstr "Zeilen zusammenführen"
 
 msgid "menu.edit.line.move_to_new_file"
-msgstr ""
+msgstr "In neue Datei verschieben"
 
 msgid "menu.edit.completion_query"
-msgstr ""
+msgstr "Vervollständigungsabfrage"
 
 msgid "menu.edit.convert_case"
-msgstr ""
+msgstr "Groß-/Kleinschreibung ändern"
 
 msgid "menu.edit.convert_case.upper"
-msgstr ""
+msgstr "GROSSBUCHSTABEN"
 
 msgid "menu.edit.convert_case.lower"
-msgstr ""
+msgstr "kleinbuchstaben"
 
 msgid "menu.edit.convert_case.capitalize"
-msgstr ""
+msgstr "Erster Buchstabe groß"
 
 msgid "menu.edit.convert_case.camel"
-msgstr ""
+msgstr "camelCase"
 
 msgid "menu.edit.convert_case.pascal"
-msgstr ""
+msgstr "PascalCase"
 
 msgid "menu.edit.convert_case.snake"
-msgstr ""
+msgstr "snake_case"
 
 msgid "menu.search"
-msgstr ""
+msgstr "Suchen"
 
 msgid "menu.search.find_and_replace"
-msgstr ""
+msgstr "Suchen und Ersetzen..."
 
 msgid "menu.search.find_next"
-msgstr ""
+msgstr "Weitersuchen"
 
 msgid "menu.search.find_prev"
-msgstr ""
+msgstr "Vorheriges suchen"
 
 msgid "menu.search.replace_all"
-msgstr ""
+msgstr "Alle ersetzen"
 
 msgid "menu.go_to"
-msgstr ""
+msgstr "Gehe zu"
 
 msgid "menu.go_to.line"
-msgstr ""
+msgstr "Gehe zu Zeile..."
 
 msgid "menu.go_to.code_regions"
-msgstr ""
+msgstr "Codebereiche..."
 
 msgid "menu.go_to.insert_nav_mark"
-msgstr ""
+msgstr "Navigationsmarke einfügen"
 
 msgid "menu.go_to.nav_marks"
-msgstr ""
+msgstr "Navigationsmarken..."
 
 msgid "menu.go_to.table_of_contents"
-msgstr ""
+msgstr "Inhaltsverzeichnis..."
 
 msgid "menu.go_to.bookmarks"
-msgstr ""
+msgstr "Lesezeichen..."
 
 msgid "menu.go_to.toggle_bookmark"
-msgstr ""
+msgstr "Lesezeichen umschalten"
 
 msgid "menu.go_to.remove_all_bookmarks"
-msgstr ""
+msgstr "Alle Lesezeichen entfernen"
 
 msgid "menu.command"
-msgstr ""
+msgstr "Befehl"
 
 msgid "menu.command.palette"
-msgstr ""
+msgstr "Befehlspalette..."
 
 msgid "menu.format"
-msgstr ""
+msgstr "Format"
 
 msgid "menu.format.auto_format"
-msgstr ""
+msgstr "Automatisch formatieren"
 
 msgid "menu.format.indentation"
-msgstr ""
+msgstr "Einrückung"
 
 msgid "menu.format.indentation.remove_all_indents"
-msgstr ""
+msgstr "Alle Einrückungen entfernen"
 
 msgid "menu.format.indentation.auto_indent"
-msgstr ""
+msgstr "Automatisch einrücken"
 
 msgid "menu.format.indentation.to_spaces"
-msgstr ""
+msgstr "Einrückung in Leerzeichen umwandeln"
 
 msgid "menu.format.indentation.to_tabs"
-msgstr ""
+msgstr "Einrückung in Tabulatoren umwandeln"
 
 msgid "menu.format.indentation.auto_indent_new_lines"
-msgstr ""
+msgstr "Neue Zeilen automatisch einrücken"
 
 msgid "menu.format.indentation.lock_indentation"
-msgstr ""
+msgstr "Einrückungseinstellungen sperren"
 
 msgid "menu.format.indentation.reset_mode_indentation"
-msgstr ""
+msgstr "Auf Modus-Einrückung zurücksetzen"
 
 msgid "menu.format.remove_trailing_whitespaces"
-msgstr ""
+msgstr "Nachgestellte Leerzeichen entfernen"
 
 msgid "menu.format.normalize_line_endings"
-msgstr ""
+msgstr "Zeilenenden normalisieren"
 
 msgid "menu.format.use_lf"
-msgstr ""
+msgstr "LF verwenden"
 
 msgid "menu.format.use_crlf"
-msgstr ""
+msgstr "CRLF verwenden"
 
 msgid "menu.format.use_cr"
-msgstr ""
+msgstr "CR verwenden"
 
 msgid "menu.format.continue_placeholder_completion"
-msgstr ""
+msgstr "Platzhaltervervollständigung fortsetzen"
 
 msgid "menu.format.save_as_template"
-msgstr ""
+msgstr "Als Vorlage speichern..."
 
 msgid "menu.format.templates"
-msgstr ""
+msgstr "Vorlagen..."
 
 msgid "menu.view"
-msgstr ""
+msgstr "Ansicht"
 
 msgid "menu.view.increase_font"
-msgstr ""
+msgstr "Schriftgröße erhöhen"
 
 msgid "menu.view.reduce_font"
-msgstr ""
+msgstr "Schriftgröße verringern"
 
 msgid "menu.view.reset_font"
-msgstr ""
+msgstr "Schriftgröße zurücksetzen"
 
 msgid "menu.view.focus_editor"
-msgstr ""
+msgstr "Editor fokussieren"
 
 msgid "menu.view.line_length_guides"
-msgstr ""
+msgstr "Zeilenlängenführungslinien..."
 
 msgid "menu.view.show_bookmarks"
-msgstr ""
+msgstr "Lesezeichen anzeigen"
 
 msgid "menu.view.show_line_numbers"
-msgstr ""
+msgstr "Zeilennummern anzeigen"
 
 msgid "menu.view.show_fold_gutter"
-msgstr ""
+msgstr "Faltbereich anzeigen"
 
 msgid "menu.view.show_minimap"
-msgstr ""
+msgstr "Minimap anzeigen"
 
 msgid "menu.view.block_caret"
-msgstr ""
+msgstr "Blockcursor"
 
 msgid "menu.view.highlight_occurrences"
-msgstr ""
+msgstr "Alle Vorkommen hervorheben"
 
 msgid "menu.view.highlight_current_line"
-msgstr ""
+msgstr "Aktuelle Zeile hervorheben"
 
 msgid "menu.view.show_control_chars"
-msgstr ""
+msgstr "Steuerzeichen anzeigen"
 
 msgid "menu.view.show_tabs"
-msgstr ""
+msgstr "Tabulatoren anzeigen"
 
 msgid "menu.view.show_spaces"
-msgstr ""
+msgstr "Leerzeichen anzeigen"
 
 msgid "menu.view.full_screen"
-msgstr ""
+msgstr "Vollbild"
 
 msgid "menu.tools"
-msgstr ""
+msgstr "Werkzeuge"
 
 msgid "menu.tools.color_picker"
-msgstr ""
+msgstr "Farbwähler"
 
 msgid "menu.tools.security"
-msgstr ""
+msgstr "Sicherheit..."
 
 msgid "menu.tools.counter"
-msgstr ""
+msgstr "Zähler..."
 
 msgid "menu.tools.translation"
-msgstr ""
+msgstr "Übersetzung..."
 
 msgid "menu.tools.clipboard_history"
-msgstr ""
+msgstr "Zwischenablageverlauf"
 
 msgid "menu.tools.function_creator"
-msgstr ""
+msgstr "Funktionsersteller..."
 
 msgid "menu.tools.documentation"
-msgstr ""
+msgstr "Dokumentation..."
 
 msgid "menu.tools.auto_completion"
-msgstr ""
+msgstr "Autovervollständigung..."
 
 msgid "menu.tools.time_management"
-msgstr ""
+msgstr "Zeitverwaltung..."
 
 msgid "menu.tools.calendar"
-msgstr ""
+msgstr "Kalender"
 
 msgid "menu.tools.by_extensions"
-msgstr ""
+msgstr "Nach Erweiterungen"
 
 msgid "menu.tools.signature"
-msgstr ""
+msgstr "Signatur..."
 
 msgid "menu.tools.date_time"
-msgstr ""
+msgstr "Datum & Uhrzeit..."
 
 msgid "menu.tools.macros"
-msgstr ""
+msgstr "Makros..."
 
 msgid "menu.tools.auto_backup"
-msgstr ""
+msgstr "Automatische Sicherung..."
 
 msgid "menu.settings"
-msgstr ""
+msgstr "Einstellungen"
 
 msgid "menu.settings.preferences"
-msgstr ""
+msgstr "Voreinstellungen..."
 
 msgid "menu.settings.mode_manager"
-msgstr ""
+msgstr "Modusverwaltung..."
 
 msgid "menu.settings.extensions"
-msgstr ""
+msgstr "Erweiterungen..."
 
 msgid "menu.settings.marketplace"
-msgstr ""
+msgstr "Marktplatz..."
 
 msgid "menu.settings.open_data_folder"
-msgstr ""
+msgstr "Datenordner öffnen"
 
 msgid "menu.help"
-msgstr ""
+msgstr "Hilfe"
 
 msgid "menu.help.github"
-msgstr ""
+msgstr "GitHub-Repository"
 
 msgid "menu.help.mode_library"
-msgstr ""
+msgstr "Modusbibliothek"
 
 msgid "menu.help.forum"
-msgstr ""
+msgstr "Forum"
 
 msgid "menu.help.feedback"
-msgstr ""
+msgstr "Feedback teilen"
 
 msgid "menu.help.submit_issue"
-msgstr ""
+msgstr "Problem melden"
 
 msgid "menu.help.docs"
-msgstr ""
+msgstr "Online-Dokumentation"
 
 msgid "menu.help.about"
-msgstr ""
+msgstr "Über"
+
+#~ msgid "menu.edit.insert_snippet"
+#~ msgstr "Snippet einfügen"
+
+#~ msgid "menu.search.interactive_replace"
+#~ msgstr "Interaktives Ersetzen"
+
+#~ msgid "menu.format.save_as_snippet"
+#~ msgstr "Als Snippet speichern..."
+
+#~ msgid "menu.format.indentation.auto_indentation"
+#~ msgstr "Automatische Einrückung"
