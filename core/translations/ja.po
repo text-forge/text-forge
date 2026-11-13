@@ -8,419 +8,421 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-01 19:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-13 10:52+0000\n"
+"Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/text-forge/code-"
+"editor/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 msgid "menu.project"
-msgstr ""
+msgstr "プロジェクト"
 
 msgid "menu.project.new_project"
-msgstr ""
+msgstr "新規プロジェクト"
 
 msgid "menu.project.open_project"
-msgstr ""
+msgstr "プロジェクトを開く"
 
 msgid "menu.project.recent_projects"
-msgstr ""
+msgstr "最近のプロジェクト"
 
 msgid "menu.project.close_project"
-msgstr ""
+msgstr "プロジェクトを閉じる"
 
 msgid "menu.project.project_settings"
-msgstr ""
+msgstr "プロジェクト設定"
 
 msgid "menu.file"
-msgstr ""
+msgstr "ファイル"
 
 msgid "menu.file.new"
-msgstr ""
+msgstr "新規"
 
 msgid "menu.file.new_window"
-msgstr ""
+msgstr "新しいウィンドウ"
 
 msgid "menu.file.new_with_template"
-msgstr ""
+msgstr "テンプレートから新規作成"
 
 msgid "menu.file.open"
-msgstr ""
+msgstr "開く..."
 
 msgid "menu.file.recent_files"
-msgstr ""
+msgstr "最近のファイル"
 
 msgid "menu.file.save"
-msgstr ""
+msgstr "保存"
 
 msgid "menu.file.save_as"
-msgstr ""
+msgstr "名前を付けて保存..."
 
 msgid "menu.file.reload"
-msgstr ""
+msgstr "再読み込み"
 
 msgid "menu.file.close"
-msgstr ""
+msgstr "閉じる"
 
 msgid "menu.file.backup_create"
-msgstr ""
+msgstr "バックアップを作成..."
 
 msgid "menu.file.backup_load"
-msgstr ""
+msgstr "バックアップから読み込む..."
 
 msgid "menu.file.copy_path"
-msgstr ""
+msgstr "パスをコピー"
 
 msgid "menu.file.show_in_filesystem"
-msgstr ""
+msgstr "ファイルシステムで表示"
 
 msgid "menu.file.secure_delete"
-msgstr ""
+msgstr "安全に削除"
 
 msgid "menu.file.restart"
-msgstr ""
+msgstr "再起動"
 
 msgid "menu.file.exit"
-msgstr ""
+msgstr "終了"
 
 msgid "menu.edit"
-msgstr ""
+msgstr "編集"
 
 msgid "menu.edit.undo"
-msgstr ""
+msgstr "元に戻す"
 
 msgid "menu.edit.redo"
-msgstr ""
+msgstr "やり直す"
 
 msgid "menu.edit.cut"
-msgstr ""
+msgstr "切り取り"
 
 msgid "menu.edit.copy"
-msgstr ""
+msgstr "コピー"
 
 msgid "menu.edit.paste"
-msgstr ""
+msgstr "貼り付け"
 
 msgid "menu.edit.delete"
-msgstr ""
+msgstr "削除"
 
 msgid "menu.edit.select_all"
-msgstr ""
+msgstr "すべて選択"
 
 msgid "menu.edit.select_next_occurence"
-msgstr ""
+msgstr "次の出現箇所を選択"
 
 msgid "menu.edit.select_all_occurences"
-msgstr ""
+msgstr "すべての出現箇所を選択"
 
 msgid "menu.edit.duplicate_selection"
-msgstr ""
+msgstr "選択範囲を複製"
 
 msgid "menu.edit.evaluate_selection"
-msgstr ""
+msgstr "選択範囲を評価"
 
 msgid "menu.edit.line"
-msgstr ""
+msgstr "行"
 
 msgid "menu.edit.line.move_up"
-msgstr ""
+msgstr "行を上へ移動"
 
 msgid "menu.edit.line.move_down"
-msgstr ""
+msgstr "行を下へ移動"
 
 msgid "menu.edit.line.indent"
-msgstr ""
+msgstr "インデント"
 
 msgid "menu.edit.line.unindent"
-msgstr ""
+msgstr "インデントを解除"
 
 msgid "menu.edit.line.delete"
-msgstr ""
+msgstr "行を削除"
 
 msgid "menu.edit.line.toggle_comment"
-msgstr ""
+msgstr "コメントを切り替え"
 
 msgid "menu.edit.line.duplicate"
-msgstr ""
+msgstr "行を複製"
 
 msgid "menu.edit.line.select_whole"
-msgstr ""
+msgstr "行全体を選択"
 
 msgid "menu.edit.line.select_paragraph"
-msgstr ""
+msgstr "段落を選択"
 
 msgid "menu.edit.line.join"
-msgstr ""
+msgstr "行を結合"
 
 msgid "menu.edit.line.move_to_new_file"
-msgstr ""
+msgstr "新しいファイルへ移動"
 
 msgid "menu.edit.completion_query"
-msgstr ""
+msgstr "補完クエリ"
 
 msgid "menu.edit.convert_case"
-msgstr ""
+msgstr "大文字小文字を変換"
 
 msgid "menu.edit.convert_case.upper"
-msgstr ""
+msgstr "大文字"
 
 msgid "menu.edit.convert_case.lower"
-msgstr ""
+msgstr "小文字"
 
 msgid "menu.edit.convert_case.capitalize"
-msgstr ""
+msgstr "先頭を大文字"
 
 msgid "menu.edit.convert_case.camel"
-msgstr ""
+msgstr "camelCase"
 
 msgid "menu.edit.convert_case.pascal"
-msgstr ""
+msgstr "PascalCase"
 
 msgid "menu.edit.convert_case.snake"
-msgstr ""
+msgstr "snake_case"
 
 msgid "menu.search"
-msgstr ""
+msgstr "検索"
 
 msgid "menu.search.find_and_replace"
-msgstr ""
+msgstr "検索と置換..."
 
 msgid "menu.search.find_next"
-msgstr ""
+msgstr "次を検索"
 
 msgid "menu.search.find_prev"
-msgstr ""
+msgstr "前を検索"
 
 msgid "menu.search.replace_all"
-msgstr ""
+msgstr "すべて置換"
 
 msgid "menu.go_to"
-msgstr ""
+msgstr "移動"
 
 msgid "menu.go_to.line"
-msgstr ""
+msgstr "行へ移動..."
 
 msgid "menu.go_to.code_regions"
-msgstr ""
+msgstr "コード領域..."
 
 msgid "menu.go_to.insert_nav_mark"
-msgstr ""
+msgstr "ナビゲーションマークを挿入"
 
 msgid "menu.go_to.nav_marks"
-msgstr ""
+msgstr "ナビゲーションマーク..."
 
 msgid "menu.go_to.table_of_contents"
-msgstr ""
+msgstr "目次..."
 
 msgid "menu.go_to.bookmarks"
-msgstr ""
+msgstr "ブックマーク..."
 
 msgid "menu.go_to.toggle_bookmark"
-msgstr ""
+msgstr "ブックマークを切り替え"
 
 msgid "menu.go_to.remove_all_bookmarks"
-msgstr ""
+msgstr "すべてのブックマークを削除"
 
 msgid "menu.command"
-msgstr ""
+msgstr "コマンド"
 
 msgid "menu.command.palette"
-msgstr ""
+msgstr "コマンドパレット..."
 
 msgid "menu.format"
-msgstr ""
+msgstr "書式"
 
 msgid "menu.format.auto_format"
-msgstr ""
+msgstr "自動整形"
 
 msgid "menu.format.indentation"
-msgstr ""
+msgstr "インデント"
 
 msgid "menu.format.indentation.remove_all_indents"
-msgstr ""
+msgstr "すべてのインデントを削除"
 
 msgid "menu.format.indentation.auto_indent"
-msgstr ""
+msgstr "自動インデント"
 
 msgid "menu.format.indentation.to_spaces"
-msgstr ""
+msgstr "インデントをスペースに変換"
 
 msgid "menu.format.indentation.to_tabs"
-msgstr ""
+msgstr "インデントをタブに変換"
 
 msgid "menu.format.indentation.auto_indent_new_lines"
-msgstr ""
+msgstr "新しい行を自動インデント"
 
 msgid "menu.format.indentation.lock_indentation"
-msgstr ""
+msgstr "インデント設定をロック"
 
 msgid "menu.format.indentation.reset_mode_indentation"
-msgstr ""
+msgstr "モードのインデント設定にリセット"
 
 msgid "menu.format.remove_trailing_whitespaces"
-msgstr ""
+msgstr "末尾の空白を削除"
 
 msgid "menu.format.normalize_line_endings"
-msgstr ""
+msgstr "改行コードを正規化"
 
 msgid "menu.format.use_lf"
-msgstr ""
+msgstr "LF を使用"
 
 msgid "menu.format.use_crlf"
-msgstr ""
+msgstr "CRLF を使用"
 
 msgid "menu.format.use_cr"
-msgstr ""
+msgstr "CR を使用"
 
 msgid "menu.format.continue_placeholder_completion"
-msgstr ""
+msgstr "プレースホルダー補完を続行"
 
 msgid "menu.format.save_as_template"
-msgstr ""
+msgstr "テンプレートとして保存..."
 
 msgid "menu.format.templates"
-msgstr ""
+msgstr "テンプレート..."
 
 msgid "menu.view"
-msgstr ""
+msgstr "表示"
 
 msgid "menu.view.increase_font"
-msgstr ""
+msgstr "フォントサイズを拡大"
 
 msgid "menu.view.reduce_font"
-msgstr ""
+msgstr "フォントサイズを縮小"
 
 msgid "menu.view.reset_font"
-msgstr ""
+msgstr "フォントサイズをリセット"
 
 msgid "menu.view.focus_editor"
-msgstr ""
+msgstr "エディターにフォーカス"
 
 msgid "menu.view.line_length_guides"
-msgstr ""
+msgstr "行長ガイド..."
 
 msgid "menu.view.show_bookmarks"
-msgstr ""
+msgstr "ブックマークを表示"
 
 msgid "menu.view.show_line_numbers"
-msgstr ""
+msgstr "行番号を表示"
 
 msgid "menu.view.show_fold_gutter"
-msgstr ""
+msgstr "折りたたみガターを表示"
 
 msgid "menu.view.show_minimap"
-msgstr ""
+msgstr "ミニマップを表示"
 
 msgid "menu.view.block_caret"
-msgstr ""
+msgstr "ブロックカーソル"
 
 msgid "menu.view.highlight_occurrences"
-msgstr ""
+msgstr "すべての出現箇所を強調表示"
 
 msgid "menu.view.highlight_current_line"
-msgstr ""
+msgstr "現在の行を強調表示"
 
 msgid "menu.view.show_control_chars"
-msgstr ""
+msgstr "制御文字を表示"
 
 msgid "menu.view.show_tabs"
-msgstr ""
+msgstr "タブを表示"
 
 msgid "menu.view.show_spaces"
-msgstr ""
+msgstr "スペースを表示"
 
 msgid "menu.view.full_screen"
-msgstr ""
+msgstr "全画面表示"
 
 msgid "menu.tools"
-msgstr ""
+msgstr "ツール"
 
 msgid "menu.tools.color_picker"
-msgstr ""
+msgstr "カラーピッカー"
 
 msgid "menu.tools.security"
-msgstr ""
+msgstr "セキュリティ..."
 
 msgid "menu.tools.counter"
-msgstr ""
+msgstr "カウンター..."
 
 msgid "menu.tools.translation"
-msgstr ""
+msgstr "翻訳..."
 
 msgid "menu.tools.clipboard_history"
-msgstr ""
+msgstr "クリップボード履歴"
 
 msgid "menu.tools.function_creator"
-msgstr ""
+msgstr "関数クリエイター..."
 
 msgid "menu.tools.documentation"
-msgstr ""
+msgstr "ドキュメント..."
 
 msgid "menu.tools.auto_completion"
-msgstr ""
+msgstr "自動補完..."
 
 msgid "menu.tools.time_management"
-msgstr ""
+msgstr "時間管理..."
 
 msgid "menu.tools.calendar"
-msgstr ""
+msgstr "カレンダー"
 
 msgid "menu.tools.by_extensions"
-msgstr ""
+msgstr "拡張子別"
 
 msgid "menu.tools.signature"
-msgstr ""
+msgstr "署名..."
 
 msgid "menu.tools.date_time"
-msgstr ""
+msgstr "日付と時刻..."
 
 msgid "menu.tools.macros"
-msgstr ""
+msgstr "マクロ..."
 
 msgid "menu.tools.auto_backup"
-msgstr ""
+msgstr "自動バックアップ..."
 
 msgid "menu.settings"
-msgstr ""
+msgstr "設定"
 
 msgid "menu.settings.preferences"
-msgstr ""
+msgstr "環境設定..."
 
 msgid "menu.settings.mode_manager"
-msgstr ""
+msgstr "モードマネージャー..."
 
 msgid "menu.settings.extensions"
-msgstr ""
+msgstr "拡張機能..."
 
 msgid "menu.settings.marketplace"
-msgstr ""
+msgstr "マーケットプレイス..."
 
 msgid "menu.settings.open_data_folder"
-msgstr ""
+msgstr "データフォルダーを開く"
 
 msgid "menu.help"
-msgstr ""
+msgstr "ヘルプ"
 
 msgid "menu.help.github"
-msgstr ""
+msgstr "GitHub リポジトリ"
 
 msgid "menu.help.mode_library"
-msgstr ""
+msgstr "モードライブラリ"
 
 msgid "menu.help.forum"
-msgstr ""
+msgstr "フォーラム"
 
 msgid "menu.help.feedback"
-msgstr ""
+msgstr "フィードバックを共有"
 
 msgid "menu.help.submit_issue"
-msgstr ""
+msgstr "問題を報告"
 
 msgid "menu.help.docs"
-msgstr ""
+msgstr "オンラインドキュメント"
 
 msgid "menu.help.about"
-msgstr ""
+msgstr "バージョン情報"
