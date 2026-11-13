@@ -2,7 +2,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-01 19:16+0100\n"
-"Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/text-forge/code-"
 "editor/cs/>\n"
 "Language: cs\n"
@@ -64,10 +65,10 @@ msgid "menu.file.backup_create"
 msgstr "Vytvořit zálohu..."
 
 msgid "menu.file.backup_load"
-msgstr ""
+msgstr "Vytvořit zálohu"
 
 msgid "menu.file.copy_path"
-msgstr ""
+msgstr "Kopírovat Cestu"
 
 msgid "menu.file.show_in_filesystem"
 msgstr "menu.file.show in filesystem"
@@ -118,7 +119,7 @@ msgid "menu.edit.evaluate_selection"
 msgstr "menu.edit.evaluate selection"
 
 msgid "menu.edit.line"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.edit.line.move_up"
 msgstr "menu.edit.line.move up"
@@ -127,13 +128,13 @@ msgid "menu.edit.line.move_down"
 msgstr "menu.edit.line.move down"
 
 msgid "menu.edit.line.indent"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.edit.line.unindent"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.edit.line.delete"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.edit.line.toggle_comment"
 msgstr "menu.edit.line.toggle comment"
@@ -148,7 +149,7 @@ msgid "menu.edit.line.select_paragraph"
 msgstr "menu.edit.line.select paragraph"
 
 msgid "menu.edit.line.join"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.edit.line.move_to_new_file"
 msgstr "menu.edit.line.move to new file"
@@ -202,19 +203,19 @@ msgid "menu.go_to.code_regions"
 msgstr "menu.go to.code regions"
 
 msgid "menu.go_to.insert_nav_mark"
-msgstr ""
+msgstr "Vložit navigační znčku"
 
 msgid "menu.go_to.nav_marks"
-msgstr ""
+msgstr "Vložit navigační znčku"
 
 msgid "menu.go_to.table_of_contents"
 msgstr "menu.go to.table of contents"
 
 msgid "menu.go_to.bookmarks"
-msgstr ""
+msgstr "Záložkt..."
 
 msgid "menu.go_to.toggle_bookmark"
-msgstr ""
+msgstr "Záložkt..."
 
 msgid "menu.go_to.remove_all_bookmarks"
 msgstr "menu.go to.remove all bookmarks"
@@ -238,22 +239,22 @@ msgid "menu.format.indentation.remove_all_indents"
 msgstr "menu.formát.indentation.remove all indents"
 
 msgid "menu.format.indentation.auto_indent"
-msgstr ""
+msgstr "Automatické odsazování"
 
 msgid "menu.format.indentation.to_spaces"
 msgstr "menu.formát.indentation.to spaces"
 
 msgid "menu.format.indentation.to_tabs"
-msgstr ""
+msgstr "Automatické odsazování"
 
 msgid "menu.format.indentation.auto_indent_new_lines"
-msgstr ""
+msgstr "Automatické odsazování"
 
 msgid "menu.format.indentation.lock_indentation"
-msgstr ""
+msgstr "Automatické odsazování"
 
 msgid "menu.format.indentation.reset_mode_indentation"
-msgstr ""
+msgstr "Automatické odsazování"
 
 msgid "menu.format.remove_trailing_whitespaces"
 msgstr "menu.formát.remove trailing bíláspaces"
