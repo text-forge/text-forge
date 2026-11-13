@@ -1,0 +1,429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-01 19:16+0100\n"
+"PO-Revision-Date: 2026-11-13 10:16+0000\n"
+"Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/text-forge/code-"
+"editor/ru/>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.12.dev0\n"
+
+msgid "menu.project"
+msgstr "Проект"
+
+msgid "menu.project.new_project"
+msgstr "Новый проект"
+
+msgid "menu.project.open_project"
+msgstr "Открыть проект"
+
+msgid "menu.project.recent_projects"
+msgstr "Недавние проекты"
+
+msgid "menu.project.close_project"
+msgstr "Закрыть проект"
+
+msgid "menu.project.project_settings"
+msgstr "Настройки проекта"
+
+msgid "menu.file"
+msgstr "Файл"
+
+msgid "menu.file.new"
+msgstr "Новый"
+
+msgid "menu.file.new_window"
+msgstr "Новое окно"
+
+msgid "menu.file.new_with_template"
+msgstr "Новый из шаблона"
+
+msgid "menu.file.open"
+msgstr "Открыть..."
+
+msgid "menu.file.recent_files"
+msgstr "Недавние файлы"
+
+msgid "menu.file.save"
+msgstr "Сохранить"
+
+msgid "menu.file.save_as"
+msgstr "Сохранить как..."
+
+msgid "menu.file.reload"
+msgstr "Перезагрузить"
+
+msgid "menu.file.close"
+msgstr "Закрыть"
+
+msgid "menu.file.backup_create"
+msgstr "Создать резервную копию..."
+
+msgid "menu.file.backup_load"
+msgstr "Загрузить из резервной копии..."
+
+msgid "menu.file.copy_path"
+msgstr "Копировать путь"
+
+msgid "menu.file.show_in_filesystem"
+msgstr "Показать в файловой системе"
+
+msgid "menu.file.secure_delete"
+msgstr "Безопасное удаление"
+
+msgid "menu.file.restart"
+msgstr "Перезапустить"
+
+msgid "menu.file.exit"
+msgstr "Выход"
+
+msgid "menu.edit"
+msgstr "Правка"
+
+msgid "menu.edit.undo"
+msgstr "Отменить"
+
+msgid "menu.edit.redo"
+msgstr "Повторить"
+
+msgid "menu.edit.cut"
+msgstr "Вырезать"
+
+msgid "menu.edit.copy"
+msgstr "Копировать"
+
+msgid "menu.edit.paste"
+msgstr "Вставить"
+
+msgid "menu.edit.delete"
+msgstr "Удалить"
+
+msgid "menu.edit.select_all"
+msgstr "Выделить все"
+
+msgid "menu.edit.select_next_occurence"
+msgstr "Выделить следующее вхождение"
+
+msgid "menu.edit.select_all_occurences"
+msgstr "Выделить все вхождения"
+
+msgid "menu.edit.duplicate_selection"
+msgstr "Дублировать выделение"
+
+msgid "menu.edit.evaluate_selection"
+msgstr "Вычислить выделение"
+
+msgid "menu.edit.line"
+msgstr "Строка"
+
+msgid "menu.edit.line.move_up"
+msgstr "Переместить строки вверх"
+
+msgid "menu.edit.line.move_down"
+msgstr "Переместить строки вниз"
+
+msgid "menu.edit.line.indent"
+msgstr "Увеличить отступ"
+
+msgid "menu.edit.line.unindent"
+msgstr "Уменьшить отступ"
+
+msgid "menu.edit.line.delete"
+msgstr "Удалить строки"
+
+msgid "menu.edit.line.toggle_comment"
+msgstr "Переключить комментарий"
+
+msgid "menu.edit.line.duplicate"
+msgstr "Дублировать строки"
+
+msgid "menu.edit.line.select_whole"
+msgstr "Выделить всю строку"
+
+msgid "menu.edit.line.select_paragraph"
+msgstr "Выделить абзац"
+
+msgid "menu.edit.line.join"
+msgstr "Объединить строки"
+
+msgid "menu.edit.line.move_to_new_file"
+msgstr "Переместить в новый файл"
+
+msgid "menu.edit.completion_query"
+msgstr "Запрос автодополнения"
+
+msgid "menu.edit.convert_case"
+msgstr "Преобразовать регистр"
+
+msgid "menu.edit.convert_case.upper"
+msgstr "ВЕРХНИЙ РЕГИСТР"
+
+msgid "menu.edit.convert_case.lower"
+msgstr "нижний регистр"
+
+msgid "menu.edit.convert_case.capitalize"
+msgstr "С заглавной буквы"
+
+msgid "menu.edit.convert_case.camel"
+msgstr "camelCase"
+
+msgid "menu.edit.convert_case.pascal"
+msgstr "PascalCase"
+
+msgid "menu.edit.convert_case.snake"
+msgstr "snake_case"
+
+msgid "menu.search"
+msgstr "Поиск"
+
+msgid "menu.search.find_and_replace"
+msgstr "Найти и заменить..."
+
+msgid "menu.search.find_next"
+msgstr "Найти далее"
+
+msgid "menu.search.find_prev"
+msgstr "Найти предыдущее"
+
+msgid "menu.search.replace_all"
+msgstr "Заменить все"
+
+msgid "menu.go_to"
+msgstr "Перейти"
+
+msgid "menu.go_to.line"
+msgstr "Перейти к строке..."
+
+msgid "menu.go_to.code_regions"
+msgstr "Области кода..."
+
+msgid "menu.go_to.insert_nav_mark"
+msgstr "Вставить навигационную метку"
+
+msgid "menu.go_to.nav_marks"
+msgstr "Навигационные метки..."
+
+msgid "menu.go_to.table_of_contents"
+msgstr "Оглавление..."
+
+msgid "menu.go_to.bookmarks"
+msgstr "Закладки..."
+
+msgid "menu.go_to.toggle_bookmark"
+msgstr "Переключить закладку"
+
+msgid "menu.go_to.remove_all_bookmarks"
+msgstr "Удалить все закладки"
+
+msgid "menu.command"
+msgstr "Команда"
+
+msgid "menu.command.palette"
+msgstr "Палитра команд..."
+
+msgid "menu.format"
+msgstr "Формат"
+
+msgid "menu.format.auto_format"
+msgstr "Автоформатирование"
+
+msgid "menu.format.indentation"
+msgstr "Отступы"
+
+msgid "menu.format.indentation.remove_all_indents"
+msgstr "Удалить все отступы"
+
+msgid "menu.format.indentation.auto_indent"
+msgstr "Автоотступ"
+
+msgid "menu.format.indentation.to_spaces"
+msgstr "Преобразовать отступы в пробелы"
+
+msgid "menu.format.indentation.to_tabs"
+msgstr "Преобразовать отступы в табуляции"
+
+msgid "menu.format.indentation.auto_indent_new_lines"
+msgstr "Автоматически делать отступы в новых строках"
+
+msgid "menu.format.indentation.lock_indentation"
+msgstr "Заблокировать настройки отступов"
+
+msgid "menu.format.indentation.reset_mode_indentation"
+msgstr "Сбросить на настройки отступов режима"
+
+msgid "menu.format.remove_trailing_whitespaces"
+msgstr "Удалить конечные пробелы"
+
+msgid "menu.format.normalize_line_endings"
+msgstr "Нормализовать окончания строк"
+
+msgid "menu.format.use_lf"
+msgstr "Использовать LF"
+
+msgid "menu.format.use_crlf"
+msgstr "Использовать CRLF"
+
+msgid "menu.format.use_cr"
+msgstr "Использовать CR"
+
+msgid "menu.format.continue_placeholder_completion"
+msgstr "Продолжить заполнение заполнителей"
+
+msgid "menu.format.save_as_template"
+msgstr "Сохранить как шаблон..."
+
+msgid "menu.format.templates"
+msgstr "Шаблоны..."
+
+msgid "menu.view"
+msgstr "Вид"
+
+msgid "menu.view.increase_font"
+msgstr "Увеличить размер шрифта"
+
+msgid "menu.view.reduce_font"
+msgstr "Уменьшить размер шрифта"
+
+msgid "menu.view.reset_font"
+msgstr "Сбросить размер шрифта"
+
+msgid "menu.view.focus_editor"
+msgstr "Перейти в редактор"
+
+msgid "menu.view.line_length_guides"
+msgstr "Направляющие длины строки..."
+
+msgid "menu.view.show_bookmarks"
+msgstr "Показать закладки"
+
+msgid "menu.view.show_line_numbers"
+msgstr "Показать номера строк"
+
+msgid "menu.view.show_fold_gutter"
+msgstr "Показать область сворачивания"
+
+msgid "menu.view.show_minimap"
+msgstr "Показать мини-карту"
+
+msgid "menu.view.block_caret"
+msgstr "Блочный курсор"
+
+msgid "menu.view.highlight_occurrences"
+msgstr "Подсветить все вхождения"
+
+msgid "menu.view.highlight_current_line"
+msgstr "Подсветить текущую строку"
+
+msgid "menu.view.show_control_chars"
+msgstr "Показать управляющие символы"
+
+msgid "menu.view.show_tabs"
+msgstr "Показать табуляции"
+
+msgid "menu.view.show_spaces"
+msgstr "Показать пробелы"
+
+msgid "menu.view.full_screen"
+msgstr "Полный экран"
+
+msgid "menu.tools"
+msgstr "Инструменты"
+
+msgid "menu.tools.color_picker"
+msgstr "Выбор цвета"
+
+msgid "menu.tools.security"
+msgstr "Безопасность..."
+
+msgid "menu.tools.counter"
+msgstr "Счётчик..."
+
+msgid "menu.tools.translation"
+msgstr "Перевод..."
+
+msgid "menu.tools.clipboard_history"
+msgstr "История буфера обмена"
+
+msgid "menu.tools.function_creator"
+msgstr "Создатель функций..."
+
+msgid "menu.tools.documentation"
+msgstr "Документация..."
+
+msgid "menu.tools.auto_completion"
+msgstr "Автодополнение..."
+
+msgid "menu.tools.time_management"
+msgstr "Управление временем..."
+
+msgid "menu.tools.calendar"
+msgstr "Календарь"
+
+msgid "menu.tools.by_extensions"
+msgstr "По расширениям"
+
+msgid "menu.tools.signature"
+msgstr "Подпись..."
+
+msgid "menu.tools.date_time"
+msgstr "Дата и время..."
+
+msgid "menu.tools.macros"
+msgstr "Макросы..."
+
+msgid "menu.tools.auto_backup"
+msgstr "Автоматическое резервное копирование..."
+
+msgid "menu.settings"
+msgstr "Настройки"
+
+msgid "menu.settings.preferences"
+msgstr "Параметры..."
+
+msgid "menu.settings.mode_manager"
+msgstr "Менеджер режимов..."
+
+msgid "menu.settings.extensions"
+msgstr "Расширения..."
+
+msgid "menu.settings.marketplace"
+msgstr "Магазин..."
+
+msgid "menu.settings.open_data_folder"
+msgstr "Открыть папку данных"
+
+msgid "menu.help"
+msgstr "Справка"
+
+msgid "menu.help.github"
+msgstr "Репозиторий GitHub"
+
+msgid "menu.help.mode_library"
+msgstr "Библиотека режимов"
+
+msgid "menu.help.forum"
+msgstr "Форум"
+
+msgid "menu.help.feedback"
+msgstr "Поделиться отзывом"
+
+msgid "menu.help.submit_issue"
+msgstr "Сообщить о проблеме"
+
+msgid "menu.help.docs"
+msgstr "Онлайн-документация"
+
+msgid "menu.help.about"
+msgstr "О программе"

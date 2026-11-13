@@ -1,427 +1,421 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 12:46+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2026-11-01 19:16+0100\n"
+"Last-Translator: Mahan Khalili <khalili1388mahan@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/text-forge/code-"
+"editor/cs/>\n"
 "Language: cs\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"PO-Revision-Date: 2026-11-13 10:12+0000\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 msgid "menu.project"
-msgstr ""
+msgstr "Projekt"
 
 msgid "menu.project.new_project"
-msgstr ""
+msgstr "Nový projekt"
 
 msgid "menu.project.open_project"
-msgstr ""
+msgstr "Otevřít projekt"
 
 msgid "menu.project.recent_projects"
-msgstr ""
+msgstr "Nedávné projekty"
 
 msgid "menu.project.close_project"
-msgstr ""
+msgstr "Zavřít projekt"
 
 msgid "menu.project.project_settings"
-msgstr ""
+msgstr "Nastavení projektu"
 
 msgid "menu.file"
-msgstr ""
+msgstr "Soubor"
 
 msgid "menu.file.new"
-msgstr ""
+msgstr "Nový"
 
 msgid "menu.file.new_window"
-msgstr ""
+msgstr "Nové okno"
 
 msgid "menu.file.new_with_template"
-msgstr ""
+msgstr "Nový ze šablony"
 
 msgid "menu.file.open"
-msgstr ""
+msgstr "Otevřít..."
 
 msgid "menu.file.recent_files"
-msgstr ""
+msgstr "Nedávné soubory"
 
 msgid "menu.file.save"
-msgstr ""
+msgstr "Uložit"
 
 msgid "menu.file.save_as"
-msgstr ""
+msgstr "Uložit jako..."
 
 msgid "menu.file.reload"
-msgstr ""
+msgstr "Znovu načíst"
 
 msgid "menu.file.close"
-msgstr ""
+msgstr "Zavřít"
 
 msgid "menu.file.backup_create"
-msgstr ""
+msgstr "Vytvořit zálohu..."
 
 msgid "menu.file.backup_load"
-msgstr ""
+msgstr "Načíst ze zálohy..."
 
 msgid "menu.file.copy_path"
-msgstr ""
+msgstr "Kopírovat cestu"
 
 msgid "menu.file.show_in_filesystem"
-msgstr ""
+msgstr "Zobrazit v souborovém systému"
 
 msgid "menu.file.secure_delete"
-msgstr ""
+msgstr "Bezpečně smazat"
 
 msgid "menu.file.restart"
-msgstr ""
+msgstr "Restartovat"
 
 msgid "menu.file.exit"
-msgstr ""
+msgstr "Ukončit"
 
 msgid "menu.edit"
-msgstr ""
+msgstr "Upravit"
 
 msgid "menu.edit.undo"
-msgstr ""
+msgstr "Zpět"
 
 msgid "menu.edit.redo"
-msgstr ""
+msgstr "Znovu"
 
 msgid "menu.edit.cut"
-msgstr ""
+msgstr "Vyjmout"
 
 msgid "menu.edit.copy"
-msgstr ""
+msgstr "Kopírovat"
 
 msgid "menu.edit.paste"
-msgstr ""
+msgstr "Vložit"
 
 msgid "menu.edit.delete"
-msgstr ""
+msgstr "Smazat"
 
 msgid "menu.edit.select_all"
-msgstr ""
+msgstr "Vybrat vše"
 
 msgid "menu.edit.select_next_occurence"
-msgstr ""
+msgstr "Vybrat další výskyt"
 
 msgid "menu.edit.select_all_occurences"
-msgstr ""
+msgstr "Vybrat všechny výskyty"
 
 msgid "menu.edit.duplicate_selection"
-msgstr ""
+msgstr "Duplikovat výběr"
 
 msgid "menu.edit.evaluate_selection"
-msgstr ""
+msgstr "Vyhodnotit výběr"
 
 msgid "menu.edit.line"
-msgstr ""
+msgstr "Řádek"
 
 msgid "menu.edit.line.move_up"
-msgstr ""
+msgstr "Posunout řádky nahoru"
 
 msgid "menu.edit.line.move_down"
-msgstr ""
+msgstr "Posunout řádky dolů"
 
 msgid "menu.edit.line.indent"
-msgstr ""
+msgstr "Odsadit"
 
 msgid "menu.edit.line.unindent"
-msgstr ""
+msgstr "Zmenšit odsazení"
 
 msgid "menu.edit.line.delete"
-msgstr ""
+msgstr "Smazat řádky"
 
 msgid "menu.edit.line.toggle_comment"
-msgstr ""
+msgstr "Přepnout komentář"
 
 msgid "menu.edit.line.duplicate"
-msgstr ""
+msgstr "Duplikovat řádky"
 
 msgid "menu.edit.line.select_whole"
-msgstr ""
+msgstr "Vybrat celý řádek"
 
 msgid "menu.edit.line.select_paragraph"
-msgstr ""
+msgstr "Vybrat odstavec"
 
 msgid "menu.edit.line.join"
-msgstr ""
+msgstr "Spojit řádky"
 
 msgid "menu.edit.line.move_to_new_file"
-msgstr ""
+msgstr "Přesunout do nového souboru"
 
 msgid "menu.edit.completion_query"
-msgstr ""
+msgstr "Dotaz na doplnění"
 
 msgid "menu.edit.convert_case"
-msgstr ""
+msgstr "Převést velikost písmen"
 
 msgid "menu.edit.convert_case.upper"
-msgstr ""
+msgstr "VELKÁ PÍSMENA"
 
 msgid "menu.edit.convert_case.lower"
-msgstr ""
+msgstr "malá písmena"
 
 msgid "menu.edit.convert_case.capitalize"
-msgstr ""
+msgstr "Velká první písmena"
 
 msgid "menu.edit.convert_case.camel"
-msgstr ""
+msgstr "camelCase"
 
 msgid "menu.edit.convert_case.pascal"
-msgstr ""
+msgstr "PascalCase"
 
 msgid "menu.edit.convert_case.snake"
-msgstr ""
-
-msgid "menu.edit.insert_snippet"
-msgstr ""
+msgstr "snake_case"
 
 msgid "menu.search"
-msgstr ""
+msgstr "Hledat"
 
 msgid "menu.search.find_and_replace"
-msgstr ""
+msgstr "Najít a nahradit..."
 
 msgid "menu.search.find_next"
-msgstr ""
+msgstr "Najít další"
 
 msgid "menu.search.find_prev"
-msgstr ""
+msgstr "Najít předchozí"
 
 msgid "menu.search.replace_all"
-msgstr ""
-
-msgid "menu.search.interactive_replace"
-msgstr ""
+msgstr "Nahradit vše"
 
 msgid "menu.go_to"
-msgstr ""
+msgstr "Přejít na"
 
 msgid "menu.go_to.line"
-msgstr ""
+msgstr "Přejít na řádek..."
 
 msgid "menu.go_to.code_regions"
-msgstr ""
+msgstr "Oblasti kódu..."
 
 msgid "menu.go_to.insert_nav_mark"
-msgstr ""
+msgstr "Vložit navigační značku"
 
 msgid "menu.go_to.nav_marks"
-msgstr ""
+msgstr "Navigační značky..."
 
 msgid "menu.go_to.table_of_contents"
-msgstr ""
+msgstr "Obsah..."
 
 msgid "menu.go_to.bookmarks"
-msgstr ""
+msgstr "Záložky..."
 
 msgid "menu.go_to.toggle_bookmark"
-msgstr ""
+msgstr "Přepnout záložku"
 
 msgid "menu.go_to.remove_all_bookmarks"
-msgstr ""
+msgstr "Odstranit všechny záložky"
 
 msgid "menu.command"
-msgstr ""
+msgstr "Příkaz"
 
 msgid "menu.command.palette"
-msgstr ""
+msgstr "Paleta příkazů..."
 
 msgid "menu.format"
-msgstr ""
+msgstr "Formát"
 
 msgid "menu.format.auto_format"
-msgstr ""
+msgstr "Automatické formátování"
 
 msgid "menu.format.indentation"
-msgstr ""
+msgstr "Odsazení"
 
 msgid "menu.format.indentation.remove_all_indents"
-msgstr ""
+msgstr "Odstranit všechna odsazení"
 
 msgid "menu.format.indentation.auto_indent"
-msgstr ""
+msgstr "Automatické odsazení"
 
 msgid "menu.format.indentation.to_spaces"
-msgstr ""
+msgstr "Převést odsazení na mezery"
 
 msgid "menu.format.indentation.to_tabs"
-msgstr ""
+msgstr "Převést odsazení na tabulátory"
 
 msgid "menu.format.indentation.auto_indent_new_lines"
-msgstr ""
+msgstr "Automaticky odsazovat nové řádky"
 
 msgid "menu.format.indentation.lock_indentation"
-msgstr ""
+msgstr "Zamknout nastavení odsazení"
 
 msgid "menu.format.indentation.reset_mode_indentation"
-msgstr ""
+msgstr "Obnovit nastavení odsazení režimu"
 
 msgid "menu.format.remove_trailing_whitespaces"
-msgstr ""
+msgstr "Odstranit koncové mezery"
 
 msgid "menu.format.normalize_line_endings"
-msgstr ""
+msgstr "Normalizovat konce řádků"
 
 msgid "menu.format.use_lf"
-msgstr ""
+msgstr "Použít LF"
 
 msgid "menu.format.use_crlf"
-msgstr ""
+msgstr "Použít CRLF"
 
 msgid "menu.format.use_cr"
-msgstr ""
+msgstr "Použít CR"
 
 msgid "menu.format.continue_placeholder_completion"
-msgstr ""
+msgstr "Pokračovat v doplňování zástupných symbolů"
 
 msgid "menu.format.save_as_template"
-msgstr ""
-
-msgid "menu.format.save_as_snippet"
-msgstr ""
+msgstr "Uložit jako šablonu..."
 
 msgid "menu.format.templates"
-msgstr ""
+msgstr "Šablony..."
 
 msgid "menu.view"
-msgstr ""
+msgstr "Zobrazit"
 
 msgid "menu.view.increase_font"
-msgstr ""
+msgstr "Zvětšit velikost písma"
 
 msgid "menu.view.reduce_font"
-msgstr ""
+msgstr "Zmenšit velikost písma"
 
 msgid "menu.view.reset_font"
-msgstr ""
+msgstr "Obnovit velikost písma"
 
 msgid "menu.view.focus_editor"
-msgstr ""
+msgstr "Zaměřit se na editor"
 
 msgid "menu.view.line_length_guides"
-msgstr ""
+msgstr "Vodicí čáry délky řádku..."
 
 msgid "menu.view.show_bookmarks"
-msgstr ""
+msgstr "Zobrazit záložky"
 
 msgid "menu.view.show_line_numbers"
-msgstr ""
+msgstr "Zobrazit čísla řádků"
 
 msgid "menu.view.show_fold_gutter"
-msgstr ""
+msgstr "Zobrazit okraj pro sbalování"
 
 msgid "menu.view.show_minimap"
-msgstr ""
+msgstr "Zobrazit minimapu"
 
 msgid "menu.view.block_caret"
-msgstr ""
+msgstr "Blokový kurzor"
 
 msgid "menu.view.highlight_occurrences"
-msgstr ""
+msgstr "Zvýraznit všechny výskyty"
 
 msgid "menu.view.highlight_current_line"
-msgstr ""
+msgstr "Zvýraznit aktuální řádek"
 
 msgid "menu.view.show_control_chars"
-msgstr ""
+msgstr "Zobrazit řídicí znaky"
 
 msgid "menu.view.show_tabs"
-msgstr ""
+msgstr "Zobrazit tabulátory"
 
 msgid "menu.view.show_spaces"
-msgstr ""
+msgstr "Zobrazit mezery"
 
 msgid "menu.view.full_screen"
-msgstr ""
+msgstr "Celá obrazovka"
 
 msgid "menu.tools"
-msgstr ""
+msgstr "Nástroje"
 
 msgid "menu.tools.color_picker"
-msgstr ""
+msgstr "Výběr barvy"
 
 msgid "menu.tools.security"
-msgstr ""
+msgstr "Zabezpečení..."
 
 msgid "menu.tools.counter"
-msgstr ""
+msgstr "Počítadlo..."
 
 msgid "menu.tools.translation"
-msgstr ""
+msgstr "Překlad..."
 
 msgid "menu.tools.clipboard_history"
-msgstr ""
+msgstr "Historie schránky"
 
 msgid "menu.tools.function_creator"
-msgstr ""
+msgstr "Tvůrce funkcí..."
 
 msgid "menu.tools.documentation"
-msgstr ""
+msgstr "Dokumentace..."
 
 msgid "menu.tools.auto_completion"
-msgstr ""
+msgstr "Automatické doplňování..."
 
 msgid "menu.tools.time_management"
-msgstr ""
+msgstr "Správa času..."
 
 msgid "menu.tools.calendar"
-msgstr ""
+msgstr "Kalendář"
 
 msgid "menu.tools.by_extensions"
-msgstr ""
+msgstr "Podle přípon"
 
 msgid "menu.tools.signature"
-msgstr ""
+msgstr "Podpis..."
 
 msgid "menu.tools.date_time"
-msgstr ""
+msgstr "Datum a čas..."
 
 msgid "menu.tools.macros"
-msgstr ""
+msgstr "Makra..."
 
 msgid "menu.tools.auto_backup"
-msgstr ""
+msgstr "Automatická záloha..."
 
 msgid "menu.settings"
-msgstr ""
+msgstr "Nastavení"
 
 msgid "menu.settings.preferences"
-msgstr ""
+msgstr "Předvolby..."
 
 msgid "menu.settings.mode_manager"
-msgstr ""
+msgstr "Správce režimů..."
 
 msgid "menu.settings.extensions"
-msgstr ""
+msgstr "Rozšíření..."
 
 msgid "menu.settings.marketplace"
-msgstr ""
+msgstr "Tržiště..."
 
 msgid "menu.settings.open_data_folder"
-msgstr ""
+msgstr "Otevřít složku dat"
 
 msgid "menu.help"
-msgstr ""
+msgstr "Nápověda"
 
 msgid "menu.help.github"
-msgstr ""
+msgstr "Repozitář GitHub"
 
 msgid "menu.help.mode_library"
-msgstr ""
+msgstr "Knihovna režimů"
 
 msgid "menu.help.forum"
-msgstr ""
+msgstr "Fórum"
 
 msgid "menu.help.feedback"
-msgstr ""
+msgstr "Sdílet zpětnou vazbu"
 
 msgid "menu.help.submit_issue"
-msgstr ""
+msgstr "Nahlásit problém"
 
 msgid "menu.help.docs"
-msgstr ""
+msgstr "Online dokumentace"
 
 msgid "menu.help.about"
-msgstr ""
+msgstr "O aplikaci"
