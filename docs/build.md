@@ -5,9 +5,9 @@ and to run its test suite.
 
 ## Get the Engine
 
-Text Forge is built on Godot **4.5.stable** (`v4.5.stable.official [876b29033]`). Get that exact
-version from the [Godot download archive](https://godotengine.org/download/archive/4.5-stable).
-A newer Godot can open the project, but Text Forge is only tested against 4.5.x, and the export
+Text Forge is built on Godot **4.6.stable** (`v4.6.stable.official [89cea1439]`). Get that exact
+version from the [Godot download archive](https://godotengine.org/download/archive/4.6-stable).
+A newer Godot can open the project, but Text Forge is only tested against 4.6.x, and the export
 templates have to match the editor version.
 
 ## Get the Source
@@ -25,7 +25,7 @@ GitHub Desktop` and configure it there.
 
 ## Run it from the Editor
 
-Open the `project.godot` of the cloned repository with Godot 4.5. The first import takes a moment,
+Open the `project.godot` of the cloned repository with Godot 4.6. The first import takes a moment,
 it builds the resources of the editor and of the bundled test addon.
 
 - `F5` runs the editor.
@@ -39,7 +39,7 @@ fresh state, which is the way to recover from a broken setting.
 
 ### 1. Install the export templates
 
-Download the **export templates for 4.5-stable** (`Godot_v4.5-stable_export_templates.tpz`) and
+Download the **export templates for 4.6-stable** (`Godot_v4.6-stable_export_templates.tpz`) and
 install them in the Godot editor: `Editor > Manage Export Templates > Install from file`. The
 templates have to match the editor version, otherwise the export fails.
 
@@ -67,9 +67,9 @@ so it is not part of the exported `.pck` and the editor cannot find it without i
 Unpack the export templates into the folder Godot looks in, the version has to match the editor:
 
 ```bash
-unzip Godot_v4.5-stable_export_templates.tpz
-mkdir -p ~/.local/share/godot/export_templates/4.5.stable/
-cp templates/* ~/.local/share/godot/export_templates/4.5.stable/
+unzip Godot_v4.6-stable_export_templates.tpz
+mkdir -p ~/.local/share/godot/export_templates/4.6.stable/
+cp templates/* ~/.local/share/godot/export_templates/4.6.stable/
 ```
 
 Import the project once, so Godot builds its resources, then export:

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Text Forge — an extensible, modular code editor built with **Godot 4.5** (GDScript).
+Text Forge — an extensible, modular code editor built with **Godot 4.6** (GDScript).
 
 ## Verification
 
@@ -20,7 +20,7 @@ export GODOT_BIN=/path/to/godot
   write the change, hand it over, and wait for the result of the editor run and the suite.
 
 Exports: two presets, **`Windows Desktop`** and **`Linux`** (`export_presets.cfg`). Release is
-tag-driven and produces a **draft** GitHub release using Godot 4.5-stable.
+tag-driven and produces a **draft** GitHub release using Godot 4.6-stable.
 
 ## Architecture (not obvious from filenames)
 

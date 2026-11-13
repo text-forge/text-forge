@@ -6,7 +6,7 @@ extends Node
 ## With this class extensions can define as dock and connect to other ports to communication
 ## with other extensions.[br][br]
 ## [b]Important:[/b] Ports are signals. For limitation of Godot, all data should passed as a signle
-## array as signal parameters, this will fixed in Godot 4.5 (currently unreleased version).[br]
+## array as signal parameters, this will fixed in Godot 4.6 (currently unreleased version).[br]
 ## [b]Example usage:[/b]
 ## [codeblock]
 ## # extension_one.gd
@@ -122,7 +122,7 @@ func has_port(dock_id: String, port: String) -> bool:
 
 ## Emits given [param port] with given [param data]. For limitation of Godot, currntly all ports
 ## with data transfering feature must use a single [Array] as parameter.[br][br]
-## [b]Note:[/b] It will be fixed after release first stable version of Godot 4.5.
+## [b]Note:[/b] It will be fixed after release first stable version of Godot 4.6.
 func emit_port(dock_id: String, port: String, data: Array = []) -> void:
 	if data != []:
 		docks[dock_id].emit_signal(port, data)

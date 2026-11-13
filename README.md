@@ -1,5 +1,5 @@
 # Text Forge - Simplicity to start, power to grow!
-Extensible and modular code editor with Godot 4.5
+Extensible and modular code editor with Godot 4.6
 
 ![GitHub Release](https://img.shields.io/github/v/release/text-forge/text-forge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/text-forge/text-forge/update-docs.yml?logo=github&label=docs%20update)
@@ -20,7 +20,7 @@ This editor is deeply language-agnostic and suitable for any text format, and it
 > This project currently is in development state, **feel free to contribute in any way you like**.
 
 > [!Important]
-> Text Forge is receiving frequent updates that _may_ break compatibility with previous versions. Until **1.0-alpha1**, it's recommended to delete the app’s data folder before updating. 
+> Text Forge is receiving frequent updates that _may_ break compatibility with previous versions. Until **1.0-alpha1**, it's recommended to delete the app’s data folder before updating.
 > Please read release notes for breaking changes of each version before update.
 
 ## 👀 New to Text Forge? Start from [Text Forge Introduction](https://text-forge.github.io/)
